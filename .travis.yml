@@ -1,4 +1,4 @@
 language: node_js
-script: npm run test:coverage
+script: npm run test:coveralls
 node_js:
   - "5"
