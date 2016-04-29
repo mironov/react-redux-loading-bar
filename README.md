@@ -69,7 +69,7 @@ const store = createStore(
 )
 ```
 
-If you're not using `redux-promise-middleware`, you can skip installing the `loadingBarMiddleware` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the bundled one.
+If you're not using `redux-promise-middleware`, you can skip installing the `loadingBarMiddleware` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the [bundled one](https://github.com/mironov/react-redux-loading-bar/blob/master/src/loading_bar_middleware.js).
 
 ## Customizing
 
