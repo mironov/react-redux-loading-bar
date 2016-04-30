@@ -32,6 +32,7 @@ describe('loadingBarMiddleware', () => {
       }
 
       mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
     })
   })
 
@@ -50,6 +51,7 @@ describe('loadingBarMiddleware', () => {
       }
 
       mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
     })
   })
 
@@ -68,6 +70,7 @@ describe('loadingBarMiddleware', () => {
       }
 
       mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
     })
   })
 
@@ -86,6 +89,25 @@ describe('loadingBarMiddleware', () => {
       }
 
       mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+  })
+
+  describe('with an async action', () => {
+    it('does not dispatch SHOW and HIDE actions', () => {
+      const originalAction = () => {}
+      const expectedActions = [
+        originalAction,
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
     })
   })
 })

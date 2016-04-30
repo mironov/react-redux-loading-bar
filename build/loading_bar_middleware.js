@@ -14,9 +14,17 @@ function loadingBarMiddleware(_ref) {
     return function (action) {
       next(action);
 
-      if (action.type.includes('_PENDING')) {
+      if (action.type === undefined) {
+        return;
+      }
+
+      var isPending = /.*_PENDING(.*?)$/;
+      var isFulfilled = /.*_FULFILLED(.*?)$/;
+      var isRejected = /.*_REJECTED(.*?)$/;
+
+      if (action.type.match(isPending)) {
         dispatch((0, _loading_bar_ducks.showLoading)());
-      } else if (action.type.includes('_FULFILLED') || action.type.includes('_REJECTED')) {
+      } else if (action.type.match(isFulfilled) || action.type.match(isRejected)) {
         dispatch((0, _loading_bar_ducks.hideLoading)());
       }
     };

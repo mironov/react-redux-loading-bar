@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "scripts": {
@@ -22,7 +22,8 @@
     "loading",
     "loading-bar",
     "progress",
-    "progress-bar"
+    "progress-bar",
+    "react-component"
   ],
   "author": "Anton Mironov (ant.mironov@gmail.com)",
   "license": "MIT",
