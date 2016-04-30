@@ -53102,7 +53102,7 @@
 	            onClick: this.props.handleCalculatePi,
 	            className: "btn btn-primary"
 	          },
-	          "Calculate Pi"
+	          "Calculate π"
 	        ),
 	        _react2.default.createElement(
 	          "p",

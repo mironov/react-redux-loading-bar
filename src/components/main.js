@@ -25,7 +25,7 @@ class Main extends React.Component {
           onClick={this.props.handleCalculatePi}
           className="btn btn-primary"
         >
-          Calculate Pi
+          Calculate π
         </button>
         <p>
           <input type="text" value={this.props.pi} readOnly className="field" />
