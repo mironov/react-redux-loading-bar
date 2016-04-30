@@ -16,7 +16,7 @@ Consists of:
 
 ## Examples
 
-[Demo](http://mironov.github.io/react-redux-loading-bar/)
+See [Demo](http://mironov.github.io/react-redux-loading-bar/) or its [source code](https://github.com/mironov/react-redux-loading-bar/tree/gh-pages/src).
 
 ## Installation
 
