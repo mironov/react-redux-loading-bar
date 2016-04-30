@@ -47544,14 +47544,15 @@
 	var calculatePi = exports.calculatePi = function calculatePi() {
 	  return function (dispatch) {
 	    dispatch((0, _reactReduxLoadingBar.showLoading)());
-	    var worker = new Worker('pi.js');
+	    var worker = new Worker('build/pi.js');
 	
 	    worker.addEventListener('message', function (e) {
 	      dispatch(calculatePiFulfilled(e.data));
 	      dispatch((0, _reactReduxLoadingBar.hideLoading)());
 	    }, false);
 	
-	    worker.postMessage(1000000000); // precision
+	    // precision
+	    worker.postMessage(1000000000);
 	  };
 	};
 	

@@ -17,7 +17,8 @@ export const calculatePi = () =>
       dispatch(hideLoading())
     }, false)
 
-    worker.postMessage(1000000000) // precision
+    // precision
+    worker.postMessage(1000000000)
   }
 
 export default function piReducer(state = 0, action = {}) {
