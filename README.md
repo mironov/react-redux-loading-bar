@@ -16,7 +16,7 @@ Consists of:
 
 ## Examples
 
-Demo link!
+[Demo](http://mironov.github.io/react-redux-loading-bar/)
 
 ## Installation
 
