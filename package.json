@@ -23,7 +23,7 @@
     "react": "^15.0.1",
     "react-dom": "^15.0.2",
     "react-redux": "^4.4.5",
-    "react-redux-loading-bar": "^1.0.0",
+    "react-redux-loading-bar": "^1.0.1",
     "redux": "^3.5.2",
     "redux-promise-middleware": "^3.0.0",
     "redux-thunk": "^2.0.1"
@@ -52,7 +52,7 @@
     "postcss-custom-properties": "^5.0.1",
     "postcss-discard-comments": "^2.0.4",
     "postcss-import": "^8.1.0",
-    "postcss-loader": "^0.8.2",
+    "postcss-loader": "^0.9.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.0"
   },
