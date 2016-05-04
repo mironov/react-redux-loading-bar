@@ -6,7 +6,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-loading-bar.svg?style=flat)](https://www.npmjs.com/package/react-redux-loading-bar)
 [![dependency status](https://david-dm.org/mironov/react-redux-loading-bar.svg)](https://david-dm.org/mironov/react-redux-loading-bar)
 
-A simple React component that provides Loading Bar for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
+A simple React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
 
 Consists of:
 
@@ -79,7 +79,7 @@ You can change the color and height of the Loading Bar:
 <LoadingBar color="blue" height="5px" />
 ```
 
-You can dispatch `SHOW`/`HIDE` actions wherever you want by importing the corresponding methods:
+You can dispatch `SHOW`/`HIDE` actions wherever you want by importing the corresponding functions:
 
 ```es6
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -90,6 +90,17 @@ dispatch(hideLoading())
 ```
 
 You can dispatch `SHOW` action multiple times and the loading bar will be shown until the `HIDE` action is called for same times. In other words, the loading bar is shown until all long running tasks complete.
+
+## Usage with jQuery Ajax Requests
+
+If you happen to use jQuery for Ajax requests, you can dispatch `SHOW`/`HIDE` actions on `ajaxStart`/`ajaxStop` global events:
+
+```es6
+$(document).on('ajaxStart', this.props.actions.showLoading)
+$(document).on('ajaxStop', this.props.actions.hideLoading)
+```
+
+See [a demo](http://mironov.github.io/react-redux-loading-bar/?ajax) or checkout [the code](https://github.com/mironov/react-redux-loading-bar/blob/gh-pages/src/demo_ajax.js).
 
 ## Tests
 
