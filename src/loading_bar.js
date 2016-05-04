@@ -14,7 +14,7 @@ export class LoadingBar extends React.Component {
       interval: null,
     }
 
-    this.onSimulateProgress = this.simulateProgress.bind(this)
+    this.boundSimulateProgress = this.simulateProgress.bind(this)
   }
 
   componentWillMount() {
@@ -32,7 +32,7 @@ export class LoadingBar extends React.Component {
     const percent = this.state.percent
 
     if (!interval) {
-      interval = setInterval(this.onSimulateProgress, UPDATE_TIME)
+      interval = setInterval(this.boundSimulateProgress, UPDATE_TIME)
     }
 
     this.setState({ percent, interval })

@@ -38,7 +38,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       interval: null
     };
 
-    _this.onSimulateProgress = _this.simulateProgress.bind(_this);
+    _this.boundSimulateProgress = _this.simulateProgress.bind(_this);
     return _this;
   }
 
@@ -61,7 +61,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var percent = this.state.percent;
 
       if (!interval) {
-        interval = setInterval(this.onSimulateProgress, UPDATE_TIME);
+        interval = setInterval(this.boundSimulateProgress, UPDATE_TIME);
       }
 
       this.setState({ percent: percent, interval: interval });
