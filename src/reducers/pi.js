@@ -1,6 +1,11 @@
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
+export const CALCULATE_PENDING = 'pi/CALCULATE_PENDING'
 export const CALCULATE_FULFILLED = 'pi/CALCULATE_FULFILLED'
+
+export const calculatePiPending = () => ({
+  type: CALCULATE_PENDING,
+})
 
 export const calculatePiFulfilled = (pi) => ({
   type: CALCULATE_FULFILLED,
@@ -9,6 +14,7 @@ export const calculatePiFulfilled = (pi) => ({
 
 export const calculatePi = () =>
   dispatch => {
+    dispatch(calculatePiPending())
     dispatch(showLoading())
     const worker = new Worker('build/pi.js')
 
@@ -23,6 +29,8 @@ export const calculatePi = () =>
 
 export default function piReducer(state = 0, action = {}) {
   switch (action.type) {
+    case CALCULATE_PENDING:
+      return 0
     case CALCULATE_FULFILLED:
       return action.pi
 

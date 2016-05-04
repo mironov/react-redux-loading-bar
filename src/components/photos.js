@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 
-class Main extends React.Component {
+class Photos extends React.Component {
   renderPhotos() {
     return this.props.photos.map((photo) =>
       <div className="flex-auto" key={photo.id}>
@@ -11,7 +11,7 @@ class Main extends React.Component {
 
   render() {
     return (
-      <main className="p3 mx-auto">
+      <div>
         <button
           onClick={this.props.handleFetchPhotos}
           className="btn btn-primary"
@@ -21,25 +21,14 @@ class Main extends React.Component {
         <div className="flex mxn2 p2">
           {this.renderPhotos()}
         </div>
-        <button
-          onClick={this.props.handleCalculatePi}
-          className="btn btn-primary"
-        >
-          Calculate π
-        </button>
-        <p>
-          <input type="text" value={this.props.pi} readOnly className="field" />
-        </p>
-      </main>
+      </div>
     )
   }
 }
 
-Main.propTypes = {
+Photos.propTypes = {
   photos: PropTypes.array,
-  pi: PropTypes.number,
   handleFetchPhotos: PropTypes.func,
-  handleCalculatePi: PropTypes.func,
 }
 
-export default Main
+export default Photos

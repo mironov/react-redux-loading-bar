@@ -6,7 +6,8 @@ import { fetchPhotos } from './reducers/photos'
 import { calculatePi } from './reducers/pi'
 
 import Header from './components/header'
-import Main from './components/main'
+import Photos from './components/photos'
+import Pi from './components/pi'
 
 class Demo extends React.Component {
   constructor(props) {
@@ -28,12 +29,16 @@ class Demo extends React.Component {
     return (
       <div className="center">
         <Header />
-        <Main
-          photos={this.props.photos}
-          pi={this.props.pi}
-          handleFetchPhotos={this.boundHandleFetchPhotos}
-          handleCalculatePi={this.boundHandleCalculatePi}
-        />
+        <main className="p3 mx-auto">
+          <Photos
+            photos={this.props.photos}
+            handleFetchPhotos={this.boundHandleFetchPhotos}
+          />
+          <Pi
+            pi={this.props.pi}
+            handleCalculatePi={this.boundHandleCalculatePi}
+          />
+        </main>
       </div>
     )
   }
