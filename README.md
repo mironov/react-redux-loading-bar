@@ -71,15 +71,9 @@ const store = createStore(
 
 If you're not using `redux-promise-middleware`, you can skip installing the `loadingBarMiddleware` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the [bundled one](https://github.com/mironov/react-redux-loading-bar/blob/master/src/loading_bar_middleware.js).
 
-## Customizing
+## Usage without middleware
 
-You can change the color and height of the Loading Bar:
-
-```es6
-<LoadingBar color="blue" height="5px" />
-```
-
-You can dispatch `SHOW`/`HIDE` actions wherever you want by importing the corresponding functions:
+You can dispatch `SHOW`/`HIDE` actions wherever you want by importing the corresponding action creators:
 
 ```es6
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
@@ -89,7 +83,7 @@ dispatch(showLoading())
 dispatch(hideLoading())
 ```
 
-You can dispatch `SHOW` action multiple times and the loading bar will be shown until the `HIDE` action is called for same times. In other words, the loading bar is shown until all long running tasks complete.
+You can dispatch the `SHOW` action multiple times and the loading bar will be shown until the `HIDE` action is called for same times. In other words, the loading bar is shown until all long running tasks complete.
 
 ## Usage with jQuery Ajax Requests
 
@@ -101,6 +95,20 @@ $(document).on('ajaxStop', this.props.actions.hideLoading)
 ```
 
 See [a demo](http://mironov.github.io/react-redux-loading-bar/?ajax) or checkout [the code](https://github.com/mironov/react-redux-loading-bar/blob/gh-pages/src/demo_ajax.js).
+
+## Styling
+
+You can apply custom styling right on the `LoadingBar` component, for example you can change the color and height of it:
+
+```es6
+<LoadingBar style={{ backgroundColor: 'blue', height: '5px' }} />
+```
+
+Or specify your own CSS class:
+
+```es6
+<LoadingBar className="loading" />
+```
 
 ## Tests
 
@@ -116,5 +124,8 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 ## Release History
 
 * 1.0.0 Initial release
+* 1.0.1 Update dependencies
+* 1.0.2 Fix middleware to work with `redux-thunk`
+* 1.1.0 Add ability to apply custom styling and relax dependencies
 
 Licensed MIT. Copyright 2016-current Anton Mironov.

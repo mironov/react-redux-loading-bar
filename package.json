@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "scripts": {
@@ -31,11 +31,11 @@
     "url": "https://github.com/mironov/react-redux-loading-bar/issues"
   },
   "homepage": "https://github.com/mironov/react-redux-loading-bar",
-  "dependencies": {
-    "react": "^15.0.2",
-    "react-dom": "^15.0.2",
-    "react-redux": "^4.4.5",
-    "redux": "^3.5.2"
+  "peerDependencies": {
+    "react": "^0.14.0 || ^15.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0",
+    "react-redux": "^3.0.0 || ^4.0.0",
+    "redux": "^3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.7",
@@ -56,6 +56,10 @@
     "istanbul": "^1.0.0-alpha.2",
     "lolex": "^1.4.0",
     "mocha": "^2.4.5",
-    "react-addons-test-utils": "^15.0.2"
+    "react": "^15.0.2",
+    "react-addons-test-utils": "^15.0.2",
+    "react-dom": "^15.0.2",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
   }
 }

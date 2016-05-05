@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.LoadingBar = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -88,23 +90,35 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       return percent > 0 && percent <= 100 && this.props.loading !== 0;
     }
   }, {
-    key: 'render',
-    value: function render() {
-      var loadingStyle = {
-        height: this.props.height,
+    key: 'buildStyle',
+    value: function buildStyle() {
+      var style = {
+        height: '3px',
         width: this.state.percent + '%',
-        backgroundColor: this.props.color,
+        backgroundColor: 'red',
         transition: 'width 400ms ease-out, height 400ms linear',
         position: 'absolute'
       };
 
+      return _extends({}, style, this.props.style);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var style = this.buildStyle();
+
       if (this.shouldShow(this.state.percent)) {
-        loadingStyle.display = 'block';
+        style.display = 'block';
       } else {
-        loadingStyle.display = 'none';
+        style.display = 'none';
       }
 
-      return _react2.default.createElement('div', { style: loadingStyle });
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement('div', { style: style, className: this.props.className }),
+        _react2.default.createElement('div', { style: { display: 'table', clear: 'both' } })
+      );
     }
   }]);
 
@@ -112,15 +126,15 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
 }(_react2.default.Component);
 
 LoadingBar.propTypes = {
-  color: _react.PropTypes.string,
-  height: _react.PropTypes.string,
+  style: _react.PropTypes.object,
+  className: _react.PropTypes.string,
   actions: _react.PropTypes.object,
   loading: _react.PropTypes.number
 };
 
 LoadingBar.defaultProps = {
-  color: 'red',
-  height: '3px',
+  style: {},
+  className: undefined,
   loading: 0
 };
 

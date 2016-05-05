@@ -23,16 +23,17 @@ describe('LoadingBar', () => {
     it('renders by default hidden 3px height red element', () => {
       const wrapper = shallow(<LoadingBar />)
 
-      const resultStyle = wrapper.node.props.style
+      const resultStyle = wrapper.children().node.props.style
       expect(resultStyle.display).toEqual('none')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
     })
 
     it('renders an element with passed color and height', () => {
-      const wrapper = shallow(<LoadingBar color="blue" height="5px" />)
+      const style = { backgroundColor: 'blue', height: '5px' }
+      const wrapper = shallow(<LoadingBar style={style} />)
 
-      const resultStyle = wrapper.node.props.style
+      const resultStyle = wrapper.children().node.props.style
       expect(resultStyle.backgroundColor).toEqual('blue')
       expect(resultStyle.height).toEqual('5px')
     })
@@ -41,7 +42,7 @@ describe('LoadingBar', () => {
       const wrapper = shallow(<LoadingBar loading={1} />)
       wrapper.setState({ percent: 10 })
 
-      const resultStyle = wrapper.node.props.style
+      const resultStyle = wrapper.children().node.props.style
       expect(resultStyle.display).toEqual('block')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')

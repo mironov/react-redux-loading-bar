@@ -57,38 +57,46 @@ export class LoadingBar extends React.Component {
     return (percent > 0) && (percent <= 100) && (this.props.loading !== 0)
   }
 
-  render() {
-    let loadingStyle = {
-      height: this.props.height,
+  buildStyle() {
+    const style = {
+      height: '3px',
       width: `${this.state.percent}%`,
-      backgroundColor: this.props.color,
+      backgroundColor: 'red',
       transition: 'width 400ms ease-out, height 400ms linear',
       position: 'absolute',
     }
 
+    return { ...style, ...this.props.style }
+  }
+
+  render() {
+    const style = this.buildStyle()
+
     if (this.shouldShow(this.state.percent)) {
-      loadingStyle.display = 'block'
+      style.display = 'block'
     } else {
-      loadingStyle.display = 'none'
+      style.display = 'none'
     }
 
     return (
-      <div style={loadingStyle}>
+      <div>
+        <div style={style} className={this.props.className}></div>
+        <div style={{ display: 'table', clear: 'both' }}></div>
       </div>
     )
   }
 }
 
 LoadingBar.propTypes = {
-  color: PropTypes.string,
-  height: PropTypes.string,
+  style: PropTypes.object,
+  className: PropTypes.string,
   actions: PropTypes.object,
   loading: PropTypes.number,
 }
 
 LoadingBar.defaultProps = {
-  color: 'red',
-  height: '3px',
+  style: {},
+  className: undefined,
   loading: 0,
 }
 
