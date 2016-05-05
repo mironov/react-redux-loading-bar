@@ -14,7 +14,6 @@ class DemoAjax extends React.Component {
 
     this.state = {
       photos: [],
-      pi: null,
     }
 
     this.boundHandleFetchPhotos = this.handleFetchPhotos.bind(this)
