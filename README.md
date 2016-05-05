@@ -127,5 +127,6 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 1.0.1 Update dependencies
 * 1.0.2 Fix middleware to work with `redux-thunk`
 * 1.1.0 Add ability to apply custom styling and relax dependencies
+* 1.1.1 Remove shrinkwrap to make the module portable
 
 Licensed MIT. Copyright 2016-current Anton Mironov.
