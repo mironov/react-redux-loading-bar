@@ -83,7 +83,7 @@ dispatch(showLoading())
 dispatch(hideLoading())
 ```
 
-You can dispatch the `SHOW` action multiple times and the loading bar will be shown until the `HIDE` action is called for same times. In other words, the loading bar is shown until all long running tasks complete.
+You need to dispatch `HIDE` as many times as `SHOW` was dispatched to make the bar disappear. In other words, the loading bar is shown until all long running tasks complete.
 
 ## Usage with jQuery Ajax Requests
 
