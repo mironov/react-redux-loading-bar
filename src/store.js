@@ -13,7 +13,7 @@ const createStoreWithMiddleware = compose(
   applyMiddleware(
     thunkMiddleware, // lets us dispatch() functions
     promiseMiddleware(), // resolves promises
-    loadingBarMiddleware, // manages loading bar
+    loadingBarMiddleware(), // manages loading bar
   )
 )(createStore)
 

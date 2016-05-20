@@ -5,7 +5,7 @@ import * as reducers from './reducers/index'
 
 const rootReducer = combineReducers({
   ...reducers,
-  loading: loadingBarReducer,
+  loadingBar: loadingBarReducer,
 })
 
 export default rootReducer
