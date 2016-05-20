@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-export const UPDATE_TIME = 400
+export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 90
-export const PROGRESS_INCREASE = 10
+export const PROGRESS_INCREASE = 5
 
 export class LoadingBar extends React.Component {
   constructor(props) {
@@ -101,7 +101,7 @@ LoadingBar.defaultProps = {
 }
 
 const mapStateToProps = (state) => ({
-  loading: state.loading,
+  loading: state.loadingBar,
 })
 
 export default connect(mapStateToProps)(LoadingBar)

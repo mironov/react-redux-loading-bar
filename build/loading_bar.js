@@ -23,9 +23,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UPDATE_TIME = exports.UPDATE_TIME = 400;
+var UPDATE_TIME = exports.UPDATE_TIME = 200;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 90;
-var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
+var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 5;
 
 var LoadingBar = exports.LoadingBar = function (_React$Component) {
   _inherits(LoadingBar, _React$Component);
@@ -140,7 +140,7 @@ LoadingBar.defaultProps = {
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    loading: state.loading
+    loading: state.loadingBar
   };
 };
 

@@ -8,6 +8,8 @@
 
 A simple React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
 
+![Demo GIF](http://d.pr/i/haL8+)
+
 Consists of:
 
 * React component — displays loading bar and simulates progress
@@ -52,7 +54,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 
 const reducer = combineReducers({
   // app reducers
-  loading: loadingBarReducer,
+  loadingBar: loadingBarReducer,
 })
 ```
 
@@ -65,11 +67,30 @@ import rootReducer from './reducers'
 
 const store = createStore(
   rootReducer,
-  applyMiddleware(loadingBarMiddleware)
+  applyMiddleware(loadingBarMiddleware())
 )
 ```
 
-If you're not using `redux-promise-middleware`, you can skip installing the `loadingBarMiddleware` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the [bundled one](https://github.com/mironov/react-redux-loading-bar/blob/master/src/loading_bar_middleware.js).
+## Usage with custom suffixes or another Promise Middleware
+
+You can configure promise type suffixes that are used in your project:
+
+```es6
+import { createStore, applyMiddleware } from 'redux'
+import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import rootReducer from './reducers'
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    loadingBarMiddleware({
+      promiseTypeSuffixes: ['REQUEST', 'SUCCESS', 'FAILURE'],
+    })
+  )
+)
+```
+
+If you're not using `redux-promise-middleware` or any other promise middleware, you can skip installing the `loadingBarMiddleware()` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the [bundled one](https://github.com/mironov/react-redux-loading-bar/blob/master/src/loading_bar_middleware.js).
 
 ## Usage without middleware
 
@@ -128,5 +149,6 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 1.0.2 Fix middleware to work with `redux-thunk`
 * 1.1.0 Add ability to apply custom styling and relax dependencies
 * 1.1.1 Remove shrinkwrap to make the module portable
+* 2.0.0 Ability to set custom promise type suffixes
 
 Licensed MIT. Copyright 2016-current Anton Mironov.

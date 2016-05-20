@@ -1,21 +1,27 @@
 import { showLoading, hideLoading } from './loading_bar_ducks'
 
-export default function loadingBarMiddleware({ dispatch }) {
-  return next => action => {
+const defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED']
+
+export default function loadingBarMiddleware(config = {}) {
+  const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
+
+  return ({ dispatch }) => next => action => {
     next(action)
 
     if (action.type === undefined) {
       return
     }
 
-    const isPending = /.*_PENDING(.*?)$/
-    const isFulfilled = /.*_FULFILLED(.*?)$/
-    const isRejected = /.*_REJECTED(.*?)$/
+    const [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes
 
-    if (action.type.match(isPending)) {
+    const isPending = `_${PENDING}`
+    const isFulfilled = `_${FULFILLED}`
+    const isRejected = `_${REJECTED}`
+
+    if (action.type.indexOf(isPending) !== -1) {
       dispatch(showLoading())
-    } else if (action.type.match(isFulfilled) ||
-               action.type.match(isRejected)) {
+    } else if (action.type.indexOf(isFulfilled) !== -1 ||
+               action.type.indexOf(isRejected) !== -1) {
       dispatch(hideLoading())
     }
   }

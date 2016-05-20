@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "scripts": {
@@ -10,7 +10,8 @@
     "test": "`npm bin`/mocha --compilers js:babel-core/register spec/",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "`npm bin`/istanbul cover -x 'spec/**' `npm bin`/_mocha -- -u exports --compilers js:babel-register spec/",
-    "test:coveralls": "npm run test:coverage && node ./node_modules/coveralls/bin/coveralls.js < coverage/lcov.info"
+    "test:coveralls": "npm run test:coverage && node ./node_modules/coveralls/bin/coveralls.js < coverage/lcov.info",
+    "prepublish": "pkgfiles"
   },
   "repository": {
     "type": "git",
@@ -56,6 +57,7 @@
     "istanbul": "^1.0.0-alpha.2",
     "lolex": "^1.4.0",
     "mocha": "^2.4.5",
+    "pkgfiles": "^2.3.0",
     "react": "^15.0.2",
     "react-addons-test-utils": "^15.0.2",
     "react-dom": "^15.0.2",

@@ -7,13 +7,13 @@ import { showLoading, hideLoading } from '../src/loading_bar_ducks'
 describe('loadingBarMiddleware', () => {
   const mockStore = (mockDispatch) =>
     createMockStore(
-      [loadingBarMiddleware],
+      [loadingBarMiddleware()],
       mockDispatch
     )
 
   it('returns a function to handle next', () => {
     const mockDispatch = () => {}
-    const nextHandler = loadingBarMiddleware(mockDispatch)
+    const nextHandler = loadingBarMiddleware()(mockDispatch)
     expect(nextHandler).toBeA('function')
   })
 
@@ -107,6 +107,85 @@ describe('loadingBarMiddleware', () => {
       }
 
       mockStore(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+  })
+
+  describe('with custom promiseTypeSuffixes', () => {
+    const mockStoreWithSuffixes = (mockDispatch) =>
+      createMockStore(
+        [
+          loadingBarMiddleware({
+            promiseTypeSuffixes: ['REQUEST', 'SUCCESS', 'FAILURE'],
+          }),
+        ],
+        mockDispatch
+      )
+
+    it('does not dispatch SHOW and HIDE actions on _FULFILLED action', () => {
+      const originalAction = { type: 'something/FETCH_PENDING' }
+      const expectedActions = [
+        originalAction,
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStoreWithSuffixes(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+
+    it('dispatches SHOW action on _REQUEST action', () => {
+      const originalAction = { type: 'something/FETCH_REQUEST' }
+      const expectedActions = [
+        originalAction,
+        showLoading(),
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStoreWithSuffixes(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+
+    it('dispatches HIDE action on _SUCCESS action', () => {
+      const originalAction = { type: 'something/FETCH_SUCCESS' }
+      const expectedActions = [
+        originalAction,
+        hideLoading(),
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStoreWithSuffixes(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+
+    it('dispatches HIDE action on _FAILURE action', () => {
+      const originalAction = { type: 'something/FETCH_FAILURE' }
+      const expectedActions = [
+        originalAction,
+        hideLoading(),
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStoreWithSuffixes(mockDispatch).dispatch(originalAction)
       expect(expectedActions.length).toEqual(0)
     })
   })
