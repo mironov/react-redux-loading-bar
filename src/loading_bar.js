@@ -17,10 +17,6 @@ export class LoadingBar extends React.Component {
     this.boundSimulateProgress = this.simulateProgress.bind(this)
   }
 
-  componentWillMount() {
-    this.launch()
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.loading > this.props.loading) {
       this.launch()

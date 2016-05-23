@@ -59,24 +59,24 @@ describe('LoadingBar', () => {
       restoreSpies()
     })
 
-    it('launches on component mount', () => {
+    it('does not launch on component mount', () => {
       shallow(<LoadingBar />)
-      expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(1)
+      expect(spyLaunch).toNotHaveBeenCalled()
+      expect(spyLaunch.calls.length).toEqual(0)
     })
 
-    it('launches on component mount and then on loading increase', () => {
+    it('launches on loading count increase', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(2)
+      expect(spyLaunch.calls.length).toEqual(1)
     })
 
     it('does not launch if loading count is not increased', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 0 })
-      expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(1)
+      expect(spyLaunch).toNotHaveBeenCalled()
+      expect(spyLaunch.calls.length).toEqual(0)
     })
   })
 
@@ -97,21 +97,24 @@ describe('LoadingBar', () => {
     })
 
     it('schedules simulateProgress on UPDATE_TIME', () => {
-      shallow(<LoadingBar />)
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(spySimulateProgress).toHaveBeenCalled()
       expect(spySimulateProgress.calls.length).toEqual(1)
     })
 
     it('does not schedule simulateProgress before UPDATE_TIME', () => {
-      shallow(<LoadingBar />)
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME - 1)
       expect(spySimulateProgress).toNotHaveBeenCalled()
       expect(spySimulateProgress.calls.length).toEqual(0)
     })
 
     it('schedules simulateProgress twice after UPDATE_TIME * 2', () => {
-      shallow(<LoadingBar />)
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME * 2)
       expect(spySimulateProgress).toHaveBeenCalled()
       expect(spySimulateProgress.calls.length).toEqual(2)
