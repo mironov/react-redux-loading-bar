@@ -23,6 +23,12 @@ export class LoadingBar extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.state.interval) {
+      clearInterval(this.state.interval)
+    }
+  }
+
   launch() {
     let interval = this.state.interval
     const percent = this.state.percent

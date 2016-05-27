@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow } from 'enzyme'
-import expect, { spyOn, restoreSpies } from 'expect'
+import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
 import {
@@ -49,14 +49,14 @@ describe('LoadingBar', () => {
     })
   })
 
-  describe('#componentWillMount and #componentWillReceiveProps', () => {
+  describe('#componentWillReceiveProps', () => {
     let spyLaunch
 
     beforeEach(() => {
       spyLaunch = spyOn(LoadingBar.prototype, 'launch')
     })
     afterEach(() => {
-      restoreSpies()
+      spyLaunch.restore()
     })
 
     it('does not launch on component mount', () => {
@@ -80,6 +80,29 @@ describe('LoadingBar', () => {
     })
   })
 
+  describe('#componentWillUnmount', () => {
+    let clock
+    let consoleSpy
+
+    beforeEach(() => {
+      consoleSpy = spyOn(console, 'error')
+      clock = lolex.install()
+    })
+    afterEach(() => {
+      clock.uninstall()
+      consoleSpy.restore()
+    })
+
+    it('does not throw errors in the console', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      expect(wrapper.state().interval).toNotEqual(null)
+      wrapper.unmount()
+      clock.tick(UPDATE_TIME)
+      expect(consoleSpy).toNotHaveBeenCalled()
+    })
+  })
+
   describe('#launch', () => {
     let clock
     let spySimulateProgress
@@ -92,7 +115,7 @@ describe('LoadingBar', () => {
       clock = lolex.install()
     })
     afterEach(() => {
-      restoreSpies()
+      spySimulateProgress.restore()
       clock.uninstall()
     })
 

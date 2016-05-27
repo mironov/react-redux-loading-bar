@@ -52,6 +52,13 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       }
     }
   }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this.state.interval) {
+        clearInterval(this.state.interval);
+      }
+    }
+  }, {
     key: 'launch',
     value: function launch() {
       var interval = this.state.interval;
