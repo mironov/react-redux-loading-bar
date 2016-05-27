@@ -67,6 +67,7 @@ import rootReducer from './reducers'
 
 const store = createStore(
   rootReducer,
+  // promise middleware
   applyMiddleware(loadingBarMiddleware())
 )
 ```
@@ -150,5 +151,6 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 1.1.0 Add ability to apply custom styling and relax dependencies
 * 1.1.1 Remove shrinkwrap to make the module portable
 * 2.0.0 Ability to set custom promise type suffixes
+* 2.0.1 Fix for server side rendering and isomorphic apps
 
 Licensed MIT. Copyright 2016-current Anton Mironov.
