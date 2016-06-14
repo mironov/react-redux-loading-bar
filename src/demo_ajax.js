@@ -30,7 +30,7 @@ class DemoAjax extends React.Component {
   }
 
   handleFetchPhotos() {
-    $.getJSON('http://jsonplaceholder.typicode.com/photos', (data) => {
+    $.getJSON('https://jsonplaceholder.typicode.com/photos', (data) => {
       this.setState({
         photos: slice(shuffle(data), 0, 5),
       })
