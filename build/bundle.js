@@ -31263,6 +31263,9 @@
 	  value: true
 	});
 	exports.fetchPhotos = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	exports.default = photosReducer;
 	
 	var _isomorphicFetch = __webpack_require__(/*! isomorphic-fetch */ 490);
@@ -31275,12 +31278,18 @@
 	
 	var FETCH = 'photos/FETCH';
 	
+	var enforceSSL = function enforceSSL(photos) {
+	  return photos.map(function (photo) {
+	    return _extends({}, photo, { thumbnailUrl: photo.thumbnailUrl.replace('http', 'https') });
+	  });
+	};
+	
 	var fetchPhotos = exports.fetchPhotos = function fetchPhotos() {
 	  return {
 	    type: FETCH,
 	    payload: (0, _isomorphicFetch2.default)('https://jsonplaceholder.typicode.com/photos', { cache: 'no-cache' }).then(function (res) {
 	      return res.json();
-	    })
+	    }).then(enforceSSL)
 	  };
 	};
 	
