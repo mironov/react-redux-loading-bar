@@ -6,7 +6,7 @@ const FETCH = 'photos/FETCH'
 export const fetchPhotos = () => ({
   type: FETCH,
   payload: fetch(
-    'http://jsonplaceholder.typicode.com/photos',
+    'https://jsonplaceholder.typicode.com/photos',
     { cache: 'no-cache' }
   ).then((res) => res.json()),
 })
