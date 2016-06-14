@@ -48649,7 +48649,7 @@
 	    value: function handleFetchPhotos() {
 	      var _this2 = this;
 	
-	      _jquery2.default.getJSON('http://jsonplaceholder.typicode.com/photos', function (data) {
+	      _jquery2.default.getJSON('https://jsonplaceholder.typicode.com/photos', function (data) {
 	        _this2.setState({
 	          photos: (0, _lodash.slice)((0, _lodash.shuffle)(data), 0, 5)
 	        });
