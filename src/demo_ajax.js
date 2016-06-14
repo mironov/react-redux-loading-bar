@@ -8,6 +8,8 @@ import { shuffle, slice } from 'lodash'
 import Header from './components/header'
 import Photos from './components/photos'
 
+const PHOTOS_URL = 'https://gist.githubusercontent.com/mironov/90943481802c227a1585cb979d73b261/raw/e5ffa6e7b8e160be478ef2d63b6212581930d2c1/photos.json'
+
 class DemoAjax extends React.Component {
   constructor(props) {
     super(props)
@@ -30,7 +32,7 @@ class DemoAjax extends React.Component {
   }
 
   handleFetchPhotos() {
-    $.getJSON('https://jsonplaceholder.typicode.com/photos', (data) => {
+    $.getJSON(PHOTOS_URL, (data) => {
       this.setState({
         photos: slice(shuffle(data), 0, 5),
       })

@@ -31263,9 +31263,6 @@
 	  value: true
 	});
 	exports.fetchPhotos = undefined;
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	exports.default = photosReducer;
 	
 	var _isomorphicFetch = __webpack_require__(/*! isomorphic-fetch */ 490);
@@ -31277,19 +31274,14 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var FETCH = 'photos/FETCH';
-	
-	var enforceSSL = function enforceSSL(photos) {
-	  return photos.map(function (photo) {
-	    return _extends({}, photo, { thumbnailUrl: photo.thumbnailUrl.replace('http', 'https') });
-	  });
-	};
+	var PHOTOS_URL = 'https://gist.githubusercontent.com/mironov/90943481802c227a1585cb979d73b261/raw/e5ffa6e7b8e160be478ef2d63b6212581930d2c1/photos.json';
 	
 	var fetchPhotos = exports.fetchPhotos = function fetchPhotos() {
 	  return {
 	    type: FETCH,
-	    payload: (0, _isomorphicFetch2.default)('https://jsonplaceholder.typicode.com/photos', { cache: 'no-cache' }).then(function (res) {
+	    payload: (0, _isomorphicFetch2.default)(PHOTOS_URL, { cache: 'no-cache' }).then(function (res) {
 	      return res.json();
-	    }).then(enforceSSL)
+	    })
 	  };
 	};
 	
@@ -48616,6 +48608,8 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	var PHOTOS_URL = 'https://gist.githubusercontent.com/mironov/90943481802c227a1585cb979d73b261/raw/e5ffa6e7b8e160be478ef2d63b6212581930d2c1/photos.json';
+	
 	var DemoAjax = function (_React$Component) {
 	  _inherits(DemoAjax, _React$Component);
 	
@@ -48649,7 +48643,7 @@
 	    value: function handleFetchPhotos() {
 	      var _this2 = this;
 	
-	      _jquery2.default.getJSON('https://jsonplaceholder.typicode.com/photos', function (data) {
+	      _jquery2.default.getJSON(PHOTOS_URL, function (data) {
 	        _this2.setState({
 	          photos: (0, _lodash.slice)((0, _lodash.shuffle)(data), 0, 5)
 	        });
