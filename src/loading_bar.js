@@ -48,8 +48,8 @@ export class LoadingBar extends React.Component {
       clearInterval(interval)
       interval = null
       percent = 0
-    } else if (percent < this.props.maxProgress || MAX_PROGRESS) {
-      percent = percent + this.props.progressIncrease || PROGRESS_INCREASE
+    } else if (percent < (this.props.maxProgress || MAX_PROGRESS)) {
+      percent = percent + (this.props.progressIncrease || PROGRESS_INCREASE)
     }
 
     this.setState({ percent, interval })
