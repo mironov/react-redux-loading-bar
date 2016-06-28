@@ -1,17 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-export const UPDATE_TIME = 200
-export const MAX_PROGRESS = 90
-export const PROGRESS_INCREASE = 5
-
 export class LoadingBar extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
       percent: 0,
-      interval: null
+      interval: null,
     }
 
     this.boundSimulateProgress = this.simulateProgress.bind(this)
@@ -34,7 +30,7 @@ export class LoadingBar extends React.Component {
     const percent = this.state.percent
 
     if (!interval) {
-      interval = setInterval(this.boundSimulateProgress, this.props.updateTime || UPDATE_TIME)
+      interval = setInterval(this.boundSimulateProgress, this.props.updateTime)
     }
 
     this.setState({ percent, interval })
@@ -48,8 +44,8 @@ export class LoadingBar extends React.Component {
       clearInterval(interval)
       interval = null
       percent = 0
-    } else if (percent < (this.props.maxProgress || MAX_PROGRESS)) {
-      percent = percent + (this.props.progressIncrease || PROGRESS_INCREASE)
+    } else if (percent < this.props.maxProgress) {
+      percent = percent + this.props.progressIncrease)
     }
 
     this.setState({ percent, interval })
@@ -94,12 +90,18 @@ LoadingBar.propTypes = {
   className: PropTypes.string,
   actions: PropTypes.object,
   loading: PropTypes.number,
+  updateTime: PropTypes.number,
+  maxProgress: PropTypes.number,
+  progressIncrease: PropTypes.number,
 }
 
 LoadingBar.defaultProps = {
   style: {},
   className: undefined,
   loading: 0,
+  updateTime: 200,
+  maxProgress: 90,
+  progressIncrease: 5,
 }
 
 const mapStateToProps = (state) => ({
