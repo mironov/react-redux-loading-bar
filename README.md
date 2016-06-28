@@ -132,6 +132,14 @@ Or specify your own CSS class:
 <LoadingBar className="loading" />
 ```
 
+## Settings
+
+You can change next properties: updateTime (by default 200ms), maxProgress (by default 90%), progressIncrease (by default 5%):
+
+```es6
+<LoadingBar updateTime={100} maxProgress={95} progressIncrease={10} />
+```
+
 ## Tests
 
 ```bash
