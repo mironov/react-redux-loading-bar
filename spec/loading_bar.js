@@ -5,10 +5,14 @@ import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
 import {
   LoadingBar,
-  UPDATE_TIME,
-  MAX_PROGRESS,
-  PROGRESS_INCREASE,
+  defaultProps
 } from '../src/loading_bar'
+
+const {
+  updateTime: UPDATE_TIME,
+  maxProgress: MAX_PROGRESS,
+  progressIncrease: PROGRESS_INCREASE
+} = defaultProps;
 
 expect.extend(expectJSX)
 
