@@ -108,6 +108,8 @@ const mapStateToProps = (state) => ({
   loading: state.loadingBar,
 })
 
-export { LoadingBar.defaultProps as defaultProps }
+const defaultProps = LoadingBar.defaultProps
+
+export { defaultProps }
 
 export default connect(mapStateToProps)(LoadingBar)
