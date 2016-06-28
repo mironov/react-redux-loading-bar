@@ -1,6 +1,10 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
+export const UPDATE_TIME = 200
+export const MAX_PROGRESS = 90
+export const PROGRESS_INCREASE = 5
+
 export class LoadingBar extends React.Component {
   constructor(props) {
     super(props)
@@ -99,17 +103,13 @@ LoadingBar.defaultProps = {
   style: {},
   className: undefined,
   loading: 0,
-  updateTime: 200,
-  maxProgress: 90,
-  progressIncrease: 5,
+  updateTime: UPDATE_TIME,
+  maxProgress: MAX_PROGRESS,
+  progressIncrease: PROGRESS_INCREASE,
 }
 
 const mapStateToProps = (state) => ({
   loading: state.loadingBar,
 })
-
-const defaultProps = LoadingBar.defaultProps
-
-export { defaultProps }
 
 export default connect(mapStateToProps)(LoadingBar)
