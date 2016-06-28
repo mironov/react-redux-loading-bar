@@ -66,6 +66,7 @@ export class LoadingBar extends React.Component {
       backgroundColor: 'red',
       transition: 'width 400ms ease-out, height 400ms linear',
       position: 'absolute',
+      zIndex: 100000
     }
 
     return { ...style, ...this.props.style }
