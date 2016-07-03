@@ -34,7 +34,7 @@ export class LoadingBar extends React.Component {
     const percent = this.state.percent
 
     if (!interval) {
-      interval = setInterval(this.boundSimulateProgress, UPDATE_TIME)
+      interval = setInterval(this.boundSimulateProgress, this.props.updateTime)
     }
 
     this.setState({ percent, interval })
@@ -48,8 +48,8 @@ export class LoadingBar extends React.Component {
       clearInterval(interval)
       interval = null
       percent = 0
-    } else if (percent < MAX_PROGRESS) {
-      percent = percent + PROGRESS_INCREASE
+    } else if (percent < this.props.maxProgress) {
+      percent = percent + this.props.progressIncrease
     }
 
     this.setState({ percent, interval })
@@ -94,12 +94,18 @@ LoadingBar.propTypes = {
   className: PropTypes.string,
   actions: PropTypes.object,
   loading: PropTypes.number,
+  updateTime: PropTypes.number,
+  maxProgress: PropTypes.number,
+  progressIncrease: PropTypes.number,
 }
 
 LoadingBar.defaultProps = {
   style: {},
   className: undefined,
   loading: 0,
+  updateTime: UPDATE_TIME,
+  maxProgress: MAX_PROGRESS,
+  progressIncrease: PROGRESS_INCREASE,
 }
 
 const mapStateToProps = (state) => ({

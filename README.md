@@ -132,6 +132,14 @@ Or specify your own CSS class:
 <LoadingBar className="loading" />
 ```
 
+## Configure Progress Simulation
+
+You can change updateTime (by default 200ms), maxProgress (by default 90%) and progressIncrease (by default 5%):
+
+```es6
+<LoadingBar updateTime={100} maxProgress={95} progressIncrease={10} />
+```
+
 ## Tests
 
 ```bash
@@ -153,5 +161,6 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 * 2.0.0 Ability to set custom promise type suffixes
 * 2.0.1 Fix for server side rendering and isomorphic apps
 * 2.0.2 Clear interval on unmount
+* 2.1.0 Configure updateTime, maxProgress and progressIncrease via props
 
 Licensed MIT. Copyright 2016-current Anton Mironov.

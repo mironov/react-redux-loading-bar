@@ -186,4 +186,68 @@ describe('LoadingBar', () => {
       })
     })
   })
+
+  describe('updateTime prop', () => {
+    let clock
+    let spySimulateProgress
+
+    beforeEach(() => {
+      spySimulateProgress = spyOn(
+        LoadingBar.prototype,
+        'simulateProgress'
+      )
+      clock = lolex.install()
+    })
+    afterEach(() => {
+      spySimulateProgress.restore()
+      clock.uninstall()
+    })
+
+    it('can be changed', () => {
+      const updateTime = 100
+      const wrapper = shallow(<LoadingBar updateTime={updateTime} />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(updateTime)
+      expect(spySimulateProgress).toHaveBeenCalled()
+      expect(spySimulateProgress.calls.length).toEqual(1)
+    })
+  })
+
+  describe('maxProgress prop', () => {
+    let clock
+
+    beforeEach(() => {
+      clock = lolex.install()
+    })
+    afterEach(() => {
+      clock.uninstall()
+    })
+
+    it('can be changed', () => {
+      const maxProgress = 95
+      const wrapper = shallow(<LoadingBar maxProgress={maxProgress} />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME * (maxProgress / PROGRESS_INCREASE))
+      expect(wrapper.state().percent).toEqual(maxProgress)
+    })
+  })
+
+  describe('progressIncrease prop', () => {
+    let clock
+
+    beforeEach(() => {
+      clock = lolex.install()
+    })
+    afterEach(() => {
+      clock.uninstall()
+    })
+
+    it('can be changed', () => {
+      const progressIncrease = 5
+      const wrapper = shallow(<LoadingBar progressIncrease={progressIncrease} />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().percent).toEqual(progressIncrease)
+    })
+  })
 })
