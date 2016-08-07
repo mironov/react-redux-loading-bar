@@ -154,13 +154,24 @@ describe('LoadingBar', () => {
       clock.uninstall()
     })
 
-    it('clears interval if loading becomes 0', () => {
+    it('sets percent to 100 if loading becomes 0', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(wrapper.state().interval).toExist()
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME)
+      expect(wrapper.state().interval).toExist()
+      expect(wrapper.state().percent).toBe(100)
+    })
+
+    it('clears interval if loading becomes 0 after one more tick', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().interval).toExist()
+      wrapper.setProps({ loading: 0 })
+      clock.tick(UPDATE_TIME * 2)
       expect(wrapper.state().interval).toNotExist()
     })
 

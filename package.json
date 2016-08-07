@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "scripts": {

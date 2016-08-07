@@ -6,7 +6,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-loading-bar.svg?style=flat)](https://www.npmjs.com/package/react-redux-loading-bar)
 [![dependency status](https://david-dm.org/mironov/react-redux-loading-bar.svg)](https://david-dm.org/mironov/react-redux-loading-bar)
 
-A simple React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
+A React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
 
 ![Demo GIF](http://d.pr/i/haL8+)
 
@@ -30,7 +30,7 @@ npm install --save react-redux-loading-bar
 
 Mount the `LoadingBar` component anywhere in your application:
 
-```es6
+```jsx
 import LoadingBar from 'react-redux-loading-bar'
 
 export default class Header extends React.Component {
@@ -48,7 +48,7 @@ Good news is that it doesn't include any positioning, so you can attach it to th
 
 Install the reducer to the store:
 
-```es6
+```jsx
 import { combineReducers } from 'redux'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
@@ -60,7 +60,7 @@ const reducer = combineReducers({
 
 *(Optional)* Apply middleware to automatically show and hide loading bar on actions with promises:
 
-```es6
+```jsx
 import { createStore, applyMiddleware } from 'redux'
 import { loadingBarMiddleware } from 'react-redux-loading-bar'
 import rootReducer from './reducers'
@@ -76,7 +76,7 @@ const store = createStore(
 
 You can configure promise type suffixes that are used in your project:
 
-```es6
+```jsx
 import { createStore, applyMiddleware } from 'redux'
 import { loadingBarMiddleware } from 'react-redux-loading-bar'
 import rootReducer from './reducers'
@@ -97,7 +97,7 @@ If you're not using `redux-promise-middleware` or any other promise middleware, 
 
 You can dispatch `SHOW`/`HIDE` actions wherever you want by importing the corresponding action creators:
 
-```es6
+```jsx
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 dispatch(showLoading())
@@ -111,7 +111,7 @@ You need to dispatch `HIDE` as many times as `SHOW` was dispatched to make the b
 
 If you happen to use jQuery for Ajax requests, you can dispatch `SHOW`/`HIDE` actions on `ajaxStart`/`ajaxStop` global events:
 
-```es6
+```jsx
 $(document).on('ajaxStart', this.props.actions.showLoading)
 $(document).on('ajaxStop', this.props.actions.hideLoading)
 ```
@@ -122,13 +122,13 @@ See [a demo](http://mironov.github.io/react-redux-loading-bar/?ajax) or checkout
 
 You can apply custom styling right on the `LoadingBar` component, for example you can change the color and height of it:
 
-```es6
+```jsx
 <LoadingBar style={{ backgroundColor: 'blue', height: '5px' }} />
 ```
 
 Or specify your own CSS class:
 
-```es6
+```jsx
 <LoadingBar className="loading" />
 ```
 
@@ -136,7 +136,7 @@ Or specify your own CSS class:
 
 You can change updateTime (by default 200ms), maxProgress (by default 90%) and progressIncrease (by default 5%):
 
-```es6
+```jsx
 <LoadingBar updateTime={100} maxProgress={95} progressIncrease={10} />
 ```
 
@@ -151,16 +151,6 @@ npm test
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 Add unit tests for any new or changed functionality. Lint and test your code.
 
-## Release History
-
-* 1.0.0 Initial release
-* 1.0.1 Update dependencies
-* 1.0.2 Fix middleware to work with `redux-thunk`
-* 1.1.0 Add ability to apply custom styling and relax dependencies
-* 1.1.1 Remove shrinkwrap to make the module portable
-* 2.0.0 Ability to set custom promise type suffixes
-* 2.0.1 Fix for server side rendering and isomorphic apps
-* 2.0.2 Clear interval on unmount
-* 2.1.0 Configure updateTime, maxProgress and progressIncrease via props
+To see what has changed in recent versions of Loading Bar, see the [CHANGELOG](https://github.com/mironov/react-redux-loading-bar/blob/master/CHANGELOG.md).
 
 Licensed MIT. Copyright 2016-current Anton Mironov.

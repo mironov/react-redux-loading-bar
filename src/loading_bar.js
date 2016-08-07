@@ -44,10 +44,12 @@ export class LoadingBar extends React.Component {
     let interval = this.state.interval
     let percent = this.state.percent
 
-    if (this.props.loading === 0) {
+    if (percent === 100) {
       clearInterval(interval)
       interval = null
       percent = 0
+    } else if (this.props.loading === 0) {
+      percent = 100
     } else if (percent < this.props.maxProgress) {
       percent = percent + this.props.progressIncrease
     }
@@ -56,7 +58,7 @@ export class LoadingBar extends React.Component {
   }
 
   shouldShow(percent) {
-    return (percent > 0) && (percent <= 100) && (this.props.loading !== 0)
+    return (percent > 0) && (percent <= 100)
   }
 
   buildStyle() {
