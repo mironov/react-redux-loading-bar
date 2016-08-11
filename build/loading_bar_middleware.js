@@ -21,10 +21,8 @@ function loadingBarMiddleware() {
     var dispatch = _ref.dispatch;
     return function (next) {
       return function (action) {
-        next(action);
-
         if (action.type === undefined) {
-          return;
+          return false;
         }
 
         var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
@@ -43,6 +41,8 @@ function loadingBarMiddleware() {
         } else if (!!action.type.match(isFulfilled) || !!action.type.match(isRejected)) {
           dispatch((0, _loading_bar_ducks.hideLoading)());
         }
+
+        return next(action);
       };
     };
   };
