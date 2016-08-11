@@ -21,10 +21,8 @@ function loadingBarMiddleware() {
     var dispatch = _ref.dispatch;
     return function (next) {
       return function (action) {
-        next(action);
-
         if (action.type === undefined) {
-          return;
+          return false;
         }
 
         var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
@@ -34,15 +32,17 @@ function loadingBarMiddleware() {
         var REJECTED = _promiseTypeSuffixes[2];
 
 
-        var isPending = '_' + PENDING;
-        var isFulfilled = '_' + FULFILLED;
-        var isRejected = '_' + REJECTED;
+        var isPending = new RegExp(PENDING + '$', 'g');
+        var isFulfilled = new RegExp(FULFILLED + '$', 'g');
+        var isRejected = new RegExp(REJECTED + '$', 'g');
 
-        if (action.type.indexOf(isPending) !== -1) {
+        if (!!action.type.match(isPending)) {
           dispatch((0, _loading_bar_ducks.showLoading)());
-        } else if (action.type.indexOf(isFulfilled) !== -1 || action.type.indexOf(isRejected) !== -1) {
+        } else if (!!action.type.match(isFulfilled) || !!action.type.match(isRejected)) {
           dispatch((0, _loading_bar_ducks.hideLoading)());
         }
+
+        return next(action);
       };
     };
   };
