@@ -14,14 +14,14 @@ export default function loadingBarMiddleware(config = {}) {
 
     const [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes
 
-    const isPending = `_${PENDING}`
-    const isFulfilled = `_${FULFILLED}`
-    const isRejected = `_${REJECTED}`
+    const isPending = new RegExp(`${PENDING}$`, 'g')
+    const isFulfilled = new RegExp(`${FULFILLED}$`, 'g')
+    const isRejected = new RegExp(`${REJECTED}$`, 'g')
 
-    if (action.type.indexOf(isPending) !== -1) {
+    if (!!action.type.match(isPending)) {
       dispatch(showLoading())
-    } else if (action.type.indexOf(isFulfilled) !== -1 ||
-               action.type.indexOf(isRejected) !== -1) {
+    } else if (!!action.type.match(isFulfilled) ||
+               !!action.type.match(isRejected)) {
       dispatch(hideLoading())
     }
   }
