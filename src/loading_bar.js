@@ -66,8 +66,9 @@ export class LoadingBar extends React.Component {
       height: '3px',
       width: `${this.state.percent}%`,
       backgroundColor: 'red',
-      transition: 'width 400ms ease-out, height 400ms linear',
+      transition: 'width 400ms ease-out, height 400ms linear, opacity 400ms ease-out',
       position: 'absolute',
+      opacity: '1',
     }
 
     return { ...style, ...this.props.style }
@@ -77,15 +78,15 @@ export class LoadingBar extends React.Component {
     const style = this.buildStyle()
 
     if (this.shouldShow(this.state.percent)) {
-      style.display = 'block'
+      style.opacity = '1'
     } else {
-      style.display = 'none'
+      style.opacity = '0'
     }
 
     return (
       <div>
-        <div style={style} className={this.props.className}></div>
-        <div style={{ display: 'table', clear: 'both' }}></div>
+        <div style={style} className={this.props.className} />
+        <div style={{ display: 'table', clear: 'both' }} />
       </div>
     )
   }
