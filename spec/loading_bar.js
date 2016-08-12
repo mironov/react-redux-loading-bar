@@ -24,7 +24,7 @@ describe('LoadingBar', () => {
       const wrapper = shallow(<LoadingBar />)
 
       const resultStyle = wrapper.children().node.props.style
-      expect(resultStyle.display).toEqual('none')
+      expect(resultStyle.opacity).toEqual('0')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
     })
@@ -43,7 +43,7 @@ describe('LoadingBar', () => {
       wrapper.setState({ percent: 10 })
 
       const resultStyle = wrapper.children().node.props.style
-      expect(resultStyle.display).toEqual('block')
+      expect(resultStyle.opacity).toEqual('1')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
     })

@@ -100,8 +100,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
         height: '3px',
         width: this.state.percent + '%',
         backgroundColor: 'red',
-        transition: 'width 400ms ease-out, height 400ms linear',
-        position: 'absolute'
+        transition: 'width 400ms ease-out, height 400ms linear, opacity 400ms ease-out',
+        position: 'absolute',
+        opacity: '1'
       };
 
       return _extends({}, style, this.props.style);
@@ -112,9 +113,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var style = this.buildStyle();
 
       if (this.shouldShow(this.state.percent)) {
-        style.display = 'block';
+        style.opacity = '1';
       } else {
-        style.display = 'none';
+        style.opacity = '0';
       }
 
       return _react2.default.createElement(
