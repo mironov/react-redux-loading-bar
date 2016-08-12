@@ -116,7 +116,7 @@ describe('loadingBarMiddleware', () => {
       createMockStore(
         [
           loadingBarMiddleware({
-            promiseTypeSuffixes: ['REQUEST', 'SUCCESS', 'FAILURE'],
+            promiseTypeSuffixes: ['LOAD', 'SUCCESS', 'FAIL'],
           }),
         ],
         mockDispatch
@@ -139,7 +139,7 @@ describe('loadingBarMiddleware', () => {
     })
 
     it('dispatches SHOW action on _REQUEST action', () => {
-      const originalAction = { type: 'something/FETCH_REQUEST' }
+      const originalAction = { type: 'something/FETCH_LOAD' }
       const expectedActions = [
         originalAction,
         showLoading(),
@@ -173,10 +173,26 @@ describe('loadingBarMiddleware', () => {
     })
 
     it('dispatches HIDE action on _FAILURE action', () => {
-      const originalAction = { type: 'something/FETCH_FAILURE' }
+      const originalAction = { type: 'something/FETCH_FAIL' }
       const expectedActions = [
         originalAction,
         hideLoading(),
+      ]
+
+      const mockDispatch = (action) => {
+        const expectedAction = expectedActions.shift()
+        expect(action).toEqual(expectedAction)
+        return action
+      }
+
+      mockStoreWithSuffixes(mockDispatch).dispatch(originalAction)
+      expect(expectedActions.length).toEqual(0)
+    })
+
+    it('does not dispatch SHOW action on FOO_LOADED action', () => {
+      const originalAction = { type: 'something/FOO_LOADED' }
+      const expectedActions = [
+        originalAction,
       ]
 
       const mockDispatch = (action) => {

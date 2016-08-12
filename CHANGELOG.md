@@ -1,5 +1,8 @@
 # Release History
 
+## 2.2.1
+   - Match actions with regular expressions to prevent false positives (thanks to @ThomasMarnet)
+
 ## 2.2.0
    - Loading Bar moves to the end before disappear
 
