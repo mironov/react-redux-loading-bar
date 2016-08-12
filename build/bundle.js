@@ -48241,7 +48241,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.LoadingBar = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
+	exports.LoadingBar = exports.ANIMATION_TIME = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -48264,6 +48264,7 @@
 	var UPDATE_TIME = exports.UPDATE_TIME = 200;
 	var MAX_PROGRESS = exports.MAX_PROGRESS = 90;
 	var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 5;
+	var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 2;
 	
 	var LoadingBar = exports.LoadingBar = function (_React$Component) {
 	  _inherits(LoadingBar, _React$Component);
@@ -48279,6 +48280,7 @@
 	    };
 	
 	    _this.boundSimulateProgress = _this.simulateProgress.bind(_this);
+	    _this.boundResetProgress = _this.resetProgress.bind(_this);
 	    return _this;
 	  }
 	
@@ -48311,13 +48313,15 @@
 	  }, {
 	    key: 'simulateProgress',
 	    value: function simulateProgress() {
-	      var interval = this.state.interval;
-	      var percent = this.state.percent;
+	      var _state = this.state;
+	      var interval = _state.interval;
+	      var percent = _state.percent;
+	
 	
 	      if (percent === 100) {
 	        clearInterval(interval);
+	        setTimeout(this.boundResetProgress, ANIMATION_TIME);
 	        interval = null;
-	        percent = 0;
 	      } else if (this.props.loading === 0) {
 	        percent = 100;
 	      } else if (percent < this.props.maxProgress) {
@@ -48327,9 +48331,17 @@
 	      this.setState({ percent: percent, interval: interval });
 	    }
 	  }, {
+	    key: 'resetProgress',
+	    value: function resetProgress() {
+	      this.setState({
+	        percent: 0,
+	        interval: null
+	      });
+	    }
+	  }, {
 	    key: 'shouldShow',
 	    value: function shouldShow(percent) {
-	      return percent > 0 && percent <= 100;
+	      return percent > 0 && percent < 100;
 	    }
 	  }, {
 	    key: 'buildStyle',
@@ -48338,7 +48350,7 @@
 	        height: '3px',
 	        width: this.state.percent + '%',
 	        backgroundColor: 'red',
-	        transition: 'width 400ms ease-out, height 400ms linear, opacity 400ms ease-out',
+	        transition: 'width ' + ANIMATION_TIME + 'ms ease-out,\n                   height ' + ANIMATION_TIME + 'ms linear,\n                   opacity ' + ANIMATION_TIME + 'ms ease-out',
 	        position: 'absolute',
 	        opacity: '1'
 	      };

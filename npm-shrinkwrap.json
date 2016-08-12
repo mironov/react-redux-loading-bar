@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar-demo",
-  "version": "2.2.0",
+  "version": "2.2.2",
   "dependencies": {
     "acorn": {
       "version": "3.1.0",
@@ -3319,7 +3319,7 @@
       "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.5.tgz"
     },
     "react-redux-loading-bar": {
-      "version": "2.2.2",
+      "version": "2.2.3",
       "dependencies": {
         "abab": {
           "version": "1.0.3",
