@@ -8,7 +8,7 @@
 
 A React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
 
-![Demo GIF](http://d.pr/i/haL8+)
+![Demo GIF](http://d.pr/i/JbwN+)
 
 Consists of:
 
