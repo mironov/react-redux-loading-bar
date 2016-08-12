@@ -21,28 +21,26 @@ function loadingBarMiddleware() {
     var dispatch = _ref.dispatch;
     return function (next) {
       return function (action) {
-        next(action);
+        if (action.type) {
+          var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
 
-        if (action.type === undefined) {
-          return;
+          var PENDING = _promiseTypeSuffixes[0];
+          var FULFILLED = _promiseTypeSuffixes[1];
+          var REJECTED = _promiseTypeSuffixes[2];
+
+
+          var isPending = new RegExp(PENDING + '$', 'g');
+          var isFulfilled = new RegExp(FULFILLED + '$', 'g');
+          var isRejected = new RegExp(REJECTED + '$', 'g');
+
+          if (action.type.match(isPending)) {
+            dispatch((0, _loading_bar_ducks.showLoading)());
+          } else if (action.type.match(isFulfilled) || action.type.match(isRejected)) {
+            dispatch((0, _loading_bar_ducks.hideLoading)());
+          }
         }
 
-        var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
-
-        var PENDING = _promiseTypeSuffixes[0];
-        var FULFILLED = _promiseTypeSuffixes[1];
-        var REJECTED = _promiseTypeSuffixes[2];
-
-
-        var isPending = new RegExp(PENDING + '$', 'g');
-        var isFulfilled = new RegExp(FULFILLED + '$', 'g');
-        var isRejected = new RegExp(REJECTED + '$', 'g');
-
-        if (!!action.type.match(isPending)) {
-          dispatch((0, _loading_bar_ducks.showLoading)());
-        } else if (!!action.type.match(isFulfilled) || !!action.type.match(isRejected)) {
-          dispatch((0, _loading_bar_ducks.hideLoading)());
-        }
+        return next(action);
       };
     };
   };

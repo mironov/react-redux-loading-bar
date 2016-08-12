@@ -21,8 +21,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches SHOW action', () => {
       const originalAction = { type: 'something/FETCH_PENDING' }
       const expectedActions = [
-        originalAction,
         showLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {
@@ -40,8 +40,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches HIDE action', () => {
       const originalAction = { type: 'something/FETCH_FULFILLED' }
       const expectedActions = [
-        originalAction,
         hideLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {
@@ -59,8 +59,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches HIDE action', () => {
       const originalAction = { type: 'something/FETCH_REJECTED' }
       const expectedActions = [
-        originalAction,
         hideLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {
@@ -141,8 +141,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches SHOW action on _REQUEST action', () => {
       const originalAction = { type: 'something/FETCH_LOAD' }
       const expectedActions = [
-        originalAction,
         showLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {
@@ -158,8 +158,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches HIDE action on _SUCCESS action', () => {
       const originalAction = { type: 'something/FETCH_SUCCESS' }
       const expectedActions = [
-        originalAction,
         hideLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {
@@ -175,8 +175,8 @@ describe('loadingBarMiddleware', () => {
     it('dispatches HIDE action on _FAILURE action', () => {
       const originalAction = { type: 'something/FETCH_FAIL' }
       const expectedActions = [
-        originalAction,
         hideLoading(),
+        originalAction,
       ]
 
       const mockDispatch = (action) => {

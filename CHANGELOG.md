@@ -1,5 +1,8 @@
 # Release History
 
+## 2.3.0
+   - Simplify the middleware
+
 ## 2.2.3
    - Loading Bar should not reset to 0 before disappear
 
