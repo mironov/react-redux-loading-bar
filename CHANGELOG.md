@@ -1,5 +1,8 @@
 # Release History
 
+## 2.2.2
+   - Add fade effect on SHOW and HIDE actions by using opacity transition (thanks to @hieuhlc)
+
 ## 2.2.1
    - Match actions with regular expressions to prevent false positives (thanks to @ThomasMarnet)
 
