@@ -1,5 +1,6 @@
 import thunkMiddleware from 'redux-thunk'
 import promiseMiddleware from 'redux-promise-middleware'
+import createLogger from 'redux-logger'
 import {
   createStore,
   applyMiddleware,
@@ -11,6 +12,7 @@ import rootReducer from './reducer'
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(
+    createLogger(), // log actions in console
     thunkMiddleware, // lets us dispatch() functions
     promiseMiddleware(), // resolves promises
     loadingBarMiddleware(), // manages loading bar

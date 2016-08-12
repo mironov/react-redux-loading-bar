@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar-demo",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "dependencies": {
     "acorn": {
       "version": "3.1.0",
@@ -3319,7 +3319,7 @@
       "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.5.tgz"
     },
     "react-redux-loading-bar": {
-      "version": "2.2.3",
+      "version": "2.3.0",
       "dependencies": {
         "abab": {
           "version": "1.0.3",
@@ -6692,6 +6692,11 @@
       "version": "3.5.2",
       "from": "redux@>=3.5.2 <4.0.0",
       "resolved": "https://registry.npmjs.org/redux/-/redux-3.5.2.tgz"
+    },
+    "redux-logger": {
+      "version": "2.6.1",
+      "from": "redux-logger@latest",
+      "resolved": "https://registry.npmjs.org/redux-logger/-/redux-logger-2.6.1.tgz"
     },
     "redux-promise-middleware": {
       "version": "3.0.0",
