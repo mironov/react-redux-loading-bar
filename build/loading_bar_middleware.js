@@ -21,6 +21,8 @@ function loadingBarMiddleware() {
     var dispatch = _ref.dispatch;
     return function (next) {
       return function (action) {
+        var nextAction = next(action);
+
         if (action.type === undefined) {
           return false;
         }
@@ -42,7 +44,7 @@ function loadingBarMiddleware() {
           dispatch((0, _loading_bar_ducks.hideLoading)());
         }
 
-        return next(action);
+        return nextAction;
       };
     };
   };

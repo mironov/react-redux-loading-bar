@@ -6,6 +6,8 @@ export default function loadingBarMiddleware(config = {}) {
   const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
 
   return ({ dispatch }) => next => action => {
+    const nextAction = next(action)
+
     if (action.type === undefined) {
       return false
     }
@@ -23,6 +25,6 @@ export default function loadingBarMiddleware(config = {}) {
       dispatch(hideLoading())
     }
 
-    return next(action)
+    return nextAction
   }
 }
