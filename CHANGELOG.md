@@ -1,5 +1,8 @@
 # Release History
 
+## 2.2.3
+   - Loading Bar should not reset to 0 before disappear
+
 ## 2.2.2
    - Add fade effect on SHOW and HIDE actions by using opacity transition (thanks to @hieuhlc)
 

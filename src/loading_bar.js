@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 90
 export const PROGRESS_INCREASE = 5
+export const ANIMATION_TIME = UPDATE_TIME * 2
+
 
 export class LoadingBar extends React.Component {
   constructor(props) {
@@ -15,6 +17,7 @@ export class LoadingBar extends React.Component {
     }
 
     this.boundSimulateProgress = this.simulateProgress.bind(this)
+    this.boundResetProgress = this.resetProgress.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,13 +44,12 @@ export class LoadingBar extends React.Component {
   }
 
   simulateProgress() {
-    let interval = this.state.interval
-    let percent = this.state.percent
+    let { interval, percent } = this.state
 
     if (percent === 100) {
       clearInterval(interval)
+      setTimeout(this.boundResetProgress, ANIMATION_TIME)
       interval = null
-      percent = 0
     } else if (this.props.loading === 0) {
       percent = 100
     } else if (percent < this.props.maxProgress) {
@@ -57,8 +59,15 @@ export class LoadingBar extends React.Component {
     this.setState({ percent, interval })
   }
 
+  resetProgress() {
+    this.setState({
+      percent: 0,
+      interval: null,
+    })
+  }
+
   shouldShow(percent) {
-    return (percent > 0) && (percent <= 100)
+    return (percent > 0) && (percent < 100)
   }
 
   buildStyle() {
@@ -66,7 +75,9 @@ export class LoadingBar extends React.Component {
       height: '3px',
       width: `${this.state.percent}%`,
       backgroundColor: 'red',
-      transition: 'width 400ms ease-out, height 400ms linear, opacity 400ms ease-out',
+      transition: `width ${ANIMATION_TIME}ms ease-out,
+                   height ${ANIMATION_TIME}ms linear,
+                   opacity ${ANIMATION_TIME}ms ease-out`,
       position: 'absolute',
       opacity: '1',
     }

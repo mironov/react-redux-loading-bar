@@ -8,6 +8,7 @@ import {
   UPDATE_TIME,
   MAX_PROGRESS,
   PROGRESS_INCREASE,
+  ANIMATION_TIME,
 } from '../src/loading_bar'
 
 expect.extend(expectJSX)
@@ -175,6 +176,18 @@ describe('LoadingBar', () => {
       expect(wrapper.state().interval).toNotExist()
     })
 
+    it('resets progress if loading becomes 0 and after animations', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().percent).toBeGreaterThan(0).toBeLessThan(100)
+      wrapper.setProps({ loading: 0 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().percent).toBe(100)
+      clock.tick(UPDATE_TIME + ANIMATION_TIME)
+      expect(wrapper.state().percent).toBe(0)
+    })
+
     describe('if percent is less than MAX_PROGRESS', () => {
       it('increases percent', () => {
         const wrapper = shallow(<LoadingBar />)
@@ -255,7 +268,9 @@ describe('LoadingBar', () => {
 
     it('can be changed', () => {
       const progressIncrease = 5
-      const wrapper = shallow(<LoadingBar progressIncrease={progressIncrease} />)
+      const wrapper = shallow(
+        <LoadingBar progressIncrease={progressIncrease} />
+      )
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(wrapper.state().percent).toEqual(progressIncrease)
