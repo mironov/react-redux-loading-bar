@@ -6,15 +6,17 @@ export const MAX_PROGRESS = 90
 export const PROGRESS_INCREASE = 5
 export const ANIMATION_TIME = UPDATE_TIME * 2
 
+const initialState = {
+  percent: 0,
+  progressInterval: null,
+  animationTimeout: null,
+}
 
 export class LoadingBar extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      percent: 0,
-      interval: null,
-    }
+    this.state = initialState
 
     this.boundSimulateProgress = this.simulateProgress.bind(this)
     this.boundResetProgress = this.resetProgress.bind(this)
@@ -27,43 +29,45 @@ export class LoadingBar extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.state.interval) {
-      clearInterval(this.state.interval)
+    if (this.state.progressInterval) {
+      clearInterval(this.state.progressInterval)
+    }
+    if (this.state.animationTimeout) {
+      clearTimeout(this.state.animationTimeout)
     }
   }
 
   launch() {
-    let interval = this.state.interval
-    const percent = this.state.percent
+    let progressInterval = this.state.progressInterval
 
-    if (!interval) {
-      interval = setInterval(this.boundSimulateProgress, this.props.updateTime)
+    if (!progressInterval) {
+      progressInterval = setInterval(
+        this.boundSimulateProgress,
+        this.props.updateTime
+      )
     }
 
-    this.setState({ percent, interval })
+    this.setState({ ...this.state, progressInterval })
   }
 
   simulateProgress() {
-    let { interval, percent } = this.state
+    let { progressInterval, percent, animationTimeout } = this.state
 
     if (percent === 100) {
-      clearInterval(interval)
-      setTimeout(this.boundResetProgress, ANIMATION_TIME)
-      interval = null
+      clearInterval(progressInterval)
+      animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME)
+      progressInterval = null
     } else if (this.props.loading === 0) {
       percent = 100
     } else if (percent < this.props.maxProgress) {
       percent = percent + this.props.progressIncrease
     }
 
-    this.setState({ percent, interval })
+    this.setState({ percent, progressInterval, animationTimeout })
   }
 
   resetProgress() {
-    this.setState({
-      percent: 0,
-      interval: null,
-    })
+    this.setState(initialState)
   }
 
   shouldShow(percent) {

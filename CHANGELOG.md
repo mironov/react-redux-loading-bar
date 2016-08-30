@@ -1,5 +1,8 @@
 # Release History
 
+## 2.3.1
+   - Do not call resetProgress after the Loading Bar is unmounted
+
 ## 2.3.0
    - Simplify the middleware
 

@@ -97,9 +97,21 @@ describe('LoadingBar', () => {
     it('does not throw errors in the console', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
-      expect(wrapper.state().interval).toNotEqual(null)
+      expect(wrapper.state().progressInterval).toNotEqual(null)
       wrapper.unmount()
       clock.tick(UPDATE_TIME)
+      expect(consoleSpy).toNotHaveBeenCalled()
+    })
+
+    it('does not throw errors in the console after loading', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+      wrapper.setProps({ loading: 0 })
+      clock.tick(UPDATE_TIME * 2)
+      expect(wrapper.state().animationTimeout).toNotEqual(null)
+      wrapper.unmount()
+      clock.tick(ANIMATION_TIME)
       expect(consoleSpy).toNotHaveBeenCalled()
     })
   })
@@ -159,10 +171,10 @@ describe('LoadingBar', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().interval).toExist()
+      expect(wrapper.state().progressInterval).toExist()
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().interval).toExist()
+      expect(wrapper.state().progressInterval).toExist()
       expect(wrapper.state().percent).toBe(100)
     })
 
@@ -170,10 +182,10 @@ describe('LoadingBar', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().interval).toExist()
+      expect(wrapper.state().progressInterval).toExist()
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME * 2)
-      expect(wrapper.state().interval).toNotExist()
+      expect(wrapper.state().progressInterval).toNotExist()
     })
 
     it('resets progress if loading becomes 0 and after animations', () => {
@@ -186,6 +198,7 @@ describe('LoadingBar', () => {
       expect(wrapper.state().percent).toBe(100)
       clock.tick(UPDATE_TIME + ANIMATION_TIME)
       expect(wrapper.state().percent).toBe(0)
+      expect(wrapper.state().animationTimeout).toNotExist()
     })
 
     describe('if percent is less than MAX_PROGRESS', () => {

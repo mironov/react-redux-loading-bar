@@ -28,6 +28,12 @@ var MAX_PROGRESS = exports.MAX_PROGRESS = 90;
 var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 5;
 var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 2;
 
+var initialState = {
+  percent: 0,
+  progressInterval: null,
+  animationTimeout: null
+};
+
 var LoadingBar = exports.LoadingBar = function (_React$Component) {
   _inherits(LoadingBar, _React$Component);
 
@@ -36,10 +42,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LoadingBar).call(this, props));
 
-    _this.state = {
-      percent: 0,
-      interval: null
-    };
+    _this.state = initialState;
 
     _this.boundSimulateProgress = _this.simulateProgress.bind(_this);
     _this.boundResetProgress = _this.resetProgress.bind(_this);
@@ -56,49 +59,49 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      if (this.state.interval) {
-        clearInterval(this.state.interval);
+      if (this.state.progressInterval) {
+        clearInterval(this.state.progressInterval);
+      }
+      if (this.state.animationTimeout) {
+        clearTimeout(this.state.animationTimeout);
       }
     }
   }, {
     key: 'launch',
     value: function launch() {
-      var interval = this.state.interval;
-      var percent = this.state.percent;
+      var progressInterval = this.state.progressInterval;
 
-      if (!interval) {
-        interval = setInterval(this.boundSimulateProgress, this.props.updateTime);
+      if (!progressInterval) {
+        progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
       }
 
-      this.setState({ percent: percent, interval: interval });
+      this.setState(_extends({}, this.state, { progressInterval: progressInterval }));
     }
   }, {
     key: 'simulateProgress',
     value: function simulateProgress() {
       var _state = this.state;
-      var interval = _state.interval;
+      var progressInterval = _state.progressInterval;
       var percent = _state.percent;
+      var animationTimeout = _state.animationTimeout;
 
 
       if (percent === 100) {
-        clearInterval(interval);
-        setTimeout(this.boundResetProgress, ANIMATION_TIME);
-        interval = null;
+        clearInterval(progressInterval);
+        animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME);
+        progressInterval = null;
       } else if (this.props.loading === 0) {
         percent = 100;
       } else if (percent < this.props.maxProgress) {
         percent = percent + this.props.progressIncrease;
       }
 
-      this.setState({ percent: percent, interval: interval });
+      this.setState({ percent: percent, progressInterval: progressInterval, animationTimeout: animationTimeout });
     }
   }, {
     key: 'resetProgress',
     value: function resetProgress() {
-      this.setState({
-        percent: 0,
-        interval: null
-      });
+      this.setState(initialState);
     }
   }, {
     key: 'shouldShow',
