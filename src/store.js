@@ -12,10 +12,10 @@ import rootReducer from './reducer'
 
 const createStoreWithMiddleware = compose(
   applyMiddleware(
-    createLogger(), // log actions in console
     thunkMiddleware, // lets us dispatch() functions
     promiseMiddleware(), // resolves promises
     loadingBarMiddleware(), // manages loading bar
+    createLogger(), // log actions in console
   )
 )(createStore)
 

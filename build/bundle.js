@@ -31160,7 +31160,7 @@
 	
 	var _pi = __webpack_require__(/*! ./reducers/pi */ 494);
 	
-	var _header = __webpack_require__(/*! ./components/header */ 556);
+	var _header = __webpack_require__(/*! ./components/header */ 495);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
@@ -48031,18 +48031,14 @@
 /*!****************************!*\
   !*** ./src/reducers/pi.js ***!
   \****************************/
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.calculatePi = exports.calculatePiFulfilled = exports.calculatePiPending = exports.CALCULATE_FULFILLED = exports.CALCULATE_PENDING = undefined;
 	exports.default = piReducer;
-	
-	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 495);
-	
 	var CALCULATE_PENDING = exports.CALCULATE_PENDING = 'pi/CALCULATE_PENDING';
 	var CALCULATE_FULFILLED = exports.CALCULATE_FULFILLED = 'pi/CALCULATE_FULFILLED';
 	
@@ -48062,12 +48058,10 @@
 	var calculatePi = exports.calculatePi = function calculatePi() {
 	  return function (dispatch) {
 	    dispatch(calculatePiPending());
-	    dispatch((0, _reactReduxLoadingBar.showLoading)());
 	    var worker = new Worker('build/pi.js');
 	
 	    worker.addEventListener('message', function (e) {
 	      dispatch(calculatePiFulfilled(e.data));
-	      dispatch((0, _reactReduxLoadingBar.hideLoading)());
 	    }, false);
 	
 	    // precision
@@ -48092,6 +48086,53 @@
 
 /***/ },
 /* 495 */
+/*!**********************************!*\
+  !*** ./src/components/header.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 496);
+	
+	var _reactReduxLoadingBar2 = _interopRequireDefault(_reactReduxLoadingBar);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Header = function Header() {
+	  return _react2.default.createElement(
+	    'header',
+	    null,
+	    _react2.default.createElement(_reactReduxLoadingBar2.default, null),
+	    _react2.default.createElement(
+	      'a',
+	      {
+	        href: 'https://github.com/mironov/react-redux-loading-bar',
+	        className: 'block mt3 mb4 mx-auto',
+	        style: { fontSize: '3.25rem' }
+	      },
+	      'react-redux-loading-bar'
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      { className: 'mb3' },
+	      'Simple Loading Bar for Redux and React'
+	    )
+	  );
+	};
+	
+	exports.default = Header;
+
+/***/ },
+/* 496 */
 /*!*************************************************!*\
   !*** ../react-redux-loading-bar/build/index.js ***!
   \*************************************************/
@@ -48104,13 +48145,13 @@
 	});
 	exports.hideLoading = exports.showLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = undefined;
 	
-	var _loading_bar_middleware = __webpack_require__(/*! ./loading_bar_middleware */ 496);
+	var _loading_bar_middleware = __webpack_require__(/*! ./loading_bar_middleware */ 497);
 	
 	var _loading_bar_middleware2 = _interopRequireDefault(_loading_bar_middleware);
 	
-	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 497);
+	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 498);
 	
-	var _loading_bar = __webpack_require__(/*! ./loading_bar */ 498);
+	var _loading_bar = __webpack_require__(/*! ./loading_bar */ 499);
 	
 	var _loading_bar2 = _interopRequireDefault(_loading_bar);
 	
@@ -48123,7 +48164,7 @@
 	exports.default = _loading_bar2.default;
 
 /***/ },
-/* 496 */
+/* 497 */
 /*!******************************************************************!*\
   !*** ../react-redux-loading-bar/build/loading_bar_middleware.js ***!
   \******************************************************************/
@@ -48139,7 +48180,7 @@
 	
 	exports.default = loadingBarMiddleware;
 	
-	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 497);
+	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 498);
 	
 	var defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED'];
 	
@@ -48178,7 +48219,7 @@
 	}
 
 /***/ },
-/* 497 */
+/* 498 */
 /*!*************************************************************!*\
   !*** ../react-redux-loading-bar/build/loading_bar_ducks.js ***!
   \*************************************************************/
@@ -48228,7 +48269,7 @@
 	}
 
 /***/ },
-/* 498 */
+/* 499 */
 /*!*******************************************************!*\
   !*** ../react-redux-loading-bar/build/loading_bar.js ***!
   \*******************************************************/
@@ -48245,11 +48286,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _react = __webpack_require__(/*! react */ 499);
+	var _react = __webpack_require__(/*! react */ 500);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 530);
+	var _reactRedux = __webpack_require__(/*! react-redux */ 531);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -48409,7 +48450,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LoadingBar);
 
 /***/ },
-/* 499 */
+/* 500 */
 /*!***************************************************!*\
   !*** ../react-redux-loading-bar/~/react/react.js ***!
   \***************************************************/
@@ -48417,11 +48458,11 @@
 
 	'use strict';
 	
-	module.exports = __webpack_require__(/*! ./lib/React */ 500);
+	module.exports = __webpack_require__(/*! ./lib/React */ 501);
 
 
 /***/ },
-/* 500 */
+/* 501 */
 /*!*******************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/React.js ***!
   \*******************************************************/
@@ -48440,19 +48481,19 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 501);
+	var _assign = __webpack_require__(/*! object-assign */ 502);
 	
-	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 502);
-	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 513);
-	var ReactClass = __webpack_require__(/*! ./ReactClass */ 519);
-	var ReactDOMFactories = __webpack_require__(/*! ./ReactDOMFactories */ 524);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
-	var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 525);
-	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 527);
-	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 528);
+	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 503);
+	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 514);
+	var ReactClass = __webpack_require__(/*! ./ReactClass */ 520);
+	var ReactDOMFactories = __webpack_require__(/*! ./ReactDOMFactories */ 525);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
+	var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 526);
+	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 528);
+	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 529);
 	
-	var onlyChild = __webpack_require__(/*! ./onlyChild */ 529);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var onlyChild = __webpack_require__(/*! ./onlyChild */ 530);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	var createElement = ReactElement.createElement;
 	var createFactory = ReactElement.createFactory;
@@ -48517,7 +48558,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 501 */
+/* 502 */
 /*!***********************************************************!*\
   !*** ../react-redux-loading-bar/~/object-assign/index.js ***!
   \***********************************************************/
@@ -48609,7 +48650,7 @@
 
 
 /***/ },
-/* 502 */
+/* 503 */
 /*!***************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactChildren.js ***!
   \***************************************************************/
@@ -48628,11 +48669,11 @@
 	
 	'use strict';
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 503);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 504);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 508);
-	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 510);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 509);
+	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 511);
 	
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -48800,7 +48841,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 503 */
+/* 504 */
 /*!*************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/PooledClass.js ***!
   \*************************************************************/
@@ -48819,7 +48860,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
 	
 	/**
 	 * Static poolers. Several custom versions for each potential number of
@@ -48928,7 +48969,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 504 */
+/* 505 */
 /*!**********************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/invariant.js ***!
   \**********************************************************/
@@ -48986,7 +49027,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 505 */
+/* 506 */
 /*!**************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactElement.js ***!
   \**************************************************************/
@@ -49005,12 +49046,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 501);
+	var _assign = __webpack_require__(/*! object-assign */ 502);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 506);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 507);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 509);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 510);
 	
 	// The Symbol used to tag the ReactElement type. If there is no native Symbol
 	// nor polyfill, then a plain number is used for performance.
@@ -49282,7 +49323,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 506 */
+/* 507 */
 /*!*******************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactCurrentOwner.js ***!
   \*******************************************************************/
@@ -49321,7 +49362,7 @@
 	module.exports = ReactCurrentOwner;
 
 /***/ },
-/* 507 */
+/* 508 */
 /*!********************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/warning.js ***!
   \********************************************************/
@@ -49339,7 +49380,7 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 508);
+	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 509);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -49386,7 +49427,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 508 */
+/* 509 */
 /*!**************************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/emptyFunction.js ***!
   \**************************************************************/
@@ -49431,7 +49472,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 509 */
+/* 510 */
 /*!*******************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/canDefineProperty.js ***!
   \*******************************************************************/
@@ -49464,7 +49505,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 510 */
+/* 511 */
 /*!*********************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/traverseAllChildren.js ***!
   \*********************************************************************/
@@ -49483,13 +49524,13 @@
 	
 	'use strict';
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 506);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 507);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
 	
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 511);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
-	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 512);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 512);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
+	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 513);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	var SEPARATOR = '.';
 	var SUBSEPARATOR = ':';
@@ -49631,7 +49672,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 511 */
+/* 512 */
 /*!***************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/getIteratorFn.js ***!
   \***************************************************************/
@@ -49679,7 +49720,7 @@
 	module.exports = getIteratorFn;
 
 /***/ },
-/* 512 */
+/* 513 */
 /*!****************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/KeyEscapeUtils.js ***!
   \****************************************************************/
@@ -49745,7 +49786,7 @@
 	module.exports = KeyEscapeUtils;
 
 /***/ },
-/* 513 */
+/* 514 */
 /*!****************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactComponent.js ***!
   \****************************************************************/
@@ -49764,13 +49805,13 @@
 	
 	'use strict';
 	
-	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 514);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 515);
+	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 515);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 516);
 	
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 509);
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 518);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 510);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -49875,7 +49916,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 514 */
+/* 515 */
 /*!**********************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactNoopUpdateQueue.js ***!
   \**********************************************************************/
@@ -49894,7 +49935,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	function warnTDZ(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -49979,7 +50020,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 515 */
+/* 516 */
 /*!**********************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactInstrumentation.js ***!
   \**********************************************************************/
@@ -49998,12 +50039,12 @@
 	
 	'use strict';
 	
-	var ReactDebugTool = __webpack_require__(/*! ./ReactDebugTool */ 516);
+	var ReactDebugTool = __webpack_require__(/*! ./ReactDebugTool */ 517);
 	
 	module.exports = { debugTool: ReactDebugTool };
 
 /***/ },
-/* 516 */
+/* 517 */
 /*!****************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactDebugTool.js ***!
   \****************************************************************/
@@ -50022,8 +50063,8 @@
 	
 	'use strict';
 	
-	var ReactInvalidSetStateWarningDevTool = __webpack_require__(/*! ./ReactInvalidSetStateWarningDevTool */ 517);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var ReactInvalidSetStateWarningDevTool = __webpack_require__(/*! ./ReactInvalidSetStateWarningDevTool */ 518);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	var eventHandlers = [];
 	var handlerDoesThrowForEvent = {};
@@ -50084,7 +50125,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 517 */
+/* 518 */
 /*!************************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactInvalidSetStateWarningDevTool.js ***!
   \************************************************************************************/
@@ -50103,7 +50144,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var processingChildContext = false;
@@ -50129,7 +50170,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 518 */
+/* 519 */
 /*!************************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/emptyObject.js ***!
   \************************************************************/
@@ -50157,7 +50198,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 519 */
+/* 520 */
 /*!************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactClass.js ***!
   \************************************************************/
@@ -50176,19 +50217,19 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 501);
+	var _assign = __webpack_require__(/*! object-assign */ 502);
 	
-	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 513);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 520);
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 522);
-	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 514);
+	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 514);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 521);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 523);
+	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 515);
 	
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 518);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 521);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 523);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 522);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 524);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	var MIXINS_KEY = keyOf({ mixins: null });
 	
@@ -50889,7 +50930,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 520 */
+/* 521 */
 /*!************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactPropTypeLocations.js ***!
   \************************************************************************/
@@ -50908,7 +50949,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 521);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 522);
 	
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -50919,7 +50960,7 @@
 	module.exports = ReactPropTypeLocations;
 
 /***/ },
-/* 521 */
+/* 522 */
 /*!**********************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/keyMirror.js ***!
   \**********************************************************/
@@ -50938,7 +50979,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(/*! ./invariant */ 504);
+	var invariant = __webpack_require__(/*! ./invariant */ 505);
 	
 	/**
 	 * Constructs an enumeration with keys equal to their value.
@@ -50975,7 +51016,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 522 */
+/* 523 */
 /*!****************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactPropTypeLocationNames.js ***!
   \****************************************************************************/
@@ -51008,7 +51049,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 523 */
+/* 524 */
 /*!******************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/keyOf.js ***!
   \******************************************************/
@@ -51050,7 +51091,7 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 524 */
+/* 525 */
 /*!*******************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactDOMFactories.js ***!
   \*******************************************************************/
@@ -51069,10 +51110,10 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
-	var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 525);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
+	var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 526);
 	
-	var mapObject = __webpack_require__(/*! fbjs/lib/mapObject */ 526);
+	var mapObject = __webpack_require__(/*! fbjs/lib/mapObject */ 527);
 	
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -51235,7 +51276,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 525 */
+/* 526 */
 /*!***********************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactElementValidator.js ***!
   \***********************************************************************/
@@ -51261,15 +51302,15 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 520);
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 522);
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 506);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 521);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 523);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 507);
 	
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 509);
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 511);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 507);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 510);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 512);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 508);
 	
 	function getDeclarationErrorAddendum() {
 	  if (ReactCurrentOwner.current) {
@@ -51525,7 +51566,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 526 */
+/* 527 */
 /*!**********************************************************!*\
   !*** ../react-redux-loading-bar/~/fbjs/lib/mapObject.js ***!
   \**********************************************************/
@@ -51583,7 +51624,7 @@
 	module.exports = mapObject;
 
 /***/ },
-/* 527 */
+/* 528 */
 /*!****************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactPropTypes.js ***!
   \****************************************************************/
@@ -51602,11 +51643,11 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 522);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 523);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 508);
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 511);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 509);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 512);
 	
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -51971,7 +52012,7 @@
 	module.exports = ReactPropTypes;
 
 /***/ },
-/* 528 */
+/* 529 */
 /*!**************************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/ReactVersion.js ***!
   \**************************************************************/
@@ -51993,7 +52034,7 @@
 	module.exports = '15.0.2';
 
 /***/ },
-/* 529 */
+/* 530 */
 /*!***********************************************************!*\
   !*** ../react-redux-loading-bar/~/react/lib/onlyChild.js ***!
   \***********************************************************/
@@ -52011,9 +52052,9 @@
 	 */
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 505);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 506);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 504);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 505);
 	
 	/**
 	 * Returns the first child in a collection of children and verifies that there
@@ -52035,7 +52076,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 530 */
+/* 531 */
 /*!*************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/index.js ***!
   \*************************************************************/
@@ -52046,11 +52087,11 @@
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 	
-	var _Provider = __webpack_require__(/*! ./components/Provider */ 531);
+	var _Provider = __webpack_require__(/*! ./components/Provider */ 532);
 	
 	var _Provider2 = _interopRequireDefault(_Provider);
 	
-	var _connect = __webpack_require__(/*! ./components/connect */ 534);
+	var _connect = __webpack_require__(/*! ./components/connect */ 535);
 	
 	var _connect2 = _interopRequireDefault(_connect);
 	
@@ -52060,7 +52101,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 531 */
+/* 532 */
 /*!***************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/components/Provider.js ***!
   \***************************************************************************/
@@ -52071,13 +52112,13 @@
 	exports.__esModule = true;
 	exports["default"] = undefined;
 	
-	var _react = __webpack_require__(/*! react */ 499);
+	var _react = __webpack_require__(/*! react */ 500);
 	
-	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 532);
+	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 533);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _warning = __webpack_require__(/*! ../utils/warning */ 533);
+	var _warning = __webpack_require__(/*! ../utils/warning */ 534);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -52147,7 +52188,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 532 */
+/* 533 */
 /*!************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/utils/storeShape.js ***!
   \************************************************************************/
@@ -52157,7 +52198,7 @@
 	
 	exports.__esModule = true;
 	
-	var _react = __webpack_require__(/*! react */ 499);
+	var _react = __webpack_require__(/*! react */ 500);
 	
 	exports["default"] = _react.PropTypes.shape({
 	  subscribe: _react.PropTypes.func.isRequired,
@@ -52166,7 +52207,7 @@
 	});
 
 /***/ },
-/* 533 */
+/* 534 */
 /*!*********************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/utils/warning.js ***!
   \*********************************************************************/
@@ -52198,7 +52239,7 @@
 	}
 
 /***/ },
-/* 534 */
+/* 535 */
 /*!**************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/components/connect.js ***!
   \**************************************************************************/
@@ -52211,33 +52252,33 @@
 	exports.__esModule = true;
 	exports["default"] = connect;
 	
-	var _react = __webpack_require__(/*! react */ 499);
+	var _react = __webpack_require__(/*! react */ 500);
 	
-	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 532);
+	var _storeShape = __webpack_require__(/*! ../utils/storeShape */ 533);
 	
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 	
-	var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ 535);
+	var _shallowEqual = __webpack_require__(/*! ../utils/shallowEqual */ 536);
 	
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 	
-	var _wrapActionCreators = __webpack_require__(/*! ../utils/wrapActionCreators */ 536);
+	var _wrapActionCreators = __webpack_require__(/*! ../utils/wrapActionCreators */ 537);
 	
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 	
-	var _warning = __webpack_require__(/*! ../utils/warning */ 533);
+	var _warning = __webpack_require__(/*! ../utils/warning */ 534);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 550);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 551);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ 554);
+	var _hoistNonReactStatics = __webpack_require__(/*! hoist-non-react-statics */ 555);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _invariant = __webpack_require__(/*! invariant */ 555);
+	var _invariant = __webpack_require__(/*! invariant */ 556);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -52600,7 +52641,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 535 */
+/* 536 */
 /*!**************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/utils/shallowEqual.js ***!
   \**************************************************************************/
@@ -52634,7 +52675,7 @@
 	}
 
 /***/ },
-/* 536 */
+/* 537 */
 /*!********************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/lib/utils/wrapActionCreators.js ***!
   \********************************************************************************/
@@ -52645,7 +52686,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 	
-	var _redux = __webpack_require__(/*! redux */ 537);
+	var _redux = __webpack_require__(/*! redux */ 538);
 	
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -52654,7 +52695,7 @@
 	}
 
 /***/ },
-/* 537 */
+/* 538 */
 /*!*******************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/index.js ***!
   \*******************************************************/
@@ -52665,27 +52706,27 @@
 	exports.__esModule = true;
 	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
 	
-	var _createStore = __webpack_require__(/*! ./createStore */ 538);
+	var _createStore = __webpack_require__(/*! ./createStore */ 539);
 	
 	var _createStore2 = _interopRequireDefault(_createStore);
 	
-	var _combineReducers = __webpack_require__(/*! ./combineReducers */ 545);
+	var _combineReducers = __webpack_require__(/*! ./combineReducers */ 546);
 	
 	var _combineReducers2 = _interopRequireDefault(_combineReducers);
 	
-	var _bindActionCreators = __webpack_require__(/*! ./bindActionCreators */ 547);
+	var _bindActionCreators = __webpack_require__(/*! ./bindActionCreators */ 548);
 	
 	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
 	
-	var _applyMiddleware = __webpack_require__(/*! ./applyMiddleware */ 548);
+	var _applyMiddleware = __webpack_require__(/*! ./applyMiddleware */ 549);
 	
 	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
 	
-	var _compose = __webpack_require__(/*! ./compose */ 549);
+	var _compose = __webpack_require__(/*! ./compose */ 550);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _warning = __webpack_require__(/*! ./utils/warning */ 546);
+	var _warning = __webpack_require__(/*! ./utils/warning */ 547);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -52709,7 +52750,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 538 */
+/* 539 */
 /*!*************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/createStore.js ***!
   \*************************************************************/
@@ -52721,11 +52762,11 @@
 	exports.ActionTypes = undefined;
 	exports["default"] = createStore;
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 539);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 540);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _symbolObservable = __webpack_require__(/*! symbol-observable */ 543);
+	var _symbolObservable = __webpack_require__(/*! symbol-observable */ 544);
 	
 	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
 	
@@ -52979,15 +53020,15 @@
 	}
 
 /***/ },
-/* 539 */
+/* 540 */
 /*!********************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/~/lodash/isPlainObject.js ***!
   \********************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(/*! ./_getPrototype */ 540),
-	    isHostObject = __webpack_require__(/*! ./_isHostObject */ 541),
-	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 542);
+	var getPrototype = __webpack_require__(/*! ./_getPrototype */ 541),
+	    isHostObject = __webpack_require__(/*! ./_isHostObject */ 542),
+	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 543);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -53058,7 +53099,7 @@
 
 
 /***/ },
-/* 540 */
+/* 541 */
 /*!********************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/~/lodash/_getPrototype.js ***!
   \********************************************************************/
@@ -53082,7 +53123,7 @@
 
 
 /***/ },
-/* 541 */
+/* 542 */
 /*!********************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/~/lodash/_isHostObject.js ***!
   \********************************************************************/
@@ -53111,7 +53152,7 @@
 
 
 /***/ },
-/* 542 */
+/* 543 */
 /*!*******************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/~/lodash/isObjectLike.js ***!
   \*******************************************************************/
@@ -53149,7 +53190,7 @@
 
 
 /***/ },
-/* 543 */
+/* 544 */
 /*!***************************************************************!*\
   !*** ../react-redux-loading-bar/~/symbol-observable/index.js ***!
   \***************************************************************/
@@ -53158,12 +53199,12 @@
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
 	'use strict';
 	
-	module.exports = __webpack_require__(/*! ./ponyfill */ 544)(global || window || this);
+	module.exports = __webpack_require__(/*! ./ponyfill */ 545)(global || window || this);
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 544 */
+/* 545 */
 /*!******************************************************************!*\
   !*** ../react-redux-loading-bar/~/symbol-observable/ponyfill.js ***!
   \******************************************************************/
@@ -53191,7 +53232,7 @@
 
 
 /***/ },
-/* 545 */
+/* 546 */
 /*!*****************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/combineReducers.js ***!
   \*****************************************************************/
@@ -53202,13 +53243,13 @@
 	exports.__esModule = true;
 	exports["default"] = combineReducers;
 	
-	var _createStore = __webpack_require__(/*! ./createStore */ 538);
+	var _createStore = __webpack_require__(/*! ./createStore */ 539);
 	
-	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 539);
+	var _isPlainObject = __webpack_require__(/*! lodash/isPlainObject */ 540);
 	
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 	
-	var _warning = __webpack_require__(/*! ./utils/warning */ 546);
+	var _warning = __webpack_require__(/*! ./utils/warning */ 547);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -53327,7 +53368,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
 
 /***/ },
-/* 546 */
+/* 547 */
 /*!***************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/utils/warning.js ***!
   \***************************************************************/
@@ -53360,7 +53401,7 @@
 	}
 
 /***/ },
-/* 547 */
+/* 548 */
 /*!********************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/bindActionCreators.js ***!
   \********************************************************************/
@@ -53419,7 +53460,7 @@
 	}
 
 /***/ },
-/* 548 */
+/* 549 */
 /*!*****************************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/applyMiddleware.js ***!
   \*****************************************************************/
@@ -53433,7 +53474,7 @@
 	
 	exports["default"] = applyMiddleware;
 	
-	var _compose = __webpack_require__(/*! ./compose */ 549);
+	var _compose = __webpack_require__(/*! ./compose */ 550);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
@@ -53485,7 +53526,7 @@
 	}
 
 /***/ },
-/* 549 */
+/* 550 */
 /*!*********************************************************!*\
   !*** ../react-redux-loading-bar/~/redux/lib/compose.js ***!
   \*********************************************************/
@@ -53533,15 +53574,15 @@
 	}
 
 /***/ },
-/* 550 */
+/* 551 */
 /*!**************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/~/lodash/isPlainObject.js ***!
   \**************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(/*! ./_getPrototype */ 551),
-	    isHostObject = __webpack_require__(/*! ./_isHostObject */ 552),
-	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 553);
+	var getPrototype = __webpack_require__(/*! ./_getPrototype */ 552),
+	    isHostObject = __webpack_require__(/*! ./_isHostObject */ 553),
+	    isObjectLike = __webpack_require__(/*! ./isObjectLike */ 554);
 	
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -53612,7 +53653,7 @@
 
 
 /***/ },
-/* 551 */
+/* 552 */
 /*!**************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/~/lodash/_getPrototype.js ***!
   \**************************************************************************/
@@ -53636,7 +53677,7 @@
 
 
 /***/ },
-/* 552 */
+/* 553 */
 /*!**************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/~/lodash/_isHostObject.js ***!
   \**************************************************************************/
@@ -53665,7 +53706,7 @@
 
 
 /***/ },
-/* 553 */
+/* 554 */
 /*!*************************************************************************!*\
   !*** ../react-redux-loading-bar/~/react-redux/~/lodash/isObjectLike.js ***!
   \*************************************************************************/
@@ -53703,7 +53744,7 @@
 
 
 /***/ },
-/* 554 */
+/* 555 */
 /*!*********************************************************************!*\
   !*** ../react-redux-loading-bar/~/hoist-non-react-statics/index.js ***!
   \*********************************************************************/
@@ -53752,7 +53793,7 @@
 
 
 /***/ },
-/* 555 */
+/* 556 */
 /*!*********************************************************!*\
   !*** ../react-redux-loading-bar/~/invariant/browser.js ***!
   \*********************************************************/
@@ -53811,53 +53852,6 @@
 	module.exports = invariant;
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 295)))
-
-/***/ },
-/* 556 */
-/*!**********************************!*\
-  !*** ./src/components/header.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 495);
-	
-	var _reactReduxLoadingBar2 = _interopRequireDefault(_reactReduxLoadingBar);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Header = function Header() {
-	  return _react2.default.createElement(
-	    'header',
-	    null,
-	    _react2.default.createElement(_reactReduxLoadingBar2.default, null),
-	    _react2.default.createElement(
-	      'a',
-	      {
-	        href: 'https://github.com/mironov/react-redux-loading-bar',
-	        className: 'block mt3 mb4 mx-auto',
-	        style: { fontSize: '3.25rem' }
-	      },
-	      'react-redux-loading-bar'
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      { className: 'mb3' },
-	      'Simple Loading Bar for Redux and React'
-	    )
-	  );
-	};
-	
-	exports.default = Header;
 
 /***/ },
 /* 557 */
@@ -54010,7 +54004,7 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 466);
 	
-	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 495);
+	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 496);
 	
 	var _jquery = __webpack_require__(/*! jquery */ 560);
 	
@@ -54018,7 +54012,7 @@
 	
 	var _lodash = __webpack_require__(/*! lodash */ 492);
 	
-	var _header = __webpack_require__(/*! ./components/header */ 556);
+	var _header = __webpack_require__(/*! ./components/header */ 495);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
@@ -63989,7 +63983,7 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 473);
 	
-	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 495);
+	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 496);
 	
 	var _reducer = __webpack_require__(/*! ./reducer */ 566);
 	
@@ -63997,10 +63991,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var createStoreWithMiddleware = (0, _redux.compose)((0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), // log actions in console
-	_reduxThunk2.default, // lets us dispatch() functions
+	var createStoreWithMiddleware = (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, // lets us dispatch() functions
 	(0, _reduxPromiseMiddleware2.default)(), // resolves promises
-	(0, _reactReduxLoadingBar.loadingBarMiddleware)()))( // manages loading bar
+	(0, _reactReduxLoadingBar.loadingBarMiddleware)(), // manages loading bar
+	(0, _reduxLogger2.default)()))( // log actions in console
 	_redux.createStore);
 	
 	var store = createStoreWithMiddleware(_reducer2.default);
@@ -64480,7 +64474,7 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 473);
 	
-	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 495);
+	var _reactReduxLoadingBar = __webpack_require__(/*! react-redux-loading-bar */ 496);
 	
 	var _index = __webpack_require__(/*! ./reducers/index */ 567);
 	
