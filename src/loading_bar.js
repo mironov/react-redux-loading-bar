@@ -29,22 +29,20 @@ export class LoadingBar extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.state.progressInterval) {
-      clearInterval(this.state.progressInterval)
-    }
-    if (this.state.animationTimeout) {
-      clearTimeout(this.state.animationTimeout)
-    }
+    clearInterval(this.state.progressInterval)
+    clearTimeout(this.state.animationTimeout)
   }
 
   launch() {
-    let progressInterval = this.state.progressInterval
+    let { progressInterval } = this.state
+    const { animationTimeout } = this.state
 
     if (!progressInterval) {
       progressInterval = setInterval(
         this.boundSimulateProgress,
         this.props.updateTime
       )
+      clearTimeout(animationTimeout)
     }
 
     this.setState({ ...this.state, progressInterval })

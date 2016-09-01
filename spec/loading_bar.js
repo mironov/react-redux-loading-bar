@@ -222,6 +222,52 @@ describe('LoadingBar', () => {
         expect(wrapper.state().percent).toBe(MAX_PROGRESS)
       })
     })
+
+    describe('if it should be shown again during ending animation', () => {
+      let spySimulateProgress
+
+      beforeEach(() => {
+        spySimulateProgress = spyOn(
+          LoadingBar.prototype,
+          'simulateProgress'
+        ).andCallThrough()
+      })
+      afterEach(() => {
+        spySimulateProgress.restore()
+      })
+
+      it('does not hang', () => {
+        const wrapper = shallow(<LoadingBar />)
+
+        // Show Loading Bar
+        wrapper.setProps({ loading: 1 })
+        clock.tick(UPDATE_TIME)
+        expect(wrapper.state().progressInterval).toExist()
+
+        // Hide Loading Bar, let the percent become 100 and
+        // schedule the reset after animation
+        wrapper.setProps({ loading: 0 })
+        clock.tick(UPDATE_TIME * 2)
+        expect(wrapper.state().animationTimeout).toExist()
+
+        // Wait one tick while animation is going
+        clock.tick(UPDATE_TIME)
+
+        // Show Loading Bar again
+        wrapper.setProps({ loading: 1 })
+        expect(wrapper.state().progressInterval).toExist()
+
+        // Wait one more tick to get the animation to finish
+        clock.tick(UPDATE_TIME)
+        expect(wrapper.state().progressInterval).toNotExist()
+
+        // Hide Loading Bar and emulate a long period of time
+        wrapper.setProps({ loading: 0 })
+        clock.tick(UPDATE_TIME * 1000)
+
+        expect(spySimulateProgress.calls.length).toEqual(4)
+      })
+    })
   })
 
   describe('updateTime prop', () => {

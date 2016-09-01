@@ -59,20 +59,19 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      if (this.state.progressInterval) {
-        clearInterval(this.state.progressInterval);
-      }
-      if (this.state.animationTimeout) {
-        clearTimeout(this.state.animationTimeout);
-      }
+      clearInterval(this.state.progressInterval);
+      clearTimeout(this.state.animationTimeout);
     }
   }, {
     key: 'launch',
     value: function launch() {
       var progressInterval = this.state.progressInterval;
+      var animationTimeout = this.state.animationTimeout;
+
 
       if (!progressInterval) {
         progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
+        clearTimeout(animationTimeout);
       }
 
       this.setState(_extends({}, this.state, { progressInterval: progressInterval }));
