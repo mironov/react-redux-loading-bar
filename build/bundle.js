@@ -48342,24 +48342,27 @@
 	  }, {
 	    key: 'launch',
 	    value: function launch() {
-	      var progressInterval = this.state.progressInterval;
+	      var _state = this.state;
+	      var progressInterval = _state.progressInterval;
+	      var percent = _state.percent;
 	      var animationTimeout = this.state.animationTimeout;
 	
 	
 	      if (!progressInterval) {
 	        progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
 	        clearTimeout(animationTimeout);
+	        percent = 0;
 	      }
 	
-	      this.setState(_extends({}, this.state, { progressInterval: progressInterval }));
+	      this.setState(_extends({}, this.state, { progressInterval: progressInterval, percent: percent }));
 	    }
 	  }, {
 	    key: 'simulateProgress',
 	    value: function simulateProgress() {
-	      var _state = this.state;
-	      var progressInterval = _state.progressInterval;
-	      var percent = _state.percent;
-	      var animationTimeout = _state.animationTimeout;
+	      var _state2 = this.state;
+	      var progressInterval = _state2.progressInterval;
+	      var percent = _state2.percent;
+	      var animationTimeout = _state2.animationTimeout;
 	
 	
 	      if (percent === 100) {

@@ -809,10 +809,6 @@ hr{
   border-radius:3px;
 }
 
-:root{
-
-}
-
 input,
 select,
 textarea,
@@ -860,6 +856,10 @@ select:not([multiple]){
 textarea{
   line-height:1.75;
   padding:.5rem .5rem;
+}
+
+:root{
+
 }
 
 .field{
