@@ -34,7 +34,7 @@ export class LoadingBar extends React.Component {
   }
 
   launch() {
-    let { progressInterval } = this.state
+    let { progressInterval, percent } = this.state
     const { animationTimeout } = this.state
 
     if (!progressInterval) {
@@ -43,9 +43,10 @@ export class LoadingBar extends React.Component {
         this.props.updateTime
       )
       clearTimeout(animationTimeout)
+      percent = 0
     }
 
-    this.setState({ ...this.state, progressInterval })
+    this.setState({ ...this.state, progressInterval, percent })
   }
 
   simulateProgress() {

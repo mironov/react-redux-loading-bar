@@ -236,7 +236,7 @@ describe('LoadingBar', () => {
         spySimulateProgress.restore()
       })
 
-      it('does not hang', () => {
+      it('does not hang and resets the position', () => {
         const wrapper = shallow(<LoadingBar />)
 
         // Show Loading Bar
@@ -257,15 +257,14 @@ describe('LoadingBar', () => {
         wrapper.setProps({ loading: 1 })
         expect(wrapper.state().progressInterval).toExist()
 
-        // Wait one more tick to get the animation to finish
-        clock.tick(UPDATE_TIME)
-        expect(wrapper.state().progressInterval).toNotExist()
+        // It should be shown
+        expect(wrapper.state().percent).toNotEqual(100)
 
         // Hide Loading Bar and emulate a long period of time
         wrapper.setProps({ loading: 0 })
         clock.tick(UPDATE_TIME * 1000)
 
-        expect(spySimulateProgress.calls.length).toEqual(4)
+        expect(spySimulateProgress.calls.length).toEqual(5)
       })
     })
   })

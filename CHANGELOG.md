@@ -1,5 +1,8 @@
 # Release History
 
+## 2.3.3
+   - Reset position of the Loading Bar if it is triggered to be shown during ending animation
+
 ## 2.3.2
    - Fix infinite loop when Loading Bar is triggered to be shown during ending animation
 
