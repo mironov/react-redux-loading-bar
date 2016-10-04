@@ -48143,17 +48143,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.hideLoading = exports.showLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = undefined;
+	exports.LoadingBar = exports.hideLoading = exports.showLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = undefined;
 	
-	var _loading_bar_middleware = __webpack_require__(/*! ./loading_bar_middleware */ 497);
+	var _loading_bar = __webpack_require__(/*! ./loading_bar */ 497);
+	
+	var _loading_bar2 = _interopRequireDefault(_loading_bar);
+	
+	var _loading_bar_middleware = __webpack_require__(/*! ./loading_bar_middleware */ 498);
 	
 	var _loading_bar_middleware2 = _interopRequireDefault(_loading_bar_middleware);
 	
-	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 498);
-	
-	var _loading_bar = __webpack_require__(/*! ./loading_bar */ 499);
-	
-	var _loading_bar2 = _interopRequireDefault(_loading_bar);
+	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 499);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -48161,115 +48161,11 @@
 	exports.loadingBarReducer = _loading_bar_ducks.loadingBarReducer;
 	exports.showLoading = _loading_bar_ducks.showLoading;
 	exports.hideLoading = _loading_bar_ducks.hideLoading;
+	exports.LoadingBar = _loading_bar.LoadingBar;
 	exports.default = _loading_bar2.default;
 
 /***/ },
 /* 497 */
-/*!*******************************************************************!*\
-  !*** ./~/react-redux-loading-bar/build/loading_bar_middleware.js ***!
-  \*******************************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-	
-	exports.default = loadingBarMiddleware;
-	
-	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 498);
-	
-	var defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED'];
-	
-	function loadingBarMiddleware() {
-	  var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	
-	  var promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes;
-	
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    return function (next) {
-	      return function (action) {
-	        if (action.type) {
-	          var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
-	
-	          var PENDING = _promiseTypeSuffixes[0];
-	          var FULFILLED = _promiseTypeSuffixes[1];
-	          var REJECTED = _promiseTypeSuffixes[2];
-	
-	
-	          var isPending = new RegExp(PENDING + '$', 'g');
-	          var isFulfilled = new RegExp(FULFILLED + '$', 'g');
-	          var isRejected = new RegExp(REJECTED + '$', 'g');
-	
-	          if (action.type.match(isPending)) {
-	            dispatch((0, _loading_bar_ducks.showLoading)());
-	          } else if (action.type.match(isFulfilled) || action.type.match(isRejected)) {
-	            dispatch((0, _loading_bar_ducks.hideLoading)());
-	          }
-	        }
-	
-	        return next(action);
-	      };
-	    };
-	  };
-	}
-
-/***/ },
-/* 498 */
-/*!**************************************************************!*\
-  !*** ./~/react-redux-loading-bar/build/loading_bar_ducks.js ***!
-  \**************************************************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.showLoading = showLoading;
-	exports.hideLoading = hideLoading;
-	exports.loadingBarReducer = loadingBarReducer;
-	var SHOW = exports.SHOW = 'loading-bar/SHOW';
-	var HIDE = exports.HIDE = 'loading-bar/HIDE';
-	
-	function showLoading() {
-	  return {
-	    type: SHOW
-	  };
-	}
-	
-	function hideLoading() {
-	  return {
-	    type: HIDE
-	  };
-	}
-	
-	function loadingBarReducer() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
-	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
-	
-	  var newState = void 0;
-	
-	  switch (action.type) {
-	    case SHOW:
-	      newState = state + 1;
-	      break;
-	    case HIDE:
-	      newState = state > 0 ? state - 1 : 0;
-	      break;
-	    default:
-	      return state;
-	  }
-	
-	  return newState;
-	}
-
-/***/ },
-/* 499 */
 /*!********************************************************!*\
   !*** ./~/react-redux-loading-bar/build/loading_bar.js ***!
   \********************************************************/
@@ -48450,6 +48346,111 @@
 	};
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(LoadingBar);
+
+/***/ },
+/* 498 */
+/*!*******************************************************************!*\
+  !*** ./~/react-redux-loading-bar/build/loading_bar_middleware.js ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	
+	exports.default = loadingBarMiddleware;
+	
+	var _loading_bar_ducks = __webpack_require__(/*! ./loading_bar_ducks */ 499);
+	
+	var defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED'];
+	
+	function loadingBarMiddleware() {
+	  var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	
+	  var promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes;
+	
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    return function (next) {
+	      return function (action) {
+	        if (action.type) {
+	          var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
+	
+	          var PENDING = _promiseTypeSuffixes[0];
+	          var FULFILLED = _promiseTypeSuffixes[1];
+	          var REJECTED = _promiseTypeSuffixes[2];
+	
+	
+	          var isPending = new RegExp(PENDING + '$', 'g');
+	          var isFulfilled = new RegExp(FULFILLED + '$', 'g');
+	          var isRejected = new RegExp(REJECTED + '$', 'g');
+	
+	          if (action.type.match(isPending)) {
+	            dispatch((0, _loading_bar_ducks.showLoading)());
+	          } else if (action.type.match(isFulfilled) || action.type.match(isRejected)) {
+	            dispatch((0, _loading_bar_ducks.hideLoading)());
+	          }
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+/***/ },
+/* 499 */
+/*!**************************************************************!*\
+  !*** ./~/react-redux-loading-bar/build/loading_bar_ducks.js ***!
+  \**************************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.showLoading = showLoading;
+	exports.hideLoading = hideLoading;
+	exports.loadingBarReducer = loadingBarReducer;
+	var SHOW = exports.SHOW = 'loading-bar/SHOW';
+	var HIDE = exports.HIDE = 'loading-bar/HIDE';
+	
+	function showLoading() {
+	  return {
+	    type: SHOW
+	  };
+	}
+	
+	function hideLoading() {
+	  return {
+	    type: HIDE
+	  };
+	}
+	
+	function loadingBarReducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+	  var newState = void 0;
+	
+	  switch (action.type) {
+	    case SHOW:
+	      newState = state + 1;
+	      break;
+	    case HIDE:
+	      newState = state > 0 ? state - 1 : 0;
+	      break;
+	    default:
+	      return state;
+	  }
+	
+	  return newState;
+	}
 
 /***/ },
 /* 500 */
