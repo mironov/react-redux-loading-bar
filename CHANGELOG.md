@@ -1,5 +1,8 @@
 # Release History
 
+## 2.4.0
+   - Do not apply styling if CSS class is specified
+
 ## 2.3.4
    - Export UI component
 

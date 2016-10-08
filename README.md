@@ -107,6 +107,25 @@ dispatch(hideLoading())
 
 You need to dispatch `HIDE` as many times as `SHOW` was dispatched to make the bar disappear. In other words, the loading bar is shown until all long running tasks complete.
 
+## Usage with `redux-saga`
+
+Install the `loadingBarMiddleware()` and mount Loading Bar in your application.
+You can import and dispatch `showLoading` and `hideLoading` from your sagas.
+
+```jsx
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
+export function* fetchData() {
+  try {
+    yield put(showLoading())
+    const payload = yield call(API, params)
+    // payload processing
+  } finally {
+    yield put(hideLoading())
+  }
+}
+```
+
 ## Usage with jQuery Ajax Requests
 
 If you happen to use jQuery for Ajax requests, you can dispatch `SHOW`/`HIDE` actions on `ajaxStart`/`ajaxStop` global events:
@@ -120,17 +139,21 @@ See [a demo](http://mironov.github.io/react-redux-loading-bar/?ajax) or checkout
 
 ## Styling
 
-You can apply custom styling right on the `LoadingBar` component, for example you can change the color and height of it:
+You can apply custom styling right on the `LoadingBar` component. For example you can change the color and height of the loading bar:
 
 ```jsx
 <LoadingBar style={{ backgroundColor: 'blue', height: '5px' }} />
 ```
 
-Or specify your own CSS class:
+Alternatively, you can specify your own CSS class.
+
+**Please note that will disable default styling (which is `color: red; height: 3px; position: absolute;`).**
 
 ```jsx
 <LoadingBar className="loading" />
 ```
+
+Don't forget to set `height`, `color` and `position` for the `loading` class in your CSS files.
 
 ## Configure Progress Simulation
 

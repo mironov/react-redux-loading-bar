@@ -114,13 +114,17 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
     key: 'buildStyle',
     value: function buildStyle() {
       var style = {
-        height: '3px',
         width: this.state.percent + '%',
-        backgroundColor: 'red',
         transition: 'width ' + ANIMATION_TIME + 'ms ease-out,\n                   height ' + ANIMATION_TIME + 'ms linear,\n                   opacity ' + ANIMATION_TIME + 'ms ease-out',
-        position: 'absolute',
         opacity: '1'
       };
+
+      // Use default styling if there's no CSS class applied
+      if (!this.props.className) {
+        style.height = '3px';
+        style.backgroundColor = 'red';
+        style.position = 'absolute';
+      }
 
       return _extends({}, style, this.props.style);
     }

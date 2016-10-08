@@ -47,6 +47,16 @@ describe('LoadingBar', () => {
       expect(resultStyle.opacity).toEqual('1')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
+      expect(resultStyle.position).toEqual('absolute')
+    })
+
+    it('does not apply styling if CSS class is specified', () => {
+      const wrapper = shallow(<LoadingBar className="custom" />)
+
+      const resultStyle = wrapper.children().node.props.style
+      expect(resultStyle.backgroundColor).toEqual(undefined)
+      expect(resultStyle.height).toEqual(undefined)
+      expect(resultStyle.position).toEqual(undefined)
     })
   })
 
