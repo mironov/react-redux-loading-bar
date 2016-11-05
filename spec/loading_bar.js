@@ -89,6 +89,12 @@ describe('LoadingBar', () => {
       expect(spyLaunch).toNotHaveBeenCalled()
       expect(spyLaunch.calls.length).toEqual(0)
     })
+
+    it('launches on component mount if loading count is > 0', () => {
+      shallow(<LoadingBar loading={1} />)
+      expect(spyLaunch).toHaveBeenCalled()
+      expect(spyLaunch.calls.length).toEqual(1)
+    })
   })
 
   describe('#componentWillUnmount', () => {

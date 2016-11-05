@@ -22,6 +22,12 @@ export class LoadingBar extends React.Component {
     this.boundResetProgress = this.resetProgress.bind(this)
   }
 
+  componentWillMount() {
+    if (this.props.loading > 0) {
+      this.launch()
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.loading > this.props.loading) {
       this.launch()
