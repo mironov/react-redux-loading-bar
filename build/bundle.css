@@ -616,25 +616,25 @@ hr{
 
 .flex-wrap{ -ms-flex-wrap:wrap; flex-wrap:wrap }
 
-.items-start{ -webkit-box-align:start; -ms-flex-align:start; -ms-grid-row-align:flex-start; align-items:flex-start }
+.items-start{ -webkit-box-align:start; -ms-flex-align:start; align-items:flex-start }
 
-.items-end{ -webkit-box-align:end; -ms-flex-align:end; -ms-grid-row-align:flex-end; align-items:flex-end }
+.items-end{ -webkit-box-align:end; -ms-flex-align:end; align-items:flex-end }
 
-.items-center{ -webkit-box-align:center; -ms-flex-align:center; -ms-grid-row-align:center; align-items:center }
+.items-center{ -webkit-box-align:center; -ms-flex-align:center; align-items:center }
 
-.items-baseline{ -webkit-box-align:baseline; -ms-flex-align:baseline; -ms-grid-row-align:baseline; align-items:baseline }
+.items-baseline{ -webkit-box-align:baseline; -ms-flex-align:baseline; align-items:baseline }
 
-.items-stretch{ -webkit-box-align:stretch; -ms-flex-align:stretch; -ms-grid-row-align:stretch; align-items:stretch }
+.items-stretch{ -webkit-box-align:stretch; -ms-flex-align:stretch; align-items:stretch }
 
 .self-start{ -ms-flex-item-align:start; align-self:flex-start }
 
 .self-end{ -ms-flex-item-align:end; align-self:flex-end }
 
-.self-center{ -ms-flex-item-align:center; align-self:center }
+.self-center{ -ms-flex-item-align:center; -ms-grid-row-align:center; align-self:center }
 
 .self-baseline{ -ms-flex-item-align:baseline; align-self:baseline }
 
-.self-stretch{ -ms-flex-item-align:stretch; align-self:stretch }
+.self-stretch{ -ms-flex-item-align:stretch; -ms-grid-row-align:stretch; align-self:stretch }
 
 .justify-start{ -webkit-box-pack:start; -ms-flex-pack:start; justify-content:flex-start }
 
@@ -784,6 +784,7 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
+  box-sizing:border-box;
 }
 
 .select{
@@ -796,6 +797,7 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
+  box-sizing:border-box;
 }
 
 .textarea{
@@ -807,6 +809,11 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
+  box-sizing:border-box;
+}
+
+:root{
+
 }
 
 input,
@@ -856,10 +863,6 @@ select:not([multiple]){
 textarea{
   line-height:1.75;
   padding:.5rem .5rem;
-}
-
-:root{
-
 }
 
 .field{
