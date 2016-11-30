@@ -147,13 +147,13 @@ You can apply custom styling right on the `LoadingBar` component. For example yo
 
 Alternatively, you can specify your own CSS class.
 
-**Please note that will disable default styling (which is `color: red; height: 3px; position: absolute;`).**
+**Please note that will disable default styling (which is `background-color: red; height: 3px; position: absolute;`).**
 
 ```jsx
 <LoadingBar className="loading" />
 ```
 
-Don't forget to set `height`, `color` and `position` for the `loading` class in your CSS files.
+Don't forget to set `height`, `background-color` and `position` for the `loading` class in your CSS files.
 
 ## Configure Progress Simulation
 
