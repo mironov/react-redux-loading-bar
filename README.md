@@ -126,6 +126,16 @@ export function* fetchData() {
 }
 ```
 
+## Usage with `immutable-js`
+
+You can change component import line if your top level redux store object is `immutable`.
+
+```jsx
+import { ImmutableLoadingBar as LoadingBar } from 'react-redux-loading-bar'
+
+// Use LoadingBar component as usual
+```
+
 ## Usage with jQuery Ajax Requests
 
 If you happen to use jQuery for Ajax requests, you can dispatch `SHOW`/`HIDE` actions on `ajaxStart`/`ajaxStop` global events:
