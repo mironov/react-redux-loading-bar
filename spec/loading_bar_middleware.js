@@ -1,3 +1,4 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import expect from 'expect'
 
 import createMockStore from './helpers/create_mock_store'
@@ -5,10 +6,10 @@ import loadingBarMiddleware from '../src/loading_bar_middleware'
 import { showLoading, hideLoading } from '../src/loading_bar_ducks'
 
 describe('loadingBarMiddleware', () => {
-  const mockStore = (mockDispatch) =>
+  const mockStore = mockDispatch =>
     createMockStore(
       [loadingBarMiddleware()],
-      mockDispatch
+      mockDispatch,
     )
 
   it('returns a function to handle next', () => {
@@ -112,14 +113,14 @@ describe('loadingBarMiddleware', () => {
   })
 
   describe('with custom promiseTypeSuffixes', () => {
-    const mockStoreWithSuffixes = (mockDispatch) =>
+    const mockStoreWithSuffixes = mockDispatch =>
       createMockStore(
         [
           loadingBarMiddleware({
             promiseTypeSuffixes: ['LOAD', 'SUCCESS', 'FAIL'],
           }),
         ],
-        mockDispatch
+        mockDispatch,
       )
 
     it('does not dispatch SHOW and HIDE actions on _FULFILLED action', () => {

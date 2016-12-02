@@ -1,3 +1,4 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import expect from 'expect'
 
 import {
@@ -15,30 +16,30 @@ describe('loadingBarReducer', () => {
 
   it('handles SHOW', () => {
     expect(
-      loadingBarReducer(undefined, { type: SHOW })
+      loadingBarReducer(undefined, { type: SHOW }),
     ).toEqual(1)
 
     expect(
-      loadingBarReducer(0, { type: SHOW })
+      loadingBarReducer(0, { type: SHOW }),
     ).toEqual(1)
 
     expect(
-      loadingBarReducer(1, { type: SHOW })
+      loadingBarReducer(1, { type: SHOW }),
     ).toEqual(2)
   })
 
   it('handles HIDE', () => {
     expect(
-      loadingBarReducer(1, { type: HIDE })
+      loadingBarReducer(1, { type: HIDE }),
     ).toEqual(0)
 
     expect(
-      loadingBarReducer(undefined, { type: HIDE })
+      loadingBarReducer(undefined, { type: HIDE }),
     ).toEqual(0)
 
 
     expect(
-      loadingBarReducer(0, { type: HIDE })
+      loadingBarReducer(0, { type: HIDE }),
     ).toEqual(0)
   })
 })

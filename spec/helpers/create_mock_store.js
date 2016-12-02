@@ -9,7 +9,7 @@ export default (middlewares, mockDispatch) => {
   }
 
   const mockStoreWithMiddleware = applyMiddleware(
-    ...middlewares
+    ...middlewares,
   )(mockStoreWithoutMiddleware)
 
   return mockStoreWithMiddleware()

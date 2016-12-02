@@ -5,7 +5,7 @@ const defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED']
 export default function loadingBarMiddleware(config = {}) {
   const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
 
-  return ({ dispatch }) => next => action => {
+  return ({ dispatch }) => next => (action) => {
     if (action.type) {
       const [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes
 

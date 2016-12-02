@@ -13,7 +13,7 @@ var _loading_bar_ducks = require('./loading_bar_ducks');
 var defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED'];
 
 function loadingBarMiddleware() {
-  var config = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes;
 
@@ -22,12 +22,10 @@ function loadingBarMiddleware() {
     return function (next) {
       return function (action) {
         if (action.type) {
-          var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3);
-
-          var PENDING = _promiseTypeSuffixes[0];
-          var FULFILLED = _promiseTypeSuffixes[1];
-          var REJECTED = _promiseTypeSuffixes[2];
-
+          var _promiseTypeSuffixes = _slicedToArray(promiseTypeSuffixes, 3),
+              PENDING = _promiseTypeSuffixes[0],
+              FULFILLED = _promiseTypeSuffixes[1],
+              REJECTED = _promiseTypeSuffixes[2];
 
           var isPending = new RegExp(PENDING + '$', 'g');
           var isFulfilled = new RegExp(FULFILLED + '$', 'g');

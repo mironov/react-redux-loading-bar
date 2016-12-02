@@ -1,8 +1,10 @@
+/* eslint import/no-extraneous-dependencies: 0 */
 import React from 'react'
 import { shallow } from 'enzyme'
 import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
+
 import {
   LoadingBar,
   UPDATE_TIME,
@@ -139,7 +141,7 @@ describe('LoadingBar', () => {
     beforeEach(() => {
       spySimulateProgress = spyOn(
         LoadingBar.prototype,
-        'simulateProgress'
+        'simulateProgress',
       )
       clock = lolex.install()
     })
@@ -245,7 +247,7 @@ describe('LoadingBar', () => {
       beforeEach(() => {
         spySimulateProgress = spyOn(
           LoadingBar.prototype,
-          'simulateProgress'
+          'simulateProgress',
         ).andCallThrough()
       })
       afterEach(() => {
@@ -292,7 +294,7 @@ describe('LoadingBar', () => {
     beforeEach(() => {
       spySimulateProgress = spyOn(
         LoadingBar.prototype,
-        'simulateProgress'
+        'simulateProgress',
       )
       clock = lolex.install()
     })
@@ -343,7 +345,7 @@ describe('LoadingBar', () => {
     it('can be changed', () => {
       const progressIncrease = 5
       const wrapper = shallow(
-        <LoadingBar progressIncrease={progressIncrease} />
+        <LoadingBar progressIncrease={progressIncrease} />,
       )
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)

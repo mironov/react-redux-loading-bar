@@ -46,7 +46,7 @@ export class LoadingBar extends React.Component {
     if (!progressInterval) {
       progressInterval = setInterval(
         this.boundSimulateProgress,
-        this.props.updateTime
+        this.props.updateTime,
       )
       clearTimeout(animationTimeout)
       percent = 0
@@ -65,7 +65,7 @@ export class LoadingBar extends React.Component {
     } else if (this.props.loading === 0) {
       percent = 100
     } else if (percent < this.props.maxProgress) {
-      percent = percent + this.props.progressIncrease
+      percent += this.props.progressIncrease
     }
 
     this.setState({ percent, progressInterval, animationTimeout })
@@ -73,10 +73,6 @@ export class LoadingBar extends React.Component {
 
   resetProgress() {
     this.setState(initialState)
-  }
-
-  shouldShow(percent) {
-    return (percent > 0) && (percent < 100)
   }
 
   buildStyle() {
@@ -101,7 +97,8 @@ export class LoadingBar extends React.Component {
   render() {
     const style = this.buildStyle()
 
-    if (this.shouldShow(this.state.percent)) {
+    const shouldShow = (this.state.percent > 0) && (this.state.percent < 100)
+    if (shouldShow) {
       style.opacity = '1'
     } else {
       style.opacity = '0'
@@ -117,9 +114,9 @@ export class LoadingBar extends React.Component {
 }
 
 LoadingBar.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   style: PropTypes.object,
   className: PropTypes.string,
-  actions: PropTypes.object,
   loading: PropTypes.number,
   updateTime: PropTypes.number,
   maxProgress: PropTypes.number,
@@ -135,7 +132,7 @@ LoadingBar.defaultProps = {
   progressIncrease: PROGRESS_INCREASE,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   loading: state.loadingBar,
 })
 

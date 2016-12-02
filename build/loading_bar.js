@@ -40,7 +40,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   function LoadingBar(props) {
     _classCallCheck(this, LoadingBar);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LoadingBar).call(this, props));
+    var _this = _possibleConstructorReturn(this, (LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call(this, props));
 
     _this.state = initialState;
 
@@ -72,9 +72,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'launch',
     value: function launch() {
-      var _state = this.state;
-      var progressInterval = _state.progressInterval;
-      var percent = _state.percent;
+      var _state = this.state,
+          progressInterval = _state.progressInterval,
+          percent = _state.percent;
       var animationTimeout = this.state.animationTimeout;
 
 
@@ -89,10 +89,10 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'simulateProgress',
     value: function simulateProgress() {
-      var _state2 = this.state;
-      var progressInterval = _state2.progressInterval;
-      var percent = _state2.percent;
-      var animationTimeout = _state2.animationTimeout;
+      var _state2 = this.state,
+          progressInterval = _state2.progressInterval,
+          percent = _state2.percent,
+          animationTimeout = _state2.animationTimeout;
 
 
       if (percent === 100) {
@@ -102,7 +102,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       } else if (this.props.loading === 0) {
         percent = 100;
       } else if (percent < this.props.maxProgress) {
-        percent = percent + this.props.progressIncrease;
+        percent += this.props.progressIncrease;
       }
 
       this.setState({ percent: percent, progressInterval: progressInterval, animationTimeout: animationTimeout });
@@ -111,11 +111,6 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
     key: 'resetProgress',
     value: function resetProgress() {
       this.setState(initialState);
-    }
-  }, {
-    key: 'shouldShow',
-    value: function shouldShow(percent) {
-      return percent > 0 && percent < 100;
     }
   }, {
     key: 'buildStyle',
@@ -140,7 +135,8 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
     value: function render() {
       var style = this.buildStyle();
 
-      if (this.shouldShow(this.state.percent)) {
+      var shouldShow = this.state.percent > 0 && this.state.percent < 100;
+      if (shouldShow) {
         style.opacity = '1';
       } else {
         style.opacity = '0';
@@ -159,9 +155,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
 }(_react2.default.Component);
 
 LoadingBar.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   style: _react.PropTypes.object,
   className: _react.PropTypes.string,
-  actions: _react.PropTypes.object,
   loading: _react.PropTypes.number,
   updateTime: _react.PropTypes.number,
   maxProgress: _react.PropTypes.number,
