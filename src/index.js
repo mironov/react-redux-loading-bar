@@ -5,6 +5,7 @@ import {
   showLoading,
   hideLoading,
 } from './loading_bar_ducks'
+import ImmutableLoadingBar from './immutable'
 
 export {
   loadingBarMiddleware,
@@ -12,5 +13,6 @@ export {
   showLoading,
   hideLoading,
   LoadingBar,
+  ImmutableLoadingBar,
 }
 export default LoadingBarContainer
