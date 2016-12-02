@@ -1,5 +1,8 @@
 # Release History
 
+## 2.5.0
+   - Ability to use loading bar with immutable (thanks @greenpart)
+
 ## 2.4.1
    - If the Loading Bar is mounted with loading count > 0, it should launch the progress simulation immediately
 
