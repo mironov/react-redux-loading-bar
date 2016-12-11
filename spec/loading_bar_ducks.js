@@ -5,8 +5,10 @@ import {
   loadingBarReducer,
   SHOW,
   HIDE,
+  RESET,
   showLoading,
   hideLoading,
+  resetLoading,
 } from '../src/loading_bar_ducks'
 
 describe('loadingBarReducer', () => {
@@ -42,6 +44,21 @@ describe('loadingBarReducer', () => {
       loadingBarReducer(0, { type: HIDE }),
     ).toEqual(0)
   })
+
+  it('handles RESET', () => {
+    expect(
+      loadingBarReducer(1, { type: RESET }),
+    ).toEqual(0)
+
+    expect(
+      loadingBarReducer(undefined, { type: RESET }),
+    ).toEqual(0)
+
+
+    expect(
+      loadingBarReducer(10, { type: RESET }),
+    ).toEqual(0)
+  })
 })
 
 describe('actions', () => {
@@ -51,5 +68,9 @@ describe('actions', () => {
 
   it('creates an action to hide loading bar', () => {
     expect(hideLoading()).toEqual({ type: HIDE })
+  })
+
+  it('creates an action to reset loading bar', () => {
+    expect(resetLoading()).toEqual({ type: RESET })
   })
 })

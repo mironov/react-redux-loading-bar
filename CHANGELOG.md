@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.0
+   - New action `resetLoading` to reset the loading counter and hide Loading Bar.
+
 ## 2.5.0
    - Ability to use loading bar with immutable (thanks @greenpart)
 

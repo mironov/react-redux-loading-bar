@@ -5,9 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.showLoading = showLoading;
 exports.hideLoading = hideLoading;
+exports.resetLoading = resetLoading;
 exports.loadingBarReducer = loadingBarReducer;
 var SHOW = exports.SHOW = 'loading-bar/SHOW';
 var HIDE = exports.HIDE = 'loading-bar/HIDE';
+var RESET = exports.RESET = 'loading-bar/RESET';
 
 function showLoading() {
   return {
@@ -18,6 +20,12 @@ function showLoading() {
 function hideLoading() {
   return {
     type: HIDE
+  };
+}
+
+function resetLoading() {
+  return {
+    type: RESET
   };
 }
 
@@ -33,6 +41,9 @@ function loadingBarReducer() {
       break;
     case HIDE:
       newState = state > 0 ? state - 1 : 0;
+      break;
+    case RESET:
+      newState = 0;
       break;
     default:
       return state;
