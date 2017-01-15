@@ -1,7 +1,7 @@
 # Release History
 
 ## 2.6.3
-   - TypeScript definitions are not required to make LoadingBar work and thus removed from peer dependencies (thanks @janslow)
+   - TypeScript definitions are not required to make LoadingBar work and thus removed from peer dependencies (thanks @larrydahooster)
 
 ## 2.6.2
    - Add TypeScript definitions (thanks @janslow)
