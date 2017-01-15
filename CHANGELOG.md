@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.2
+   - Add TypeScript definitions (thanks @janslow)
+
 ## 2.6.1
    - Bump `react-redux` dependency version (thanks @larrydahooster)
 
