@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.1
+   - Bump `react-redux` dependency version (thanks @larrydahooster)
+
 ## 2.6.0
    - New action `resetLoading` to reset the loading counter and hide Loading Bar.
 
