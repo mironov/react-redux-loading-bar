@@ -3,6 +3,7 @@
   "version": "2.6.1",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "`npm bin`/babel src -d build",
     "build:watch": "npm run build -- --watch",
@@ -33,12 +34,14 @@
   },
   "homepage": "https://github.com/mironov/react-redux-loading-bar",
   "peerDependencies": {
+    "@types/react": ">=0.14.55",
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0",
     "react-redux": "^3.0.0 || ^4.0.0 || ^5.0.0",
     "redux": "^3.0.0"
   },
   "devDependencies": {
+    "@types/react": "^0.14.55",
     "babel-cli": "^6.7.7",
     "babel-core": "^6.7.7",
     "babel-eslint": "^7.1.1",
