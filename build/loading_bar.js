@@ -93,16 +93,20 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
           progressInterval = _state2.progressInterval,
           percent = _state2.percent,
           animationTimeout = _state2.animationTimeout;
+      var _props = this.props,
+          loading = _props.loading,
+          maxProgress = _props.maxProgress,
+          progressIncrease = _props.progressIncrease;
 
 
       if (percent === 100) {
         clearInterval(progressInterval);
         animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME);
         progressInterval = null;
-      } else if (this.props.loading === 0) {
+      } else if (loading === 0) {
         percent = 100;
-      } else if (percent < this.props.maxProgress) {
-        percent += this.props.progressIncrease;
+      } else if (percent + progressIncrease <= maxProgress) {
+        percent += progressIncrease;
       }
 
       this.setState({ percent: percent, progressInterval: progressInterval, animationTimeout: animationTimeout });
@@ -136,6 +140,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var style = this.buildStyle();
 
       var shouldShow = this.state.percent > 0 && this.state.percent < 100;
+
       if (shouldShow) {
         style.opacity = '1';
       } else {

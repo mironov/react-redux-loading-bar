@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.4
+   - Do not let percent become greater than maxProgress if progressIncrease > (100 - maxProgress)
+
 ## 2.6.3
    - TypeScript definitions are not required to make LoadingBar work and thus removed from peer dependencies (thanks @larrydahooster)
 

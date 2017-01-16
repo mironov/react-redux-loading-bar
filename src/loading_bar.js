@@ -57,15 +57,16 @@ export class LoadingBar extends React.Component {
 
   simulateProgress() {
     let { progressInterval, percent, animationTimeout } = this.state
+    const { loading, maxProgress, progressIncrease } = this.props
 
     if (percent === 100) {
       clearInterval(progressInterval)
       animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME)
       progressInterval = null
-    } else if (this.props.loading === 0) {
+    } else if (loading === 0) {
       percent = 100
-    } else if (percent < this.props.maxProgress) {
-      percent += this.props.progressIncrease
+    } else if (percent + progressIncrease <= maxProgress) {
+      percent += progressIncrease
     }
 
     this.setState({ percent, progressInterval, animationTimeout })
@@ -97,7 +98,8 @@ export class LoadingBar extends React.Component {
   render() {
     const style = this.buildStyle()
 
-    const shouldShow = (this.state.percent > 0) && (this.state.percent < 100)
+    const shouldShow = this.state.percent > 0 && this.state.percent < 100
+
     if (shouldShow) {
       style.opacity = '1'
     } else {

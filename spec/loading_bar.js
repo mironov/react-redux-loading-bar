@@ -241,6 +241,29 @@ describe('LoadingBar', () => {
       })
     })
 
+    describe('if progressIncrease > (100 - maxProgress)', () => {
+      it('does not hide loading bar at the end', () => {
+        const maxProgress = 95
+        const progressIncrease = 10
+        const wrapper = shallow(
+          <LoadingBar
+            progressIncrease={progressIncrease}
+            maxProgress={maxProgress}
+          />,
+        )
+        expect(wrapper.state().percent).toBe(0)
+        wrapper.setProps({ loading: 1 })
+
+        const possibleSteps = parseInt(maxProgress / progressIncrease, 10)
+        const possibleProgress = possibleSteps * progressIncrease
+
+        clock.tick(UPDATE_TIME * possibleSteps)
+        expect(wrapper.state().percent).toBe(possibleProgress)
+        clock.tick(UPDATE_TIME)
+        expect(wrapper.state().percent).toBe(possibleProgress)
+      })
+    })
+
     describe('if it should be shown again during ending animation', () => {
       let spySimulateProgress
 
