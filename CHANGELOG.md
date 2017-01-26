@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.5
+   - Export `resetLoading` action
+
 ## 2.6.4
    - Do not let percent become greater than maxProgress if progressIncrease > (100 - maxProgress)
 
