@@ -50509,8 +50509,8 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var UPDATE_TIME = exports.UPDATE_TIME = 200;
-	var MAX_PROGRESS = exports.MAX_PROGRESS = 90;
-	var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 5;
+	var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
+	var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
 	var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 2;
 	
 	var initialState = {
@@ -50572,6 +50572,19 @@
 	      this.setState(_extends({}, this.state, { progressInterval: progressInterval, percent: percent }));
 	    }
 	  }, {
+	    key: 'newPercent',
+	    value: function newPercent() {
+	      var percent = this.state.percent;
+	      var progressIncrease = this.props.progressIncrease;
+	
+	      // Use cos as a smoothing function
+	      // Can be any function to slow down progress near the 100%
+	
+	      var smoothedProgressIncrease = progressIncrease * Math.cos(percent * (Math.PI / 2 / 100));
+	
+	      return percent + smoothedProgressIncrease;
+	    }
+	  }, {
 	    key: 'simulateProgress',
 	    value: function simulateProgress() {
 	      var _state2 = this.state,
@@ -50580,8 +50593,7 @@
 	          animationTimeout = _state2.animationTimeout;
 	      var _props = this.props,
 	          loading = _props.loading,
-	          maxProgress = _props.maxProgress,
-	          progressIncrease = _props.progressIncrease;
+	          maxProgress = _props.maxProgress;
 	
 	
 	      if (percent === 100) {
@@ -50590,8 +50602,8 @@
 	        progressInterval = null;
 	      } else if (loading === 0) {
 	        percent = 100;
-	      } else if (percent + progressIncrease <= maxProgress) {
-	        percent += progressIncrease;
+	      } else if (this.newPercent() <= maxProgress) {
+	        percent = this.newPercent();
 	      }
 	
 	      this.setState({ percent: percent, progressInterval: progressInterval, animationTimeout: animationTimeout });
@@ -50606,7 +50618,7 @@
 	    value: function buildStyle() {
 	      var style = {
 	        width: this.state.percent + '%',
-	        transition: 'width ' + ANIMATION_TIME + 'ms ease-out,\n                   height ' + ANIMATION_TIME + 'ms linear,\n                   opacity ' + ANIMATION_TIME + 'ms ease-out',
+	        transition: 'width ' + ANIMATION_TIME + 'ms linear',
 	        opacity: '1'
 	      };
 	
@@ -50624,7 +50636,7 @@
 	    value: function render() {
 	      var style = this.buildStyle();
 	
-	      var shouldShow = this.state.percent > 0 && this.state.percent < 100;
+	      var shouldShow = this.state.percent > 0 && this.state.percent <= 100;
 	
 	      if (shouldShow) {
 	        style.opacity = '1';
