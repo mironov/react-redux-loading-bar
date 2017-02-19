@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 export const UPDATE_TIME = 200
-export const MAX_PROGRESS = 90
-export const PROGRESS_INCREASE = 5
+export const MAX_PROGRESS = 99
+export const PROGRESS_INCREASE = 10
 export const ANIMATION_TIME = UPDATE_TIME * 2
 
 const initialState = {
@@ -55,9 +55,22 @@ export class LoadingBar extends React.Component {
     this.setState({ ...this.state, progressInterval, percent })
   }
 
+  newPercent() {
+    const { percent } = this.state
+    const { progressIncrease } = this.props
+
+    // Use cos as a smoothing function
+    // Can be any function to slow down progress near the 100%
+    const smoothedProgressIncrease = (
+      progressIncrease * Math.cos(percent * (Math.PI / 2 / 100))
+    )
+
+    return percent + smoothedProgressIncrease
+  }
+
   simulateProgress() {
     let { progressInterval, percent, animationTimeout } = this.state
-    const { loading, maxProgress, progressIncrease } = this.props
+    const { loading, maxProgress } = this.props
 
     if (percent === 100) {
       clearInterval(progressInterval)
@@ -65,8 +78,8 @@ export class LoadingBar extends React.Component {
       progressInterval = null
     } else if (loading === 0) {
       percent = 100
-    } else if (percent + progressIncrease <= maxProgress) {
-      percent += progressIncrease
+    } else if (this.newPercent() <= maxProgress) {
+      percent = this.newPercent()
     }
 
     this.setState({ percent, progressInterval, animationTimeout })
@@ -79,9 +92,7 @@ export class LoadingBar extends React.Component {
   buildStyle() {
     const style = {
       width: `${this.state.percent}%`,
-      transition: `width ${ANIMATION_TIME}ms ease-out,
-                   height ${ANIMATION_TIME}ms linear,
-                   opacity ${ANIMATION_TIME}ms ease-out`,
+      transition: `width ${ANIMATION_TIME}ms linear`,
       opacity: '1',
     }
 
@@ -98,7 +109,7 @@ export class LoadingBar extends React.Component {
   render() {
     const style = this.buildStyle()
 
-    const shouldShow = this.state.percent > 0 && this.state.percent < 100
+    const shouldShow = this.state.percent > 0 && this.state.percent <= 100
 
     if (shouldShow) {
       style.opacity = '1'

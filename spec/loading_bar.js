@@ -240,33 +240,10 @@ describe('LoadingBar', () => {
         const wrapper = shallow(<LoadingBar />)
         expect(wrapper.state().percent).toBe(0)
         wrapper.setProps({ loading: 1 })
-        clock.tick(UPDATE_TIME * (MAX_PROGRESS / PROGRESS_INCREASE))
-        expect(wrapper.state().percent).toBe(MAX_PROGRESS)
+        clock.tick(UPDATE_TIME * 100)
+        expect(wrapper.state().percent).toBeLessThan(MAX_PROGRESS)
         clock.tick(UPDATE_TIME)
-        expect(wrapper.state().percent).toBe(MAX_PROGRESS)
-      })
-    })
-
-    describe('if progressIncrease > (100 - maxProgress)', () => {
-      it('does not hide loading bar at the end', () => {
-        const maxProgress = 95
-        const progressIncrease = 10
-        const wrapper = shallow(
-          <LoadingBar
-            progressIncrease={progressIncrease}
-            maxProgress={maxProgress}
-          />,
-        )
-        expect(wrapper.state().percent).toBe(0)
-        wrapper.setProps({ loading: 1 })
-
-        const possibleSteps = parseInt(maxProgress / progressIncrease, 10)
-        const possibleProgress = possibleSteps * progressIncrease
-
-        clock.tick(UPDATE_TIME * possibleSteps)
-        expect(wrapper.state().percent).toBe(possibleProgress)
-        clock.tick(UPDATE_TIME)
-        expect(wrapper.state().percent).toBe(possibleProgress)
+        expect(wrapper.state().percent).toBeLessThan(MAX_PROGRESS)
       })
     })
 
@@ -356,8 +333,8 @@ describe('LoadingBar', () => {
       const maxProgress = 95
       const wrapper = shallow(<LoadingBar maxProgress={maxProgress} />)
       wrapper.setProps({ loading: 1 })
-      clock.tick(UPDATE_TIME * (maxProgress / PROGRESS_INCREASE))
-      expect(wrapper.state().percent).toEqual(maxProgress)
+      clock.tick(UPDATE_TIME * 100)
+      expect(wrapper.state().percent).toBeLessThan(maxProgress)
     })
   })
 
