@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "2.6.5",
+  "version": "2.6.6",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "typings": "index.d.ts",
@@ -57,6 +57,7 @@
     "expect": "^1.18.0",
     "expect-jsx": "^2.5.1",
     "istanbul": "^1.0.0-alpha.2",
+    "jsdom": "^9.11.0",
     "lolex": "^1.4.0",
     "mocha": "^3.2.0",
     "pkgfiles": "^2.3.0",

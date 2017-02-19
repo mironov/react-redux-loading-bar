@@ -1,5 +1,8 @@
 # Release History
 
+## 2.6.6
+   - Fix issue where setState() is called on the server-side at unexpected lifecycles
+
 ## 2.6.5
    - Export `resetLoading` action
 

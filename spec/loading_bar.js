@@ -1,9 +1,10 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
+import { jsdom } from 'jsdom'
 
 import {
   LoadingBar,
@@ -14,6 +15,11 @@ import {
 } from '../src/loading_bar'
 
 expect.extend(expectJSX)
+
+// Setup jsdom to let enzyme's mount work
+const doc = jsdom('<!doctype html><html><body></body></html>')
+global.document = doc
+global.window = doc.defaultView
 
 describe('LoadingBar', () => {
   describe('#render', () => {
@@ -93,7 +99,7 @@ describe('LoadingBar', () => {
     })
 
     it('launches on component mount if loading count is > 0', () => {
-      shallow(<LoadingBar loading={1} />)
+      mount(<LoadingBar loading={1} />)
       expect(spyLaunch).toHaveBeenCalled()
       expect(spyLaunch.calls.length).toEqual(1)
     })

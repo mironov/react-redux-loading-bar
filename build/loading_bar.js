@@ -50,8 +50,8 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }
 
   _createClass(LoadingBar, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
       if (this.props.loading > 0) {
         this.launch();
       }
