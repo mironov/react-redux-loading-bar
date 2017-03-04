@@ -1,7 +1,10 @@
 # Release History
 
+## 2.7.1
+   - Launch progress simulation only once when loading is increased couple of times
+
 ## 2.7.0
-   - Revamped animation: added slowdown to the end of the progress; instant actions will briefly display loading bar for the period of UPDATE_TIME * 2.
+   - Revamped animation: added slowdown to the end of the progress; instant actions will briefly display loading bar for the period of UPDATE_TIME * 2
 
 ## 2.6.6
    - Fix issue where setState() is called on the server-side at unexpected lifecycles

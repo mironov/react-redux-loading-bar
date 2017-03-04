@@ -7,9 +7,9 @@ export const PROGRESS_INCREASE = 10
 export const ANIMATION_TIME = UPDATE_TIME * 2
 
 const initialState = {
+  endingAnimationTimeout: null,
   percent: 0,
   progressInterval: null,
-  animationTimeout: null,
 }
 
 export class LoadingBar extends React.Component {
@@ -29,30 +29,44 @@ export class LoadingBar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loading > this.props.loading) {
+    if (this.shouldStart(nextProps)) {
       this.launch()
+    } else if (this.shouldStop(nextProps)) {
+      this.setState({ percent: 100 })
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.state.progressInterval)
-    clearTimeout(this.state.animationTimeout)
+    clearTimeout(this.state.endingAnimationTimeout)
+  }
+
+  shouldStart(nextProps) {
+    return this.props.loading === 0 && nextProps.loading > 0
+  }
+
+  shouldStop(nextProps) {
+    return nextProps.loading === 0
+  }
+
+  shouldShow() {
+    return this.state.percent > 0 && this.state.percent <= 100
   }
 
   launch() {
     let { progressInterval, percent } = this.state
-    const { animationTimeout } = this.state
+    const { endingAnimationTimeout } = this.state
 
     if (!progressInterval) {
       progressInterval = setInterval(
         this.boundSimulateProgress,
         this.props.updateTime,
       )
-      clearTimeout(animationTimeout)
+      clearTimeout(endingAnimationTimeout)
       percent = 0
     }
 
-    this.setState({ ...this.state, progressInterval, percent })
+    this.setState({ progressInterval, percent })
   }
 
   newPercent() {
@@ -69,20 +83,21 @@ export class LoadingBar extends React.Component {
   }
 
   simulateProgress() {
-    let { progressInterval, percent, animationTimeout } = this.state
-    const { loading, maxProgress } = this.props
+    let { progressInterval, percent, endingAnimationTimeout } = this.state
+    const { maxProgress } = this.props
 
     if (percent === 100) {
       clearInterval(progressInterval)
-      animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME)
+      endingAnimationTimeout = setTimeout(
+        this.boundResetProgress,
+        ANIMATION_TIME,
+      )
       progressInterval = null
-    } else if (loading === 0) {
-      percent = 100
     } else if (this.newPercent() <= maxProgress) {
       percent = this.newPercent()
     }
 
-    this.setState({ percent, progressInterval, animationTimeout })
+    this.setState({ percent, progressInterval, endingAnimationTimeout })
   }
 
   resetProgress() {
@@ -103,23 +118,19 @@ export class LoadingBar extends React.Component {
       style.position = 'absolute'
     }
 
-    return { ...style, ...this.props.style }
-  }
-
-  render() {
-    const style = this.buildStyle()
-
-    const shouldShow = this.state.percent > 0 && this.state.percent <= 100
-
-    if (shouldShow) {
+    if (this.shouldShow()) {
       style.opacity = '1'
     } else {
       style.opacity = '0'
     }
 
+    return { ...style, ...this.props.style }
+  }
+
+  render() {
     return (
       <div>
-        <div style={style} className={this.props.className} />
+        <div style={this.buildStyle()} className={this.props.className} />
         <div style={{ display: 'table', clear: 'both' }} />
       </div>
     )

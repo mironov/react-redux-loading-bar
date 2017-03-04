@@ -103,6 +103,14 @@ describe('LoadingBar', () => {
       expect(spyLaunch).toHaveBeenCalled()
       expect(spyLaunch.calls.length).toEqual(1)
     })
+
+    it('launches only once if loading count is increased to 2', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      wrapper.setProps({ loading: 2 })
+      expect(spyLaunch).toHaveBeenCalled()
+      expect(spyLaunch.calls.length).toEqual(1)
+    })
   })
 
   describe('#componentWillUnmount', () => {
@@ -133,7 +141,7 @@ describe('LoadingBar', () => {
       clock.tick(UPDATE_TIME)
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME * 2)
-      expect(wrapper.state().animationTimeout).toNotEqual(null)
+      expect(wrapper.state().endingAnimationTimeout).toNotEqual(null)
       wrapper.unmount()
       clock.tick(ANIMATION_TIME)
       expect(consoleSpy).toNotHaveBeenCalled()
@@ -198,7 +206,8 @@ describe('LoadingBar', () => {
       expect(wrapper.state().progressInterval).toExist()
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().progressInterval).toExist()
+      expect(wrapper.state().progressInterval).toNotExist()
+      expect(wrapper.state().endingAnimationTimeout).toExist()
       expect(wrapper.state().percent).toBe(100)
     })
 
@@ -222,7 +231,7 @@ describe('LoadingBar', () => {
       expect(wrapper.state().percent).toBe(100)
       clock.tick(UPDATE_TIME + ANIMATION_TIME)
       expect(wrapper.state().percent).toBe(0)
-      expect(wrapper.state().animationTimeout).toNotExist()
+      expect(wrapper.state().endingAnimationTimeout).toNotExist()
     })
 
     describe('if percent is less than MAX_PROGRESS', () => {
@@ -272,7 +281,7 @@ describe('LoadingBar', () => {
         // schedule the reset after animation
         wrapper.setProps({ loading: 0 })
         clock.tick(UPDATE_TIME * 2)
-        expect(wrapper.state().animationTimeout).toExist()
+        expect(wrapper.state().endingAnimationTimeout).toExist()
 
         // Wait one tick while animation is going
         clock.tick(UPDATE_TIME)
@@ -288,7 +297,7 @@ describe('LoadingBar', () => {
         wrapper.setProps({ loading: 0 })
         clock.tick(UPDATE_TIME * 1000)
 
-        expect(spySimulateProgress.calls.length).toEqual(5)
+        expect(spySimulateProgress.calls.length).toEqual(3)
       })
     })
   })

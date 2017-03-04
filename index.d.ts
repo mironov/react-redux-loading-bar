@@ -25,3 +25,4 @@ export function loadingBarMiddleware(config?: MiddlewareConfig): Middleware;
 export const loadingBarReducer: Reducer<any>;
 export function showLoading(): Action;
 export function hideLoading(): Action;
+export function resetLoading(): Action;
