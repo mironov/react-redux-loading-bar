@@ -50514,9 +50514,9 @@
 	var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 2;
 	
 	var initialState = {
+	  endingAnimationTimeout: null,
 	  percent: 0,
-	  progressInterval: null,
-	  animationTimeout: null
+	  progressInterval: null
 	};
 	
 	var LoadingBar = exports.LoadingBar = function (_React$Component) {
@@ -50544,15 +50544,32 @@
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      if (nextProps.loading > this.props.loading) {
+	      if (this.shouldStart(nextProps)) {
 	        this.launch();
+	      } else if (this.shouldStop(nextProps)) {
+	        this.setState({ percent: 100 });
 	      }
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      clearInterval(this.state.progressInterval);
-	      clearTimeout(this.state.animationTimeout);
+	      clearTimeout(this.state.endingAnimationTimeout);
+	    }
+	  }, {
+	    key: 'shouldStart',
+	    value: function shouldStart(nextProps) {
+	      return this.props.loading === 0 && nextProps.loading > 0;
+	    }
+	  }, {
+	    key: 'shouldStop',
+	    value: function shouldStop(nextProps) {
+	      return nextProps.loading === 0;
+	    }
+	  }, {
+	    key: 'shouldShow',
+	    value: function shouldShow() {
+	      return this.state.percent > 0 && this.state.percent <= 100;
 	    }
 	  }, {
 	    key: 'launch',
@@ -50560,16 +50577,16 @@
 	      var _state = this.state,
 	          progressInterval = _state.progressInterval,
 	          percent = _state.percent;
-	      var animationTimeout = this.state.animationTimeout;
+	      var endingAnimationTimeout = this.state.endingAnimationTimeout;
 	
 	
 	      if (!progressInterval) {
 	        progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
-	        clearTimeout(animationTimeout);
+	        clearTimeout(endingAnimationTimeout);
 	        percent = 0;
 	      }
 	
-	      this.setState(_extends({}, this.state, { progressInterval: progressInterval, percent: percent }));
+	      this.setState({ progressInterval: progressInterval, percent: percent });
 	    }
 	  }, {
 	    key: 'newPercent',
@@ -50590,23 +50607,19 @@
 	      var _state2 = this.state,
 	          progressInterval = _state2.progressInterval,
 	          percent = _state2.percent,
-	          animationTimeout = _state2.animationTimeout;
-	      var _props = this.props,
-	          loading = _props.loading,
-	          maxProgress = _props.maxProgress;
+	          endingAnimationTimeout = _state2.endingAnimationTimeout;
+	      var maxProgress = this.props.maxProgress;
 	
 	
 	      if (percent === 100) {
 	        clearInterval(progressInterval);
-	        animationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME);
+	        endingAnimationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME);
 	        progressInterval = null;
-	      } else if (loading === 0) {
-	        percent = 100;
 	      } else if (this.newPercent() <= maxProgress) {
 	        percent = this.newPercent();
 	      }
 	
-	      this.setState({ percent: percent, progressInterval: progressInterval, animationTimeout: animationTimeout });
+	      this.setState({ percent: percent, progressInterval: progressInterval, endingAnimationTimeout: endingAnimationTimeout });
 	    }
 	  }, {
 	    key: 'resetProgress',
@@ -50629,25 +50642,21 @@
 	        style.position = 'absolute';
 	      }
 	
-	      return _extends({}, style, this.props.style);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var style = this.buildStyle();
-	
-	      var shouldShow = this.state.percent > 0 && this.state.percent <= 100;
-	
-	      if (shouldShow) {
+	      if (this.shouldShow()) {
 	        style.opacity = '1';
 	      } else {
 	        style.opacity = '0';
 	      }
 	
+	      return _extends({}, style, this.props.style);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('div', { style: style, className: this.props.className }),
+	        _react2.default.createElement('div', { style: this.buildStyle(), className: this.props.className }),
 	        _react2.default.createElement('div', { style: { display: 'table', clear: 'both' } })
 	      );
 	    }
