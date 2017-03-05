@@ -79,7 +79,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'shouldStop',
     value: function shouldStop(nextProps) {
-      return nextProps.loading === 0;
+      return this.state.progressInterval && nextProps.loading === 0;
     }
   }, {
     key: 'shouldShow',

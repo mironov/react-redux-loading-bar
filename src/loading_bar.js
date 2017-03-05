@@ -46,7 +46,7 @@ export class LoadingBar extends React.Component {
   }
 
   shouldStop(nextProps) {
-    return nextProps.loading === 0
+    return this.state.progressInterval && nextProps.loading === 0
   }
 
   shouldShow() {

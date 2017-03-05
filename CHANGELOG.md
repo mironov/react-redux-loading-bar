@@ -1,5 +1,8 @@
 # Release History
 
+## 2.7.2
+   - Do not try to stop simulation if it hasn't begun
+
 ## 2.7.1
    - Launch progress simulation only once when loading is increased couple of times
 
