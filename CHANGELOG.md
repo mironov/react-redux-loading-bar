@@ -1,5 +1,8 @@
 # Release History
 
+## 2.7.3
+   - Fix race condition when `showLoading` is called right after `hideLoading`
+
 ## 2.7.2
    - Do not try to stop simulation if it hasn't begun
 

@@ -256,7 +256,7 @@ describe('LoadingBar', () => {
       })
     })
 
-    describe('if it should be shown again during ending animation', () => {
+    describe('if showLoading is called during ending animation', () => {
       let spySimulateProgress
 
       beforeEach(() => {
@@ -298,6 +298,45 @@ describe('LoadingBar', () => {
         clock.tick(UPDATE_TIME * 1000)
 
         expect(spySimulateProgress.calls.length).toEqual(3)
+      })
+    })
+
+    describe('if showLoading is called right after hideLoading', () => {
+      let spySimulateProgress
+
+      beforeEach(() => {
+        spySimulateProgress = spyOn(
+          LoadingBar.prototype,
+          'simulateProgress',
+        ).andCallThrough()
+      })
+      afterEach(() => {
+        spySimulateProgress.restore()
+      })
+
+      it('does not hides and resets the position', () => {
+        const wrapper = shallow(<LoadingBar />)
+
+        // Show Loading Bar
+        wrapper.setProps({ loading: 1 })
+        clock.tick(UPDATE_TIME)
+        expect(wrapper.state().progressInterval).toExist()
+
+        // Hiding loading bar should set percentage to 100
+        wrapper.setProps({ loading: 0 })
+        expect(wrapper.state().percent).toEqual(100)
+
+        // Show Loading Bar again
+        wrapper.setProps({ loading: 1 })
+
+        // It should be shown
+        expect(wrapper.state().percent).toNotEqual(100)
+
+        // Wait one tick to get the animation going
+        clock.tick(UPDATE_TIME)
+
+        // The progress simulation is still going
+        expect(wrapper.state().progressInterval).toExist()
       })
     })
   })

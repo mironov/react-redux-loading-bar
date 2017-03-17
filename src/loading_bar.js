@@ -57,7 +57,10 @@ export class LoadingBar extends React.Component {
     let { progressInterval, percent } = this.state
     const { endingAnimationTimeout } = this.state
 
-    if (!progressInterval) {
+    const loadingBarNotShown = !progressInterval
+    const endingAnimationGoing = percent === 100
+
+    if (loadingBarNotShown || endingAnimationGoing) {
       progressInterval = setInterval(
         this.boundSimulateProgress,
         this.props.updateTime,
