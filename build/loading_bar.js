@@ -98,11 +98,15 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var loadingBarNotShown = !progressInterval;
       var endingAnimationGoing = percent === 100;
 
-      if (loadingBarNotShown || endingAnimationGoing) {
+      if (loadingBarNotShown) {
         progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
-        clearTimeout(endingAnimationTimeout);
-        percent = 0;
       }
+
+      if (endingAnimationGoing) {
+        clearTimeout(endingAnimationTimeout);
+      }
+
+      percent = 0;
 
       this.setState({ progressInterval: progressInterval, percent: percent });
     }

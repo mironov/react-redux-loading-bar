@@ -1,5 +1,8 @@
 # Release History
 
+## 2.7.4
+   - Do not set second interval if loading bar is shown
+
 ## 2.7.3
    - Fix race condition when `showLoading` is called right after `hideLoading`
 

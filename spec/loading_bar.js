@@ -187,6 +187,16 @@ describe('LoadingBar', () => {
       expect(spySimulateProgress).toHaveBeenCalled()
       expect(spySimulateProgress.calls.length).toEqual(2)
     })
+
+    it('does not set second interval if loading bar is shown', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      const intervalId = wrapper.state().progressInterval
+      wrapper.setProps({ loading: 0 })
+      expect(wrapper.state().percent).toBe(100)
+      wrapper.setProps({ loading: 1 })
+      expect(wrapper.state().progressInterval).toEqual(intervalId)
+    })
   })
 
   describe('#simulateProgress', () => {
