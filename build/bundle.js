@@ -50547,7 +50547,14 @@
 	      if (this.shouldStart(nextProps)) {
 	        this.launch();
 	      } else if (this.shouldStop(nextProps)) {
-	        this.setState({ percent: 100 });
+	        if (this.state.percent === 0 && !this.props.showFastActions) {
+	          // not even shown yet because the action finished quickly after start
+	          clearInterval(this.state.progressInterval);
+	          this.resetProgress();
+	        } else {
+	          // should progress to 100 percent
+	          this.setState({ percent: 100 });
+	        }
 	      }
 	    }
 	  }, {
@@ -50672,23 +50679,32 @@
 	  return LoadingBar;
 	}(_react2.default.Component);
 	
+	var _React$PropTypes = _react2.default.PropTypes,
+	    bool = _React$PropTypes.bool,
+	    number = _React$PropTypes.number,
+	    object = _React$PropTypes.object,
+	    string = _React$PropTypes.string;
+	
+	
 	LoadingBar.propTypes = {
+	  className: string,
+	  loading: number,
+	  maxProgress: number,
+	  progressIncrease: number,
+	  showFastActions: bool,
 	  // eslint-disable-next-line react/forbid-prop-types
-	  style: _react.PropTypes.object,
-	  className: _react.PropTypes.string,
-	  loading: _react.PropTypes.number,
-	  updateTime: _react.PropTypes.number,
-	  maxProgress: _react.PropTypes.number,
-	  progressIncrease: _react.PropTypes.number
+	  style: object,
+	  updateTime: number
 	};
 	
 	LoadingBar.defaultProps = {
-	  style: {},
 	  className: undefined,
 	  loading: 0,
-	  updateTime: UPDATE_TIME,
 	  maxProgress: MAX_PROGRESS,
-	  progressIncrease: PROGRESS_INCREASE
+	  progressIncrease: PROGRESS_INCREASE,
+	  showFastActions: false,
+	  style: {},
+	  updateTime: UPDATE_TIME
 	};
 	
 	var mapStateToProps = function mapStateToProps(state) {
