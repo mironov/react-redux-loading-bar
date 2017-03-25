@@ -70,12 +70,15 @@ describe('LoadingBar', () => {
 
   describe('#componentWillReceiveProps', () => {
     let spyLaunch
+    let clock
 
     beforeEach(() => {
-      spyLaunch = spyOn(LoadingBar.prototype, 'launch')
+      spyLaunch = spyOn(LoadingBar.prototype, 'launch').andCallThrough()
+      clock = lolex.install()
     })
     afterEach(() => {
       spyLaunch.restore()
+      clock.uninstall()
     })
 
     it('does not launch on component mount', () => {
@@ -110,6 +113,26 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 2 })
       expect(spyLaunch).toHaveBeenCalled()
       expect(spyLaunch.calls.length).toEqual(1)
+    })
+
+    describe('when showFastActions not set', () => {
+      it('does not show loading bar on quickly finished actions', () => {
+        const wrapper = shallow(<LoadingBar />)
+        wrapper.setProps({ loading: 1 })
+        clock.tick(UPDATE_TIME - 1) // less than first simulation
+        wrapper.setProps({ loading: 0 })
+        expect(wrapper.state().percent).toBe(0)
+      })
+    })
+
+    describe('when showFastActions is set', () => {
+      it('shows loading bar on quickly finished actions', () => {
+        const wrapper = shallow(<LoadingBar showFastActions />)
+        wrapper.setProps({ loading: 1 })
+        clock.tick(UPDATE_TIME - 1) // less than first simulation
+        wrapper.setProps({ loading: 0 })
+        expect(wrapper.state().percent).toBe(100)
+      })
     })
   })
 
@@ -156,7 +179,7 @@ describe('LoadingBar', () => {
       spySimulateProgress = spyOn(
         LoadingBar.prototype,
         'simulateProgress',
-      )
+      ).andCallThrough()
       clock = lolex.install()
     })
     afterEach(() => {
@@ -191,6 +214,7 @@ describe('LoadingBar', () => {
     it('does not set second interval if loading bar is shown', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
       const intervalId = wrapper.state().progressInterval
       wrapper.setProps({ loading: 0 })
       expect(wrapper.state().percent).toBe(100)
@@ -307,7 +331,7 @@ describe('LoadingBar', () => {
         wrapper.setProps({ loading: 0 })
         clock.tick(UPDATE_TIME * 1000)
 
-        expect(spySimulateProgress.calls.length).toEqual(3)
+        expect(spySimulateProgress.calls.length).toEqual(2)
       })
     })
 

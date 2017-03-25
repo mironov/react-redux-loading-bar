@@ -1,5 +1,8 @@
 # Release History
 
+## 2.8.0
+   - Do not display Loading Bar for quickly finished actions. You can pass the `showFastActions` prop to show the Loading Bar even when the action finishes in under `updateTime`.
+
 ## 2.7.4
    - Do not set second interval if loading bar is shown
 

@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 export const UPDATE_TIME = 200
@@ -32,7 +32,14 @@ export class LoadingBar extends React.Component {
     if (this.shouldStart(nextProps)) {
       this.launch()
     } else if (this.shouldStop(nextProps)) {
-      this.setState({ percent: 100 })
+      if (this.state.percent === 0 && !this.props.showFastActions) {
+        // not even shown yet because the action finished quickly after start
+        clearInterval(this.state.progressInterval)
+        this.resetProgress()
+      } else {
+        // should progress to 100 percent
+        this.setState({ percent: 100 })
+      }
     }
   }
 
@@ -144,23 +151,32 @@ export class LoadingBar extends React.Component {
   }
 }
 
+const {
+  bool,
+  number,
+  object,
+  string,
+} = React.PropTypes
+
 LoadingBar.propTypes = {
+  className: string,
+  loading: number,
+  maxProgress: number,
+  progressIncrease: number,
+  showFastActions: bool,
   // eslint-disable-next-line react/forbid-prop-types
-  style: PropTypes.object,
-  className: PropTypes.string,
-  loading: PropTypes.number,
-  updateTime: PropTypes.number,
-  maxProgress: PropTypes.number,
-  progressIncrease: PropTypes.number,
+  style: object,
+  updateTime: number,
 }
 
 LoadingBar.defaultProps = {
-  style: {},
   className: undefined,
   loading: 0,
-  updateTime: UPDATE_TIME,
   maxProgress: MAX_PROGRESS,
   progressIncrease: PROGRESS_INCREASE,
+  showFastActions: false,
+  style: {},
+  updateTime: UPDATE_TIME,
 }
 
 const mapStateToProps = state => ({

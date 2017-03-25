@@ -173,6 +173,12 @@ You can change updateTime (by default 200ms), maxProgress (by default 90%) and p
 <LoadingBar updateTime={100} maxProgress={95} progressIncrease={10} />
 ```
 
+By default, the Loading Bar will only display if the action took longer than `updateTime` to finish. This helps keep things feeling snappy, and avoids the annoyingness of showing a Loading Bar for fractions of seconds. If you want to show Loading Bar even on quickly finished actions you can pass the `showFastActions` prop:
+
+```jsx
+<LoadingBar showFastActions />
+```
+
 ## Tests
 
 ```bash
