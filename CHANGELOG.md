@@ -1,5 +1,8 @@
 # Release History
 
+## 2.8.1
+   - React.propTypes -> PropTypes
+
 ## 2.8.0
    - Do not display Loading Bar for quickly finished actions. You can pass the `showFastActions` prop to show the Loading Bar even when the action finishes in under `updateTime`.
 

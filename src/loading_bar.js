@@ -1,4 +1,10 @@
 import React from 'react'
+import {
+  bool,
+  number,
+  object,
+  string,
+} from 'prop-types'
 import { connect } from 'react-redux'
 
 export const UPDATE_TIME = 200
@@ -150,13 +156,6 @@ export class LoadingBar extends React.Component {
     )
   }
 }
-
-const {
-  bool,
-  number,
-  object,
-  string,
-} = React.PropTypes
 
 LoadingBar.propTypes = {
   className: string,

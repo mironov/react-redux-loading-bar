@@ -13,6 +13,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
 var _reactRedux = require('react-redux');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -194,22 +196,15 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   return LoadingBar;
 }(_react2.default.Component);
 
-var _React$PropTypes = _react2.default.PropTypes,
-    bool = _React$PropTypes.bool,
-    number = _React$PropTypes.number,
-    object = _React$PropTypes.object,
-    string = _React$PropTypes.string;
-
-
 LoadingBar.propTypes = {
-  className: string,
-  loading: number,
-  maxProgress: number,
-  progressIncrease: number,
-  showFastActions: bool,
+  className: _propTypes.string,
+  loading: _propTypes.number,
+  maxProgress: _propTypes.number,
+  progressIncrease: _propTypes.number,
+  showFastActions: _propTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
-  style: object,
-  updateTime: number
+  style: _propTypes.object,
+  updateTime: _propTypes.number
 };
 
 LoadingBar.defaultProps = {
