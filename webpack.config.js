@@ -1,16 +1,8 @@
 const path = require('path')
-const webpack = require('webpack')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const postcssImport = require('postcss-import')
-const postcssCustomMedia = require('postcss-custom-media')
-const postcssCustomProperties = require('postcss-custom-properties')
-const postcssCalc = require('postcss-calc')
-const postcssColorFunction = require('postcss-color-function')
-const postcssDiscardComments = require('postcss-discard-comments')
-const postcssAutoprefixer = require('autoprefixer')
 
 module.exports = {
-  devtool: 'eval',
+  devtool: 'eval-source-map',
 
   entry: [
     'babel-polyfill',
@@ -23,45 +15,42 @@ module.exports = {
   },
 
   plugins: [
-    new ExtractTextPlugin('bundle.css'),
+    new ExtractTextPlugin({
+      filename: 'bundle.css',
+    }),
   ],
 
   resolve: {
-    extensions: ['', '.js', '.jsx'],
-    root: [
-      path.join(__dirname, 'src'),
+    extensions: ['.js'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules'
     ],
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loaders: ['babel'],
-        exclude: /node_modules/,
+        loader: 'babel-loader',
         include: path.join(__dirname, 'src'),
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader!postcss-loader'
-        ),
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: true,
+              }
+            },
+            'postcss-loader',
+          ],
+        }),
       },
     ],
-  },
-
-  postcss: function () {
-    return [
-      postcssImport({
-        addDependencyTo: webpack,
-      }),
-      postcssCustomMedia,
-      postcssCustomProperties,
-      postcssCalc,
-      postcssColorFunction,
-      postcssDiscardComments,
-      postcssAutoprefixer,
-    ]
   },
 }
