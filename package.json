@@ -15,6 +15,7 @@
   "author": "Anton Mironov (ant.mironov@gmail.com)",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.1",
     "basscss": "^8.0.3",
     "basscss-addons": "^1.0.0",
     "basscss-basic": "^1.0.0",

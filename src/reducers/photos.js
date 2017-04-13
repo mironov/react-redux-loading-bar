@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import axios from 'axios'
 import { shuffle, slice } from 'lodash'
 
 const FETCH = 'photos/FETCH'
@@ -6,16 +6,13 @@ const PHOTOS_URL = 'https://gist.githubusercontent.com/mironov/90943481802c227a1
 
 export const fetchPhotos = () => ({
   type: FETCH,
-  payload: fetch(
-    PHOTOS_URL,
-    { cache: 'no-cache' }
-  ).then((res) => res.json()),
+  payload: axios.get(PHOTOS_URL),
 })
 
 export default function photosReducer(state = [], action = {}) {
   switch (action.type) {
     case `${FETCH}_FULFILLED`:
-      return slice(shuffle(action.payload), 0, 5)
+      return slice(shuffle(action.payload.data), 0, 5)
 
     default: return state
   }
