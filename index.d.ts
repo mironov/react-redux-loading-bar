@@ -8,6 +8,7 @@ export interface LoadingBarContainerProps {
   updateTime?: number;
   maxProgress?: number;
   progressIncrease?: number;
+  showFastActions?: boolean;
 }
 export default class LoadingBarContainer extends Component<LoadingBarContainerProps, {}> {}
 
