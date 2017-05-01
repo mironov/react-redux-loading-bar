@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme'
 import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
-import { jsdom } from 'jsdom'
+import { JSDOM } from 'jsdom'
 
 import {
   LoadingBar,
@@ -17,9 +17,9 @@ import {
 expect.extend(expectJSX)
 
 // Setup jsdom to let enzyme's mount work
-const doc = jsdom('<!doctype html><html><body></body></html>')
-global.document = doc
-global.window = doc.defaultView
+const dom = new JSDOM('<!doctype html><html><body></body></html>')
+global.window = dom.window
+global.document = dom.window.document
 
 describe('LoadingBar', () => {
   describe('#render', () => {

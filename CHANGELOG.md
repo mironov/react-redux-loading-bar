@@ -1,5 +1,8 @@
 # Release History
 
+## 2.8.2
+   - Add showFastActions prop to TS definition (thanks @vitosamson)
+
 ## 2.8.1
    - React.propTypes -> PropTypes
 
