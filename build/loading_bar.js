@@ -28,7 +28,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UPDATE_TIME = exports.UPDATE_TIME = 200;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
 var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
-var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 2;
+var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 4;
 
 var initialState = {
   endingAnimationTimeout: null,
@@ -161,9 +161,12 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
     key: 'buildStyle',
     value: function buildStyle() {
       var style = {
-        width: this.state.percent + '%',
-        transition: 'width ' + ANIMATION_TIME + 'ms linear',
-        opacity: '1'
+        opacity: '1',
+        transform: 'scaleX(' + this.state.percent / 100 + ')',
+        transformOrigin: 'left',
+        transition: 'transform ' + ANIMATION_TIME + 'ms linear',
+        width: '100%',
+        willChange: 'transform, opacity'
       };
 
       // Use default styling if there's no CSS class applied

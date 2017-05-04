@@ -1,5 +1,8 @@
 # Release History
 
+## 2.9.0
+   - Make the animation smoother
+
 ## 2.8.2
    - Add showFastActions prop to TS definition (thanks @vitosamson)
 

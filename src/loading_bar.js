@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 99
 export const PROGRESS_INCREASE = 10
-export const ANIMATION_TIME = UPDATE_TIME * 2
+export const ANIMATION_TIME = UPDATE_TIME * 4
 
 const initialState = {
   endingAnimationTimeout: null,
@@ -126,9 +126,12 @@ export class LoadingBar extends React.Component {
 
   buildStyle() {
     const style = {
-      width: `${this.state.percent}%`,
-      transition: `width ${ANIMATION_TIME}ms linear`,
       opacity: '1',
+      transform: `scaleX(${this.state.percent / 100})`,
+      transformOrigin: 'left',
+      transition: `transform ${ANIMATION_TIME}ms linear`,
+      width: '100%',
+      willChange: 'transform, opacity',
     }
 
     // Use default styling if there's no CSS class applied
