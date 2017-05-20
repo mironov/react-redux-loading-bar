@@ -32,6 +32,7 @@ export class LoadingBar extends React.Component {
     if (this.props.loading > 0) {
       this.launch()
     }
+    this.applyStyle()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,6 +48,10 @@ export class LoadingBar extends React.Component {
         this.setState({ percent: 100 })
       }
     }
+  }
+
+  componentDidUpdate() {
+    this.applyStyle()
   }
 
   componentWillUnmount() {
@@ -150,10 +155,20 @@ export class LoadingBar extends React.Component {
     return { ...style, ...this.props.style }
   }
 
+  applyStyle() {
+    const styles = this.buildStyle()
+    Object.keys(styles).forEach(key => (
+      this.loadingBar.style[key] = styles[key]
+    ))
+  }
+
   render() {
     return (
       <div>
-        <div style={this.buildStyle()} className={this.props.className} />
+        <div
+          ref={e => (this.loadingBar = e)}
+          className={this.props.className}
+        />
         <div style={{ display: 'table', clear: 'both' }} />
       </div>
     )
