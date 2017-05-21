@@ -44,7 +44,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call(this, props));
 
-    _this.state = initialState;
+    _this.state = _extends({}, initialState, {
+      hasMounted: false
+    });
 
     _this.boundSimulateProgress = _this.simulateProgress.bind(_this);
     _this.boundResetProgress = _this.resetProgress.bind(_this);
@@ -54,6 +56,16 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   _createClass(LoadingBar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      // Re-render the component after mount to fix problems with SSR and CSP.
+      //
+      // Apps that use Server Side Rendering and has Content Security Policy
+      // for style that doesn't allow inline styles should render an empty div
+      // and replace it with the actual Loading Bar after mount
+      // See: https://github.com/mironov/react-redux-loading-bar/issues/39
+      //
+      // eslint-disable-next-line react/no-did-mount-set-state
+      this.setState({ hasMounted: true });
+
       if (this.props.loading > 0) {
         this.launch();
       }
@@ -187,6 +199,12 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      // In order not to violate strict style CSP it's better to make
+      // an extra re-render after component mount
+      if (!this.state.hasMounted) {
+        return _react2.default.createElement('div', null);
+      }
+
       return _react2.default.createElement(
         'div',
         null,

@@ -29,10 +29,16 @@ describe('LoadingBar', () => {
       expect(wrapper.node.type).toEqual('div')
     })
 
-    it('renders by default hidden 3px height red element', () => {
+    it('renders an empty div before mount', () => {
       const wrapper = shallow(<LoadingBar />)
 
-      const resultStyle = wrapper.children().node.props.style
+      expect(wrapper.children().node).toEqual(undefined)
+    })
+
+    it('renders by default hidden 3px height red element', () => {
+      const wrapper = mount(<LoadingBar />)
+
+      const resultStyle = wrapper.childAt(0).props().style
       expect(resultStyle.opacity).toEqual('0')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
@@ -40,18 +46,18 @@ describe('LoadingBar', () => {
 
     it('renders an element with passed color and height', () => {
       const style = { backgroundColor: 'blue', height: '5px' }
-      const wrapper = shallow(<LoadingBar style={style} />)
+      const wrapper = mount(<LoadingBar style={style} />)
 
-      const resultStyle = wrapper.children().node.props.style
+      const resultStyle = wrapper.childAt(0).props().style
       expect(resultStyle.backgroundColor).toEqual('blue')
       expect(resultStyle.height).toEqual('5px')
     })
 
     it('renders not hidden 3px height red element', () => {
-      const wrapper = shallow(<LoadingBar loading={1} />)
+      const wrapper = mount(<LoadingBar loading={1} />)
       wrapper.setState({ percent: 10 })
 
-      const resultStyle = wrapper.children().node.props.style
+      const resultStyle = wrapper.childAt(0).props().style
       expect(resultStyle.opacity).toEqual('1')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
@@ -59,9 +65,9 @@ describe('LoadingBar', () => {
     })
 
     it('does not apply styling if CSS class is specified', () => {
-      const wrapper = shallow(<LoadingBar className="custom" />)
+      const wrapper = mount(<LoadingBar className="custom" />)
 
-      const resultStyle = wrapper.children().node.props.style
+      const resultStyle = wrapper.childAt(0).props().style
       expect(resultStyle.backgroundColor).toEqual(undefined)
       expect(resultStyle.height).toEqual(undefined)
       expect(resultStyle.position).toEqual(undefined)
