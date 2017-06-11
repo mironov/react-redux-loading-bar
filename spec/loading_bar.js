@@ -169,8 +169,8 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       wrapper.setProps({ loading: 0 })
-      clock.tick(UPDATE_TIME * 2)
-      expect(wrapper.state().endingAnimationTimeout).toNotEqual(null)
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().terminatingAnimationTimeout).toNotEqual(null)
       wrapper.unmount()
       clock.tick(ANIMATION_TIME)
       expect(consoleSpy).toNotHaveBeenCalled()
@@ -247,7 +247,7 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 0 })
       clock.tick(UPDATE_TIME)
       expect(wrapper.state().progressInterval).toNotExist()
-      expect(wrapper.state().endingAnimationTimeout).toExist()
+      expect(wrapper.state().terminatingAnimationTimeout).toExist()
       expect(wrapper.state().percent).toBe(100)
     })
 
@@ -271,7 +271,7 @@ describe('LoadingBar', () => {
       expect(wrapper.state().percent).toBe(100)
       clock.tick(UPDATE_TIME + ANIMATION_TIME)
       expect(wrapper.state().percent).toBe(0)
-      expect(wrapper.state().endingAnimationTimeout).toNotExist()
+      expect(wrapper.state().terminatingAnimationTimeout).toNotExist()
     })
 
     describe('if percent is less than MAX_PROGRESS', () => {
@@ -296,7 +296,7 @@ describe('LoadingBar', () => {
       })
     })
 
-    describe('if showLoading is called during ending animation', () => {
+    describe('if showLoading is called during terminating animation', () => {
       let spySimulateProgress
 
       beforeEach(() => {
@@ -320,8 +320,8 @@ describe('LoadingBar', () => {
         // Hide Loading Bar, let the percent become 100 and
         // schedule the reset after animation
         wrapper.setProps({ loading: 0 })
-        clock.tick(UPDATE_TIME * 2)
-        expect(wrapper.state().endingAnimationTimeout).toExist()
+        clock.tick(UPDATE_TIME)
+        expect(wrapper.state().terminatingAnimationTimeout).toExist()
 
         // Wait one tick while animation is going
         clock.tick(UPDATE_TIME)

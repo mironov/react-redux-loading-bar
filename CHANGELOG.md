@@ -1,5 +1,8 @@
 # Release History
 
+## 2.9.2
+   - Make terminating animation faster. Ref: #41
+
 ## 2.9.1
    - Render an empty div first and replace it with the actual Loading Bar after mount. This fixes the problem with SSR and strict style CSP. Ref: #39
 

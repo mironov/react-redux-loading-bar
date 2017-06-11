@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LoadingBar = exports.ANIMATION_TIME = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
+exports.LoadingBar = exports.TERMINATING_ANIMATION_TIME = exports.ANIMATION_TIME = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -29,9 +29,10 @@ var UPDATE_TIME = exports.UPDATE_TIME = 200;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
 var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
 var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 4;
+var TERMINATING_ANIMATION_TIME = exports.TERMINATING_ANIMATION_TIME = UPDATE_TIME / 2;
 
 var initialState = {
-  endingAnimationTimeout: null,
+  terminatingAnimationTimeout: null,
   percent: 0,
   progressInterval: null
 };
@@ -90,7 +91,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       clearInterval(this.state.progressInterval);
-      clearTimeout(this.state.endingAnimationTimeout);
+      clearTimeout(this.state.terminatingAnimationTimeout);
     }
   }, {
     key: 'shouldStart',
@@ -113,18 +114,18 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var _state = this.state,
           progressInterval = _state.progressInterval,
           percent = _state.percent;
-      var endingAnimationTimeout = this.state.endingAnimationTimeout;
+      var terminatingAnimationTimeout = this.state.terminatingAnimationTimeout;
 
 
       var loadingBarNotShown = !progressInterval;
-      var endingAnimationGoing = percent === 100;
+      var terminatingAnimationGoing = percent === 100;
 
       if (loadingBarNotShown) {
         progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
       }
 
-      if (endingAnimationGoing) {
-        clearTimeout(endingAnimationTimeout);
+      if (terminatingAnimationGoing) {
+        clearTimeout(terminatingAnimationTimeout);
       }
 
       percent = 0;
@@ -150,19 +151,19 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       var _state2 = this.state,
           progressInterval = _state2.progressInterval,
           percent = _state2.percent,
-          endingAnimationTimeout = _state2.endingAnimationTimeout;
+          terminatingAnimationTimeout = _state2.terminatingAnimationTimeout;
       var maxProgress = this.props.maxProgress;
 
 
       if (percent === 100) {
         clearInterval(progressInterval);
-        endingAnimationTimeout = setTimeout(this.boundResetProgress, ANIMATION_TIME);
+        terminatingAnimationTimeout = setTimeout(this.boundResetProgress, TERMINATING_ANIMATION_TIME);
         progressInterval = null;
       } else if (this.newPercent() <= maxProgress) {
         percent = this.newPercent();
       }
 
-      this.setState({ percent: percent, progressInterval: progressInterval, endingAnimationTimeout: endingAnimationTimeout });
+      this.setState({ percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout });
     }
   }, {
     key: 'resetProgress',
@@ -172,11 +173,13 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'buildStyle',
     value: function buildStyle() {
+      var animationTime = this.state.percent !== 100 ? ANIMATION_TIME : TERMINATING_ANIMATION_TIME;
+
       var style = {
         opacity: '1',
         transform: 'scaleX(' + this.state.percent / 100 + ')',
         transformOrigin: 'left',
-        transition: 'transform ' + ANIMATION_TIME + 'ms linear',
+        transition: 'transform ' + animationTime + 'ms linear',
         width: '100%',
         willChange: 'transform, opacity'
       };
