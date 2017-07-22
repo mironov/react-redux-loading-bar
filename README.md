@@ -6,7 +6,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-loading-bar.svg?style=flat)](https://www.npmjs.com/package/react-redux-loading-bar)
 [![dependency status](https://david-dm.org/mironov/react-redux-loading-bar.svg)](https://david-dm.org/mironov/react-redux-loading-bar)
 
-A React component that provides Loading Bar (aka Progress Bar) for long running tasks. Works out of the box with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware) and can be easily tweaked for other usage.
+A React component that provides Loading Bar (aka Progress Bar) for long running tasks.
 
 ![Demo GIF](http://d.pr/i/JbwN+)
 
@@ -14,7 +14,7 @@ Consists of:
 
 * React component — displays loading bar and simulates progress
 * Redux reducer — manages loading bar's part of the store
-* Redux middleware — dispatches `SHOW`/`HIDE` for actions with promises
+* (optional) Redux middleware — automatically shows and hides Loading Bar for actions with promises
 
 ## Examples
 
@@ -44,7 +44,7 @@ export default class Header extends React.Component {
 }
 ```
 
-Good news is that it doesn't include any positioning, so you can attach it to the top of any block or the whole page.
+Good news is that it doesn't include any positioning. You can attach it to the top of any block or the whole page.
 
 Install the reducer to the store:
 
@@ -58,7 +58,9 @@ const reducer = combineReducers({
 })
 ```
 
-*(Optional)* Apply middleware to automatically show and hide loading bar on actions with promises:
+## Usage with [`redux-promise-middleware`](https://github.com/pburtchaell/redux-promise-middleware)
+
+Apply middleware to automatically show and hide loading bar on actions with promises:
 
 ```jsx
 import { createStore, applyMiddleware } from 'redux'
@@ -72,7 +74,7 @@ const store = createStore(
 )
 ```
 
-## Usage with custom suffixes or another Promise Middleware
+## Usage with custom suffixes or alternative promise middleware
 
 You can configure promise type suffixes that are used in your project:
 
@@ -107,9 +109,9 @@ dispatch(hideLoading())
 
 You need to dispatch `HIDE` as many times as `SHOW` was dispatched to make the bar disappear. In other words, the loading bar is shown until all long running tasks complete.
 
-## Usage with `redux-saga`
+## Usage with [`redux-saga`](https://github.com/redux-saga/redux-saga)
 
-Install the `loadingBarMiddleware()` and mount Loading Bar in your application.
+Install the `loadingBarReducer()` and mount Loading Bar in your application.
 You can import and dispatch `showLoading` and `hideLoading` from your sagas.
 
 ```jsx
@@ -126,7 +128,7 @@ export function* fetchData() {
 }
 ```
 
-## Usage with `immutable-js`
+## Usage with [`immutable-js`](https://github.com/facebook/immutable-js)
 
 You can change component import line if your top level redux store object is `immutable`.
 
@@ -178,6 +180,10 @@ By default, the Loading Bar will only display if the action took longer than `up
 ```jsx
 <LoadingBar showFastActions />
 ```
+
+## Reset progress
+
+You can dispatch the `resetLoading` action to ultimately hide Loading Bar even when multiple long running tasks are still in progress.
 
 ## Tests
 
