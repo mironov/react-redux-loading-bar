@@ -205,8 +205,12 @@ LoadingBar.defaultProps = {
   updateTime: UPDATE_TIME,
 }
 
-const mapStateToProps = state => ({
-  loading: state.loadingBar,
-})
+const mapStateToProps = (state, ownProps) => {
+  const scope = ownProps.scope || 'default'
+
+  return {
+    loading: state.loadingBar[scope],
+  }
+}
 
 export default connect(mapStateToProps)(LoadingBar)

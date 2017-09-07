@@ -182,10 +182,9 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
         transition: 'transform ' + animationTime + 'ms linear',
         width: '100%',
         willChange: 'transform, opacity'
-      };
 
-      // Use default styling if there's no CSS class applied
-      if (!this.props.className) {
+        // Use default styling if there's no CSS class applied
+      };if (!this.props.className) {
         style.height = '3px';
         style.backgroundColor = 'red';
         style.position = 'absolute';
@@ -241,9 +240,11 @@ LoadingBar.defaultProps = {
   updateTime: UPDATE_TIME
 };
 
-var mapStateToProps = function mapStateToProps(state) {
+var mapStateToProps = function mapStateToProps(state, ownProps) {
+  var scope = ownProps.scope || 'default';
+
   return {
-    loading: state.loadingBar
+    loading: state.loadingBar[scope]
   };
 };
 
