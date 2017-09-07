@@ -30,7 +30,7 @@ export function resetLoading(scope = 'default') {
 }
 
 export function loadingBarReducer(state = {}, action = {}) {
-  const { scope } = action.payload;
+  const { scope } = (action.payload || {});
 
   switch (action.type) {
     case SHOW:

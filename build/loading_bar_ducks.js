@@ -50,8 +50,9 @@ function resetLoading() {
 function loadingBarReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var scope = action.payload.scope;
 
+  var _ref = action.payload || {},
+      scope = _ref.scope;
 
   switch (action.type) {
     case SHOW:
