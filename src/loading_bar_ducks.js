@@ -35,15 +35,18 @@ export function loadingBarReducer(state = {}, action = {}) {
   switch (action.type) {
     case SHOW:
       return {
+        ...state,
         [scope]: (state[scope] || 0) + 1,
       }
 
     case HIDE:
       return {
+        ...state,
         [scope]: (state[scope] || 1) - 1,
       }
     case RESET:
       return {
+        ...state,
         [scope]: 0,
       }
     default:
