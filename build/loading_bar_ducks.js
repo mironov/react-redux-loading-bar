@@ -3,6 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.showLoading = showLoading;
 exports.hideLoading = hideLoading;
 exports.resetLoading = resetLoading;
@@ -56,12 +59,12 @@ function loadingBarReducer() {
 
   switch (action.type) {
     case SHOW:
-      return _defineProperty({}, scope, (state[scope] || 0) + 1);
+      return _extends({}, state, _defineProperty({}, scope, (state[scope] || 0) + 1));
 
     case HIDE:
-      return _defineProperty({}, scope, (state[scope] || 1) - 1);
+      return _extends({}, state, _defineProperty({}, scope, (state[scope] || 1) - 1));
     case RESET:
-      return _defineProperty({}, scope, 0);
+      return _extends({}, state, _defineProperty({}, scope, 0));
     default:
       return state;
   }
