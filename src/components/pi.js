@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const Pi = ({ handleCalculatePi, pi }) =>
+const Pi = ({ handleCalculatePi, pi }) => (
   <div>
     <button
       onClick={handleCalculatePi}
@@ -13,10 +13,11 @@ const Pi = ({ handleCalculatePi, pi }) =>
       <input type="text" value={pi} readOnly className="field" />
     </p>
   </div>
+)
 
 Pi.propTypes = {
-  pi: PropTypes.number,
-  handleCalculatePi: PropTypes.func,
+  pi: PropTypes.number.isRequired,
+  handleCalculatePi: PropTypes.func.isRequired,
 }
 
 export default Pi

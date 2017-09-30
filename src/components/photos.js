@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 
 class Photos extends React.Component {
   renderPhotos() {
-    return this.props.photos.map((photo) =>
+    return this.props.photos.map(photo => (
       <div className="flex-auto" key={photo.id}>
         <img src={photo.thumbnailUrl} alt={photo.title} />
       </div>
-    )
+    ))
   }
 
   render() {
@@ -28,8 +28,8 @@ class Photos extends React.Component {
 }
 
 Photos.propTypes = {
-  photos: PropTypes.array,
-  handleFetchPhotos: PropTypes.func,
+  photos: PropTypes.array.isRequired,
+  handleFetchPhotos: PropTypes.func.isRequired,
 }
 
 export default Photos

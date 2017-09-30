@@ -46,20 +46,20 @@ class Demo extends React.Component {
 }
 
 Demo.propTypes = {
-  actions: PropTypes.object,
-  photos: PropTypes.array,
-  pi: PropTypes.number,
+  actions: PropTypes.object.isRequired,
+  photos: PropTypes.array.isRequired,
+  pi: PropTypes.number.isRequired,
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   photos: state.photos,
   pi: state.pi,
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(
     { fetchPhotos, calculatePi },
-    dispatch
+    dispatch,
   ),
 })
 

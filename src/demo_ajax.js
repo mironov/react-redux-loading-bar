@@ -56,10 +56,10 @@ class DemoAjax extends React.Component {
 }
 
 DemoAjax.propTypes = {
-  actions: PropTypes.object,
+  actions: PropTypes.object.isRequired,
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ showLoading, hideLoading }, dispatch),
 })
 

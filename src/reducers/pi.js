@@ -5,13 +5,13 @@ export const calculatePiPending = () => ({
   type: CALCULATE_PENDING,
 })
 
-export const calculatePiFulfilled = (pi) => ({
+export const calculatePiFulfilled = pi => ({
   type: CALCULATE_FULFILLED,
   pi,
 })
 
-export const calculatePi = () =>
-  dispatch => {
+export const calculatePi = () => (
+  (dispatch) => {
     dispatch(calculatePiPending())
     const worker = new Worker('build/pi.js')
 
@@ -22,6 +22,7 @@ export const calculatePi = () =>
     // precision
     worker.postMessage(1000000000)
   }
+)
 
 export default function piReducer(state = 0, action = {}) {
   switch (action.type) {
