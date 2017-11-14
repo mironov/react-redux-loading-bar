@@ -1,5 +1,8 @@
 # Release History
 
+## 2.9.3
+   - Bump dependencies to support React 16
+
 ## 2.9.2
    - Make terminating animation faster. Ref: #41
 

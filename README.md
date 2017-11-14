@@ -135,7 +135,7 @@ You can change component import line if your top level redux store object is `im
 ```jsx
 import { ImmutableLoadingBar as LoadingBar } from 'react-redux-loading-bar'
 
-// Use LoadingBar component as usual
+// Mount LoadingBar component as usual
 ```
 
 ## Usage with jQuery Ajax Requests
