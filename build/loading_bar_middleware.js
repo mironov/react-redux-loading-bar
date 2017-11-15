@@ -16,6 +16,7 @@ function loadingBarMiddleware() {
   var config = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes;
+  var scope = config.scope || _loading_bar_ducks.DEFAULT_SCOPE;
 
   return function (_ref) {
     var dispatch = _ref.dispatch;
@@ -32,9 +33,9 @@ function loadingBarMiddleware() {
           var isRejected = new RegExp(REJECTED + '$', 'g');
 
           if (action.type.match(isPending)) {
-            dispatch((0, _loading_bar_ducks.showLoading)());
+            dispatch((0, _loading_bar_ducks.showLoading)(scope));
           } else if (action.type.match(isFulfilled) || action.type.match(isRejected)) {
-            dispatch((0, _loading_bar_ducks.hideLoading)());
+            dispatch((0, _loading_bar_ducks.hideLoading)(scope));
           }
         }
 

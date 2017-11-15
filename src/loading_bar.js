@@ -7,6 +7,8 @@ import {
 } from 'prop-types'
 import { connect } from 'react-redux'
 
+import { DEFAULT_SCOPE } from './loading_bar_ducks'
+
 export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 99
 export const PROGRESS_INCREASE = 10
@@ -190,9 +192,11 @@ LoadingBar.propTypes = {
   maxProgress: number,
   progressIncrease: number,
   showFastActions: bool,
+  updateTime: number,
+  // eslint-disable-next-line react/no-unused-prop-types
+  scope: string,
   // eslint-disable-next-line react/forbid-prop-types
   style: object,
-  updateTime: number,
 }
 
 LoadingBar.defaultProps = {
@@ -203,14 +207,11 @@ LoadingBar.defaultProps = {
   showFastActions: false,
   style: {},
   updateTime: UPDATE_TIME,
+  scope: DEFAULT_SCOPE,
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const scope = ownProps.scope || 'default'
-
-  return {
-    loading: state.loadingBar[scope],
-  }
-}
+const mapStateToProps = (state, ownProps) => ({
+  loading: state.loadingBar[ownProps.scope],
+})
 
 export default connect(mapStateToProps)(LoadingBar)

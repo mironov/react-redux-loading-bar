@@ -17,6 +17,8 @@ var _propTypes = require('prop-types');
 
 var _reactRedux = require('react-redux');
 
+var _loading_bar_ducks = require('./loading_bar_ducks');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -225,9 +227,11 @@ LoadingBar.propTypes = {
   maxProgress: _propTypes.number,
   progressIncrease: _propTypes.number,
   showFastActions: _propTypes.bool,
+  updateTime: _propTypes.number,
+  // eslint-disable-next-line react/no-unused-prop-types
+  scope: _propTypes.string,
   // eslint-disable-next-line react/forbid-prop-types
-  style: _propTypes.object,
-  updateTime: _propTypes.number
+  style: _propTypes.object
 };
 
 LoadingBar.defaultProps = {
@@ -237,14 +241,13 @@ LoadingBar.defaultProps = {
   progressIncrease: PROGRESS_INCREASE,
   showFastActions: false,
   style: {},
-  updateTime: UPDATE_TIME
+  updateTime: UPDATE_TIME,
+  scope: _loading_bar_ducks.DEFAULT_SCOPE
 };
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
-  var scope = ownProps.scope || 'default';
-
   return {
-    loading: state.loadingBar[scope]
+    loading: state.loadingBar[ownProps.scope]
   };
 };
 

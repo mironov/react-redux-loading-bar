@@ -1,9 +1,10 @@
-import { showLoading, hideLoading } from './loading_bar_ducks'
+import { DEFAULT_SCOPE, showLoading, hideLoading } from './loading_bar_ducks'
 
 const defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED']
 
 export default function loadingBarMiddleware(config = {}) {
   const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
+  const scope = config.scope || DEFAULT_SCOPE
 
   return ({ dispatch }) => next => (action) => {
     if (action.type) {
@@ -14,10 +15,10 @@ export default function loadingBarMiddleware(config = {}) {
       const isRejected = new RegExp(`${REJECTED}$`, 'g')
 
       if (action.type.match(isPending)) {
-        dispatch(showLoading())
+        dispatch(showLoading(scope))
       } else if (action.type.match(isFulfilled) ||
                  action.type.match(isRejected)) {
-        dispatch(hideLoading())
+        dispatch(hideLoading(scope))
       }
     }
 
