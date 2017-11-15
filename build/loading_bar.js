@@ -235,7 +235,7 @@ LoadingBar.propTypes = {
 };
 
 LoadingBar.defaultProps = {
-  className: undefined,
+  className: '',
   loading: 0,
   maxProgress: MAX_PROGRESS,
   progressIncrease: PROGRESS_INCREASE,
