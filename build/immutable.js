@@ -8,9 +8,11 @@ var _reactRedux = require('react-redux');
 
 var _loading_bar = require('./loading_bar');
 
-var mapImmutableStateToProps = function mapImmutableStateToProps(state) {
+var _loading_bar_ducks = require('./loading_bar_ducks');
+
+var mapImmutableStateToProps = function mapImmutableStateToProps(state, ownProps) {
   return {
-    loading: state.get('loadingBar')
+    loading: state.get('loadingBar').get(ownProps.scope || _loading_bar_ducks.DEFAULT_SCOPE)
   };
 };
 

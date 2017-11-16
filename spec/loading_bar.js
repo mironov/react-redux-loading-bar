@@ -1,6 +1,7 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import React from 'react'
-import { shallow, mount } from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
+import Enzyme, { shallow, mount } from 'enzyme'
 import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
 import lolex from 'lolex'
@@ -14,6 +15,7 @@ import {
   ANIMATION_TIME,
 } from '../src/loading_bar'
 
+Enzyme.configure({ adapter: new Adapter() })
 expect.extend(expectJSX)
 
 // Setup jsdom to let enzyme's mount work
@@ -26,19 +28,19 @@ describe('LoadingBar', () => {
     it('renders without problems', () => {
       const wrapper = shallow(<LoadingBar />)
 
-      expect(wrapper.node.type).toEqual('div')
+      expect(wrapper.getElement().type).toEqual('div')
     })
 
     it('renders an empty div before mount', () => {
       const wrapper = shallow(<LoadingBar />)
 
-      expect(wrapper.children().node).toEqual(undefined)
+      wrapper.equals(<div />)
     })
 
     it('renders by default hidden 3px height red element', () => {
       const wrapper = mount(<LoadingBar />)
 
-      const resultStyle = wrapper.childAt(0).props().style
+      const resultStyle = wrapper.find('div').at(1).props().style
       expect(resultStyle.opacity).toEqual('0')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
@@ -48,7 +50,7 @@ describe('LoadingBar', () => {
       const style = { backgroundColor: 'blue', height: '5px' }
       const wrapper = mount(<LoadingBar style={style} />)
 
-      const resultStyle = wrapper.childAt(0).props().style
+      const resultStyle = wrapper.find('div').at(1).props().style
       expect(resultStyle.backgroundColor).toEqual('blue')
       expect(resultStyle.height).toEqual('5px')
     })
@@ -57,7 +59,7 @@ describe('LoadingBar', () => {
       const wrapper = mount(<LoadingBar loading={1} />)
       wrapper.setState({ percent: 10 })
 
-      const resultStyle = wrapper.childAt(0).props().style
+      const resultStyle = wrapper.find('div').at(1).props().style
       expect(resultStyle.opacity).toEqual('1')
       expect(resultStyle.backgroundColor).toEqual('red')
       expect(resultStyle.height).toEqual('3px')
@@ -67,10 +69,33 @@ describe('LoadingBar', () => {
     it('does not apply styling if CSS class is specified', () => {
       const wrapper = mount(<LoadingBar className="custom" />)
 
-      const resultStyle = wrapper.childAt(0).props().style
+      const resultStyle = wrapper.find('div').at(1).props().style
       expect(resultStyle.backgroundColor).toEqual(undefined)
       expect(resultStyle.height).toEqual(undefined)
       expect(resultStyle.position).toEqual(undefined)
+    })
+
+    it('renders multiple instances in the same dom', () => {
+      const wrapper = mount(
+        <section>
+          <LoadingBar />
+          <LoadingBar scope="someScope" className="custom" />
+        </section> // eslint-disable-line comma-dangle
+      )
+
+      const sectionWrapper = wrapper.find('section').at(0)
+
+      const loadingBarDefault = sectionWrapper.childAt(0).find('div').at(1)
+      expect(loadingBarDefault.props().className).toEqual('')
+      expect(loadingBarDefault.props().style.opacity).toEqual('0')
+      expect(loadingBarDefault.props().style.backgroundColor).toEqual('red')
+      expect(loadingBarDefault.props().style.height).toEqual('3px')
+
+      const loadingBarCustom = sectionWrapper.childAt(1).find('div').at(1)
+      expect(loadingBarCustom.props().className).toEqual('custom')
+      expect(loadingBarCustom.props().style.backgroundColor).toEqual(undefined)
+      expect(loadingBarCustom.props().style.height).toEqual(undefined)
+      expect(loadingBarCustom.props().style.position).toEqual(undefined)
     })
   })
 
