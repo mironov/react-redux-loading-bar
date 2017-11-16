@@ -247,7 +247,7 @@ LoadingBar.defaultProps = {
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    loading: state.loadingBar[ownProps.scope]
+    loading: state.loadingBar[ownProps.scope || _loading_bar_ducks.DEFAULT_SCOPE]
   };
 };
 
