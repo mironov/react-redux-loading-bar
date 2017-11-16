@@ -1,5 +1,6 @@
 *{
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 body{
@@ -190,7 +191,7 @@ hr{
 
 .max-width-4{ max-width:64rem }
 
-.border-box{ box-sizing:border-box }
+.border-box{ -webkit-box-sizing:border-box; box-sizing:border-box }
 
 .align-baseline{ vertical-align:baseline }
 
@@ -356,12 +357,14 @@ hr{
 
 .col{
   float:left;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 .col-right{
   float:right;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 .col-1{
@@ -416,12 +419,14 @@ hr{
 
   .sm-col{
     float:left;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .sm-col-right{
     float:right;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .sm-col-1{
@@ -478,12 +483,14 @@ hr{
 
   .md-col{
     float:left;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .md-col-right{
     float:right;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .md-col-1{
@@ -540,12 +547,14 @@ hr{
 
   .lg-col{
     float:left;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .lg-col-right{
     float:right;
-    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+            box-sizing:border-box;
   }
 
   .lg-col-1{
@@ -630,11 +639,11 @@ hr{
 
 .self-end{ -ms-flex-item-align:end; align-self:flex-end }
 
-.self-center{ -ms-flex-item-align:center; -ms-grid-row-align:center; align-self:center }
+.self-center{ -ms-flex-item-align:center; align-self:center }
 
 .self-baseline{ -ms-flex-item-align:baseline; align-self:baseline }
 
-.self-stretch{ -ms-flex-item-align:stretch; -ms-grid-row-align:stretch; align-self:stretch }
+.self-stretch{ -ms-flex-item-align:stretch; align-self:stretch }
 
 .justify-start{ -webkit-box-pack:start; -ms-flex-pack:start; justify-content:flex-start }
 
@@ -784,7 +793,8 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 .select{
@@ -797,7 +807,8 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 .textarea{
@@ -809,7 +820,8 @@ hr{
   margin-bottom:1rem;
   border:1px solid #ccc;
   border-radius:3px;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
 }
 
 :root{
@@ -822,7 +834,8 @@ textarea,
 fieldset{
   font-family:inherit;
   font-size:1rem;
-  box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+          box-sizing:border-box;
   margin-top:0;
   margin-bottom:0;
 }
@@ -876,7 +889,8 @@ textarea{
 .field.is-focused{
   outline:none;
   border-color:#0074D9;
-  box-shadow:0 0 0 2px rgba(0, 116, 217, 0.5);
+  -webkit-box-shadow:0 0 0 2px rgba(0, 116, 217, 0.5);
+          box-shadow:0 0 0 2px rgba(0, 116, 217, 0.5);
 }
 
 .field:disabled,
@@ -901,7 +915,8 @@ textarea{
 
 .field.is-success:focus,
 .field.is-success.is-focused{
-  box-shadow:0 0 0 2px rgba(46, 204, 64, 0.5);
+  -webkit-box-shadow:0 0 0 2px rgba(46, 204, 64, 0.5);
+          box-shadow:0 0 0 2px rgba(46, 204, 64, 0.5);
 }
 
 .field.is-warning{
@@ -910,7 +925,8 @@ textarea{
 
 .field.is-warning:focus,
 .field.is-warning.is-focused{
-  box-shadow:0 0 0 2px rgba(255, 220, 0, 0.5);
+  -webkit-box-shadow:0 0 0 2px rgba(255, 220, 0, 0.5);
+          box-shadow:0 0 0 2px rgba(255, 220, 0, 0.5);
 }
 
 .field:invalid,
@@ -922,7 +938,8 @@ textarea{
 .field:invalid.is-focused,
 .field.is-error:focus,
 .field.is-error.is-focused{
-  box-shadow:0 0 0 2px rgba(255, 65, 54, 0.5);
+  -webkit-box-shadow:0 0 0 2px rgba(255, 65, 54, 0.5);
+          box-shadow:0 0 0 2px rgba(255, 65, 54, 0.5);
 }
 
 .btn{
@@ -950,7 +967,8 @@ textarea{
 .btn:focus{
   outline:none;
   border-color:rgba(0, 0, 0, .125);
-  box-shadow:0 0 0 3px rgba(0, 0, 0, .25);
+  -webkit-box-shadow:0 0 0 3px rgba(0, 0, 0, .25);
+          box-shadow:0 0 0 3px rgba(0, 0, 0, .25);
 }
 
 ::-moz-focus-inner{
@@ -965,11 +983,15 @@ textarea{
 }
 
 .btn-primary:hover{
-  box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .0625);
+  -webkit-box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .0625);
+          box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .0625);
 }
 
 .btn-primary:active{
-  box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .125),
+  -webkit-box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .125),
+    inset 0 3px 4px 0 rgba(0, 0, 0, .25),
+    0 0 1px rgba(0, 0, 0, .125);
+          box-shadow:inset 0 0 0 20rem rgba(0, 0, 0, .125),
     inset 0 3px 4px 0 rgba(0, 0, 0, .25),
     0 0 1px rgba(0, 0, 0, .125);
 }

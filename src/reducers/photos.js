@@ -8,8 +8,8 @@ export const fetchPhotos = () => ({
   type: FETCH,
   payload: fetch(
     PHOTOS_URL,
-    { cache: 'no-cache' }
-  ).then((res) => res.json()),
+    { cache: 'no-cache' },
+  ).then(res => res.json()),
 })
 
 export default function photosReducer(state = [], action = {}) {

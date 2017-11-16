@@ -25,6 +25,7 @@ export const calculatePi = scope =>
     worker.postMessage(1000000000)
   }
 
+
 export default function piReducer(state = {}, action = {}) {
   switch (action.type) {
     case CALCULATE_PENDING:
