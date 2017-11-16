@@ -6,7 +6,7 @@ import {
   applyMiddleware,
   compose,
 } from 'redux'
-import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import { loadingBarMiddleware } from '../lib'
 
 import rootReducer from './reducer'
 

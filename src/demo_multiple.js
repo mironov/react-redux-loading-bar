@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import LoadingBar from 'react-redux-loading-bar'
+import LoadingBar from '../lib'
 
 import { fetchPhotos } from './reducers/photos'
 import { calculatePi } from './reducers/pi'
