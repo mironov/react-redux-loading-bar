@@ -6,7 +6,7 @@ import {
   applyMiddleware,
   compose,
 } from 'redux'
-import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import { loadingBarMiddleware } from '../lib'
 
 import rootReducer from './reducer'
 
@@ -16,7 +16,7 @@ const createStoreWithMiddleware = compose(
     promiseMiddleware(), // resolves promises
     loadingBarMiddleware(), // manages loading bar
     createLogger(), // log actions in console
-  )
+  ),
 )(createStore)
 
 const store = createStoreWithMiddleware(rootReducer)
