@@ -1,5 +1,3 @@
-/* eslint-disable react/no-unused-prop-types,react/require-default-props */
-
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -13,7 +11,7 @@ import { calculatePi } from './reducers/pi'
 import Header from './components/header'
 import Pi from './components/pi'
 
-const Demo = () => (
+const Demo = props => (
   <div className="center">
     <Header />
     <main className="p3 mx-auto clearfix">
@@ -21,8 +19,8 @@ const Demo = () => (
         <LoadingBar scope="first" />
         <div className="p2">
           <Pi
-            pi={this.props.pi.first || 0}
-            handleCalculatePi={() => this.props.actions.calculatePi('first')}
+            pi={props.pi.first || 0}
+            handleCalculatePi={() => props.actions.calculatePi('first')}
           />
         </div>
       </div>
@@ -30,8 +28,8 @@ const Demo = () => (
         <LoadingBar scope="second" />
         <div className="p2">
           <Pi
-            pi={this.props.pi.second || 0}
-            handleCalculatePi={() => this.props.actions.calculatePi('second')}
+            pi={props.pi.second || 0}
+            handleCalculatePi={() => props.actions.calculatePi('second')}
           />
         </div>
       </div>
@@ -41,11 +39,11 @@ const Demo = () => (
 
 Demo.propTypes = {
   actions: PropTypes.object.isRequired,
-  pi: PropTypes.object,
+  pi: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state => ({
-  pi: state.pi,
+  pi: state.pi || {},
 })
 
 const mapDispatchToProps = dispatch => ({
