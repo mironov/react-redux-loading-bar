@@ -211,7 +211,7 @@ LoadingBar.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  loading: state.loadingBar[ownProps.scope],
+  loading: state.loadingBar[ownProps.scope || DEFAULT_SCOPE],
 })
 
 export default connect(mapStateToProps)(LoadingBar)
