@@ -12,5 +12,6 @@ rules:
 
     react/display-name: 1
     react/jsx-no-duplicate-props: 2
+    react/jsx-filename-extension: 0
 env:
     mocha: true

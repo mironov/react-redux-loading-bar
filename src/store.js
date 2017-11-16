@@ -16,7 +16,7 @@ const createStoreWithMiddleware = compose(
     promiseMiddleware(), // resolves promises
     loadingBarMiddleware(), // manages loading bar
     createLogger(), // log actions in console
-  )
+  ),
 )(createStore)
 
 const store = createStoreWithMiddleware(rootReducer)
