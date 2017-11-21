@@ -74,6 +74,29 @@ describe('LoadingBar', () => {
       expect(resultStyle.height).toEqual(undefined)
       expect(resultStyle.position).toEqual(undefined)
     })
+
+    it('renders multiple instances in the same dom', () => {
+      const wrapper = mount(
+        <section>
+          <LoadingBar />
+          <LoadingBar scope="someScope" className="custom" />
+        </section> // eslint-disable-line comma-dangle
+      )
+
+      const sectionWrapper = wrapper.find('section').at(0)
+
+      const loadingBarDefault = sectionWrapper.childAt(0).find('div').at(1)
+      expect(loadingBarDefault.props().className).toEqual('')
+      expect(loadingBarDefault.props().style.opacity).toEqual('0')
+      expect(loadingBarDefault.props().style.backgroundColor).toEqual('red')
+      expect(loadingBarDefault.props().style.height).toEqual('3px')
+
+      const loadingBarCustom = sectionWrapper.childAt(1).find('div').at(1)
+      expect(loadingBarCustom.props().className).toEqual('custom')
+      expect(loadingBarCustom.props().style.backgroundColor).toEqual(undefined)
+      expect(loadingBarCustom.props().style.height).toEqual(undefined)
+      expect(loadingBarCustom.props().style.position).toEqual(undefined)
+    })
   })
 
   describe('#componentWillReceiveProps', () => {

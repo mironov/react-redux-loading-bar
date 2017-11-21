@@ -46,6 +46,26 @@ export default class Header extends React.Component {
 
 Good news is that it doesn't include any positioning. You can attach it to the top of any block or the whole page.
 
+You can even include multiple loading bars on the same page, that will render independently. They need to be provided with
+a scope so that you can adjust them independently.
+
+```jsx
+import LoadingBar from 'react-redux-loading-bar'
+
+export default class Header extends React.Component {
+  render() {
+    return (
+      <header>
+        <LoadingBar />
+      </header>
+      <section>
+        <LoadingBar scope="sectionBar" />
+      </section>
+    )
+  }
+}
+```
+
 Install the reducer to the store:
 
 ```jsx
@@ -93,6 +113,23 @@ const store = createStore(
 )
 ```
 
+## Usage with custom scope (for multiple loading bars)
+
+```jsx
+import { createStore, applyMiddleware } from 'redux'
+import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import rootReducer from './reducers'
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(
+    loadingBarMiddleware({
+      scope: 'sectionBar',
+    })
+  )
+)
+```
+
 If you're not using `redux-promise-middleware` or any other promise middleware, you can skip installing the `loadingBarMiddleware()` and dispatch `SHOW`/`HIDE` actions manually. The other option is to write your own middleware that will be similar to the [bundled one](https://github.com/mironov/react-redux-loading-bar/blob/master/src/loading_bar_middleware.js).
 
 ## Usage without middleware
@@ -108,6 +145,18 @@ dispatch(hideLoading())
 ```
 
 You need to dispatch `HIDE` as many times as `SHOW` was dispatched to make the bar disappear. In other words, the loading bar is shown until all long running tasks complete.
+
+## Usage without middleware but with scope
+
+You need to provide the scope to the actions:
+
+```jsx
+import { showLoading, hideLoading } from 'react-redux-loading-bar'
+
+dispatch(showLoading('sectionBar'))
+// do long running stuff
+dispatch(hideLoading('sectionBar'))
+```
 
 ## Usage with [`redux-saga`](https://github.com/redux-saga/redux-saga)
 

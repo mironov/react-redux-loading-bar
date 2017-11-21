@@ -2,40 +2,55 @@ export const SHOW = 'loading-bar/SHOW'
 export const HIDE = 'loading-bar/HIDE'
 export const RESET = 'loading-bar/RESET'
 
-export function showLoading() {
+export const DEFAULT_SCOPE = 'default'
+
+export function showLoading(scope = DEFAULT_SCOPE) {
   return {
     type: SHOW,
+    payload: {
+      scope,
+    },
   }
 }
 
-export function hideLoading() {
+export function hideLoading(scope = DEFAULT_SCOPE) {
   return {
     type: HIDE,
+    payload: {
+      scope,
+    },
   }
 }
 
-export function resetLoading() {
+export function resetLoading(scope = DEFAULT_SCOPE) {
   return {
     type: RESET,
+    payload: {
+      scope,
+    },
   }
 }
 
-export function loadingBarReducer(state = 0, action = {}) {
-  let newState
+export function loadingBarReducer(state = {}, action = {}) {
+  const { scope = DEFAULT_SCOPE } = (action.payload || {})
 
   switch (action.type) {
     case SHOW:
-      newState = state + 1
-      break
+      return {
+        ...state,
+        [scope]: (state[scope] || 0) + 1,
+      }
     case HIDE:
-      newState = state > 0 ? state - 1 : 0
-      break
+      return {
+        ...state,
+        [scope]: Math.max(0, (state[scope] || 1) - 1),
+      }
     case RESET:
-      newState = 0
-      break
+      return {
+        ...state,
+        [scope]: 0,
+      }
     default:
       return state
   }
-
-  return newState
 }

@@ -206,4 +206,74 @@ describe('loadingBarMiddleware', () => {
       expect(expectedActions.length).toEqual(0)
     })
   })
+
+  describe('with custom scope', () => {
+    const CUSTOM_SCOPE = 'someScope'
+    const mockStoreWithCustomScope = mockDispatch =>
+      createMockStore(
+        [
+          loadingBarMiddleware({
+            scope: CUSTOM_SCOPE,
+          }),
+        ],
+        mockDispatch,
+      )
+
+    describe('with an action containing "_PENDING" in type', () => {
+      it('dispatches SHOW action', () => {
+        const originalAction = { type: 'something/FETCH_PENDING' }
+        const expectedActions = [
+          showLoading(CUSTOM_SCOPE),
+          originalAction,
+        ]
+
+        const mockDispatch = (action) => {
+          const expectedAction = expectedActions.shift()
+          expect(action).toEqual(expectedAction)
+          return action
+        }
+
+        mockStoreWithCustomScope(mockDispatch).dispatch(originalAction)
+        expect(expectedActions.length).toEqual(0)
+      })
+    })
+
+    describe('with an action containing "_FULFILLED" in type', () => {
+      it('dispatches HIDE action', () => {
+        const originalAction = { type: 'something/FETCH_FULFILLED' }
+        const expectedActions = [
+          hideLoading(CUSTOM_SCOPE),
+          originalAction,
+        ]
+
+        const mockDispatch = (action) => {
+          const expectedAction = expectedActions.shift()
+          expect(action).toEqual(expectedAction)
+          return action
+        }
+
+        mockStoreWithCustomScope(mockDispatch).dispatch(originalAction)
+        expect(expectedActions.length).toEqual(0)
+      })
+    })
+
+    describe('with an action containing "_REJECTED" in type', () => {
+      it('dispatches HIDE action', () => {
+        const originalAction = { type: 'something/FETCH_REJECTED' }
+        const expectedActions = [
+          hideLoading(CUSTOM_SCOPE),
+          originalAction,
+        ]
+
+        const mockDispatch = (action) => {
+          const expectedAction = expectedActions.shift()
+          expect(action).toEqual(expectedAction)
+          return action
+        }
+
+        mockStoreWithCustomScope(mockDispatch).dispatch(originalAction)
+        expect(expectedActions.length).toEqual(0)
+      })
+    })
+  })
 })
