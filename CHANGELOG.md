@@ -1,5 +1,8 @@
 # Release History
 
+## 3.0.0
+   - Allow having multiple loading bars on one page (contributed by @seb0zz and @neogermi)
+
 ## 2.9.3
    - Bump dependencies to support React 16
 

@@ -245,6 +245,19 @@ npm test
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 Add unit tests for any new or changed functionality. Lint and test your code.
 
+## Contributors (in chronological order)
+
+- @mironov
+- @ThomasMarnet
+- @hieuhlc
+- @josefernand
+- @greenpart
+- @larrydahooster
+- @janslow
+- @vitosamson
+- @seb0zz
+- @neogermi
+
 To see what has changed in recent versions of Loading Bar, see the [CHANGELOG](https://github.com/mironov/react-redux-loading-bar/blob/master/CHANGELOG.md).
 
 Licensed MIT. Copyright 2016-current Anton Mironov.
