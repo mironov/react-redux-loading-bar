@@ -53,7 +53,7 @@ Demo.propTypes = {
 
 const mapStateToProps = state => ({
   photos: state.photos,
-  pi: state.pi,
+  pi: state.pi.default || 0,
 })
 
 const mapDispatchToProps = dispatch => ({
