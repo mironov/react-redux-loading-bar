@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux-immutable'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 
 import * as reducers from './reducers/index'

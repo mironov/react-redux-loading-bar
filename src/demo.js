@@ -52,8 +52,8 @@ Demo.propTypes = {
 }
 
 const mapStateToProps = state => ({
-  photos: state.photos,
-  pi: state.pi,
+  photos: state.get('photos'),
+  pi: state.get('pi'),
 })
 
 const mapDispatchToProps = dispatch => ({
