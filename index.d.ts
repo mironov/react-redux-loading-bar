@@ -17,6 +17,7 @@ export interface LoadingBarProps extends LoadingBarContainerProps {
 }
 export class LoadingBar extends Component<LoadingBarProps, {}> {}
 export class ImmutableLoadingBar extends Component<LoadingBarContainerProps, {}> {}
+export const immutableLoadingBarReducer: Reducer<any>;
 
 export interface MiddlewareConfig {
   promiseTypeSuffixes?: string[];

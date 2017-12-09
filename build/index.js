@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.showLoading = exports.resetLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = exports.LoadingBar = exports.ImmutableLoadingBar = exports.hideLoading = undefined;
+exports.showLoading = exports.resetLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = exports.LoadingBar = exports.immutableLoadingBarReducer = exports.ImmutableLoadingBar = exports.hideLoading = undefined;
 
 var _loading_bar = require('./loading_bar');
 
@@ -23,6 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.hideLoading = _loading_bar_ducks.hideLoading;
 exports.ImmutableLoadingBar = _immutable2.default;
+exports.immutableLoadingBarReducer = _immutable.immutableLoadingBarReducer;
 exports.LoadingBar = _loading_bar.LoadingBar;
 exports.loadingBarMiddleware = _loading_bar_middleware2.default;
 exports.loadingBarReducer = _loading_bar_ducks.loadingBarReducer;

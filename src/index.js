@@ -6,11 +6,12 @@ import {
   resetLoading,
   showLoading,
 } from './loading_bar_ducks'
-import ImmutableLoadingBar from './immutable'
+import ImmutableLoadingBar, { immutableLoadingBarReducer } from './immutable'
 
 export {
   hideLoading,
   ImmutableLoadingBar,
+  immutableLoadingBarReducer,
   LoadingBar,
   loadingBarMiddleware,
   loadingBarReducer,

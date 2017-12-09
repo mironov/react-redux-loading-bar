@@ -1,5 +1,8 @@
 # Release History
 
+## 3.0.1
+   - Add immutable reducer to make Loading Bar v3 work with immutable stores
+
 ## 3.0.0
    - Allow having multiple loading bars on one page (contributed by @seb0zz and @neogermi)
 
