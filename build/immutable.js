@@ -5,6 +5,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.immutableLoadingBarReducer = immutableLoadingBarReducer;
 
+var _immutable = require('immutable');
+
 var _reactRedux = require('react-redux');
 
 var _loading_bar = require('./loading_bar');
@@ -18,10 +20,10 @@ var mapImmutableStateToProps = function mapImmutableStateToProps(state, ownProps
 };
 
 function immutableLoadingBarReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Map({});
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : (0, _immutable.Map)({});
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-  var _ref = action.payload || Map({}),
+  var _ref = action.payload || (0, _immutable.Map)({}),
       _ref$scope = _ref.scope,
       scope = _ref$scope === undefined ? _loading_bar_ducks.DEFAULT_SCOPE : _ref$scope;
 

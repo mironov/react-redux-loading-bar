@@ -1,3 +1,4 @@
+import { Map } from 'immutable'
 import { connect } from 'react-redux'
 import { LoadingBar } from './loading_bar'
 

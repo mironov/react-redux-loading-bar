@@ -1,5 +1,8 @@
 # Release History
 
+## 3.0.2
+   - Import immutable in immutable reducer
+
 ## 3.0.1
    - Add immutable reducer to make Loading Bar v3 work with immutable stores
 

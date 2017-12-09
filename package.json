@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Simple Loading Bar for Redux and React",
   "main": "build/index.js",
   "typings": "index.d.ts",
@@ -58,6 +58,7 @@
     "eslint-plugin-react": "^6.10.3",
     "expect": "^1.18.0",
     "expect-jsx": "^3.0.0",
+    "immutable": "^3.8.2",
     "istanbul": "^1.0.0-alpha.2",
     "jsdom": "^10.1.0",
     "lolex": "^1.4.0",
