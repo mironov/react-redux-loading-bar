@@ -69,6 +69,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({ hasMounted: true });
 
+      console.log('componentDidMount loading', this.props.loading);
       if (this.props.loading > 0) {
         this.launch();
       }
@@ -76,6 +77,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
+      console.log('componentWillReceiveProps shouldStop', this.shouldStop(nextProps));
       if (this.shouldStart(nextProps)) {
         this.launch();
       } else if (this.shouldStop(nextProps)) {
@@ -103,6 +105,8 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'shouldStop',
     value: function shouldStop(nextProps) {
+      console.log('shouldStop progressInterval', this.state.progressInterval);
+      console.log('shouldStop loading', nextProps.loading);
       return this.state.progressInterval && nextProps.loading === 0;
     }
   }, {
@@ -132,6 +136,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
 
       percent = 0;
 
+      console.log('launch progressInterval', progressInterval);
       this.setState({ progressInterval: progressInterval, percent: percent });
     }
   }, {
@@ -165,6 +170,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
         percent = this.newPercent();
       }
 
+      console.log('simulateProgress progressInterval', progressInterval);
       this.setState({ percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout });
     }
   }, {
