@@ -187,18 +187,6 @@ import { ImmutableLoadingBar as LoadingBar } from 'react-redux-loading-bar'
 // Mount LoadingBar component as usual
 ```
 
-You will also need to use `immutableLoadingBarReducer`:
-
-```jsx
-import { combineReducers } from 'redux'
-import { immutableLoadingBarReducer as loadingBarReducer } from 'react-redux-loading-bar'
-
-const reducer = combineReducers({
-  // app reducers
-  loadingBar: loadingBarReducer,
-})
-```
-
 ## Usage with jQuery Ajax Requests
 
 If you happen to use jQuery for Ajax requests, you can dispatch `SHOW`/`HIDE` actions on `ajaxStart`/`ajaxStop` global events:

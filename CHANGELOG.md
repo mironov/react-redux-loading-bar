@@ -1,5 +1,8 @@
 # Release History
 
+## 3.0.3
+   - No need to have the `immutableLoadingBarReducer`
+
 ## 3.0.2
    - Import immutable in immutable reducer
 
