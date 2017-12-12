@@ -24,9 +24,7 @@ export class LoadingBar extends Component {
     progressIncrease: number,
     showFastActions: bool,
     updateTime: number,
-    // eslint-disable-next-line react/no-unused-prop-types
     scope: string,
-    // eslint-disable-next-line react/forbid-prop-types
     style: object,
   }
 
@@ -64,19 +62,23 @@ export class LoadingBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('componentWillReceiveProps shouldStop', this.shouldStop(nextProps))
-    if (this.shouldStart(nextProps)) {
-      this.launch()
-    } else if (this.shouldStop(nextProps)) {
-      if (this.state.percent === 0 && !this.props.showFastActions) {
-        // not even shown yet because the action finished quickly after start
-        clearInterval(this.state.progressInterval)
-        this.resetProgress()
-      } else {
+    this.setState((prevState, props) => {
+      console.log('componentWillReceiveProps shouldStop', this.shouldStop(prevState, nextProps))
+      if (this.shouldStart(props, nextProps)) {
+        this.launch()
+      } else if (this.shouldStop(prevState, nextProps)) {
+        if (prevState.percent === 0 && !props.showFastActions) {
+          // not even shown yet because the action finished quickly after start
+          clearInterval(prevState.progressInterval)
+          return initialState
+        }
+
         // should progress to 100 percent
-        this.setState({ percent: 100 })
+        return { percent: 100 }
       }
-    }
+
+      return null
+    })
   }
 
   componentWillUnmount() {
@@ -84,14 +86,13 @@ export class LoadingBar extends Component {
     clearTimeout(this.state.terminatingAnimationTimeout)
   }
 
-  shouldStart(nextProps) {
-    return this.props.loading === 0 && nextProps.loading > 0
-  }
+  shouldStart = (props, nextProps) =>
+    props.loading === 0 && nextProps.loading > 0
 
-  shouldStop(nextProps) {
-    console.log('shouldStop progressInterval', this.state.progressInterval)
+  shouldStop = (state, nextProps) => {
+    console.log('shouldStop progressInterval', state.progressInterval)
     console.log('shouldStop loading', nextProps.loading)
-    return this.state.progressInterval && nextProps.loading === 0
+    return state.progressInterval && nextProps.loading === 0
   }
 
   shouldShow() {
@@ -99,33 +100,27 @@ export class LoadingBar extends Component {
   }
 
   launch() {
-    let { progressInterval, percent } = this.state
-    const { terminatingAnimationTimeout } = this.state
+    this.setState((prevState, { updateTime }) => {
+      let { progressInterval } = prevState
+      const { terminatingAnimationTimeout, percent } = prevState
 
-    const loadingBarNotShown = !progressInterval
-    const terminatingAnimationGoing = percent === 100
+      const loadingBarNotShown = !progressInterval
+      const terminatingAnimationGoing = percent === 100
 
-    if (loadingBarNotShown) {
-      progressInterval = setInterval(
-        this.simulateProgress,
-        this.props.updateTime,
-      )
-    }
+      if (loadingBarNotShown) {
+        progressInterval = setInterval(this.simulateProgress, updateTime)
+      }
 
-    if (terminatingAnimationGoing) {
-      clearTimeout(terminatingAnimationTimeout)
-    }
+      if (terminatingAnimationGoing) {
+        clearTimeout(terminatingAnimationTimeout)
+      }
 
-    percent = 0
-
-    console.log('launch progressInterval', progressInterval)
-    this.setState({ progressInterval, percent })
+      console.log('launch progressInterval', progressInterval)
+      return { progressInterval, percent: 0 }
+    })
   }
 
-  newPercent() {
-    const { percent } = this.state
-    const { progressIncrease } = this.props
-
+  newPercent = (percent, progressIncrease) => {
     // Use cos as a smoothing function
     // Can be any function to slow down progress near the 100%
     const smoothedProgressIncrease = (
@@ -136,22 +131,24 @@ export class LoadingBar extends Component {
   }
 
   simulateProgress = () => {
-    let { progressInterval, percent, terminatingAnimationTimeout } = this.state
-    const { maxProgress } = this.props
+    this.setState((prevState, { maxProgress, progressIncrease }) => {
+      let { progressInterval, percent, terminatingAnimationTimeout } = prevState
+      const newPercent = this.newPercent(percent, progressIncrease)
 
-    if (percent === 100) {
-      clearInterval(progressInterval)
-      terminatingAnimationTimeout = setTimeout(
-        this.resetProgress,
-        TERMINATING_ANIMATION_TIME,
-      )
-      progressInterval = null
-    } else if (this.newPercent() <= maxProgress) {
-      percent = this.newPercent()
-    }
+      if (percent === 100) {
+        clearInterval(progressInterval)
+        terminatingAnimationTimeout = setTimeout(
+          this.resetProgress,
+          TERMINATING_ANIMATION_TIME,
+        )
+        progressInterval = null
+      } else if (newPercent <= maxProgress) {
+        percent = newPercent
+      }
 
-    console.log('simulateProgress progressInterval', progressInterval)
-    this.setState({ percent, progressInterval, terminatingAnimationTimeout })
+      console.log('simulateProgress progressInterval', progressInterval)
+      return { percent, progressInterval, terminatingAnimationTimeout }
+    })
   }
 
   resetProgress = () => {
