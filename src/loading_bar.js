@@ -61,10 +61,13 @@ export class LoadingBar extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.shouldStart(this.props, nextProps)) {
+      this.launch()
+      return
+    }
+
     this.setState((prevState, props) => {
-      if (this.shouldStart(props, nextProps)) {
-        this.launch()
-      } else if (this.shouldStop(prevState, nextProps)) {
+      if (this.shouldStop(prevState, nextProps)) {
         if (prevState.percent === 0 && !props.showFastActions) {
           // not even shown yet because the action finished quickly after start
           clearInterval(prevState.progressInterval)

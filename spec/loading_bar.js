@@ -203,12 +203,14 @@ describe('LoadingBar', () => {
   })
 
   describe('#launch', () => {
+    let wrapper
     let clock
     let spySimulateProgress
 
     beforeEach(() => {
+      wrapper = shallow(<LoadingBar />)
       spySimulateProgress = spyOn(
-        LoadingBar.prototype,
+        wrapper.instance(),
         'simulateProgress',
       ).andCallThrough()
       clock = lolex.install()
@@ -219,7 +221,6 @@ describe('LoadingBar', () => {
     })
 
     it('schedules simulateProgress on UPDATE_TIME', () => {
-      const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(spySimulateProgress).toHaveBeenCalled()
@@ -227,7 +228,6 @@ describe('LoadingBar', () => {
     })
 
     it('does not schedule simulateProgress before UPDATE_TIME', () => {
-      const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME - 1)
       expect(spySimulateProgress).toNotHaveBeenCalled()
@@ -235,7 +235,6 @@ describe('LoadingBar', () => {
     })
 
     it('schedules simulateProgress twice after UPDATE_TIME * 2', () => {
-      const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME * 2)
       expect(spySimulateProgress).toHaveBeenCalled()
@@ -243,7 +242,6 @@ describe('LoadingBar', () => {
     })
 
     it('does not set second interval if loading bar is shown', () => {
-      const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       const intervalId = wrapper.state().progressInterval
@@ -322,11 +320,13 @@ describe('LoadingBar', () => {
     })
 
     describe('if showLoading is called during terminating animation', () => {
+      let wrapper
       let spySimulateProgress
 
       beforeEach(() => {
+        wrapper = shallow(<LoadingBar />)
         spySimulateProgress = spyOn(
-          LoadingBar.prototype,
+          wrapper.instance(),
           'simulateProgress',
         ).andCallThrough()
       })
@@ -335,8 +335,6 @@ describe('LoadingBar', () => {
       })
 
       it('does not hang and resets the position', () => {
-        const wrapper = shallow(<LoadingBar />)
-
         // Show Loading Bar
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME)
@@ -367,11 +365,13 @@ describe('LoadingBar', () => {
     })
 
     describe('if showLoading is called right after hideLoading', () => {
+      let wrapper
       let spySimulateProgress
 
       beforeEach(() => {
+        wrapper = shallow(<LoadingBar />)
         spySimulateProgress = spyOn(
-          LoadingBar.prototype,
+          wrapper.instance(),
           'simulateProgress',
         ).andCallThrough()
       })
@@ -380,8 +380,6 @@ describe('LoadingBar', () => {
       })
 
       it('does not hides and resets the position', () => {
-        const wrapper = shallow(<LoadingBar />)
-
         // Show Loading Bar
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME)
@@ -407,12 +405,15 @@ describe('LoadingBar', () => {
   })
 
   describe('updateTime prop', () => {
+    const updateTime = 100
+    let wrapper
     let clock
     let spySimulateProgress
 
     beforeEach(() => {
+      wrapper = shallow(<LoadingBar updateTime={updateTime} />)
       spySimulateProgress = spyOn(
-        LoadingBar.prototype,
+        wrapper.instance(),
         'simulateProgress',
       )
       clock = lolex.install()
@@ -423,8 +424,6 @@ describe('LoadingBar', () => {
     })
 
     it('can be changed', () => {
-      const updateTime = 100
-      const wrapper = shallow(<LoadingBar updateTime={updateTime} />)
       wrapper.setProps({ loading: 1 })
       clock.tick(updateTime)
       expect(spySimulateProgress).toHaveBeenCalled()
