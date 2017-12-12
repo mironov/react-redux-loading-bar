@@ -1,10 +1,5 @@
-import React from 'react'
-import {
-  bool,
-  number,
-  object,
-  string,
-} from 'prop-types'
+import React, { Component } from 'react'
+import { bool, number, object, string } from 'prop-types'
 import { connect } from 'react-redux'
 
 import { DEFAULT_SCOPE } from './loading_bar_ducks'
@@ -21,17 +16,34 @@ const initialState = {
   progressInterval: null,
 }
 
-export class LoadingBar extends React.Component {
-  constructor(props) {
-    super(props)
+export class LoadingBar extends Component {
+  static propTypes = {
+    className: string,
+    loading: number,
+    maxProgress: number,
+    progressIncrease: number,
+    showFastActions: bool,
+    updateTime: number,
+    // eslint-disable-next-line react/no-unused-prop-types
+    scope: string,
+    // eslint-disable-next-line react/forbid-prop-types
+    style: object,
+  }
 
-    this.state = {
-      ...initialState,
-      hasMounted: false,
-    }
+  static defaultProps = {
+    className: '',
+    loading: 0,
+    maxProgress: MAX_PROGRESS,
+    progressIncrease: PROGRESS_INCREASE,
+    showFastActions: false,
+    style: {},
+    updateTime: UPDATE_TIME,
+    scope: DEFAULT_SCOPE,
+  }
 
-    this.boundSimulateProgress = this.simulateProgress.bind(this)
-    this.boundResetProgress = this.resetProgress.bind(this)
+  state = {
+    ...initialState,
+    hasMounted: false,
   }
 
   componentDidMount() {
@@ -95,7 +107,7 @@ export class LoadingBar extends React.Component {
 
     if (loadingBarNotShown) {
       progressInterval = setInterval(
-        this.boundSimulateProgress,
+        this.simulateProgress,
         this.props.updateTime,
       )
     }
@@ -123,14 +135,14 @@ export class LoadingBar extends React.Component {
     return percent + smoothedProgressIncrease
   }
 
-  simulateProgress() {
+  simulateProgress = () => {
     let { progressInterval, percent, terminatingAnimationTimeout } = this.state
     const { maxProgress } = this.props
 
     if (percent === 100) {
       clearInterval(progressInterval)
       terminatingAnimationTimeout = setTimeout(
-        this.boundResetProgress,
+        this.resetProgress,
         TERMINATING_ANIMATION_TIME,
       )
       progressInterval = null
@@ -142,7 +154,7 @@ export class LoadingBar extends React.Component {
     this.setState({ percent, progressInterval, terminatingAnimationTimeout })
   }
 
-  resetProgress() {
+  resetProgress = () => {
     this.setState(initialState)
   }
 
@@ -190,30 +202,6 @@ export class LoadingBar extends React.Component {
       </div>
     )
   }
-}
-
-LoadingBar.propTypes = {
-  className: string,
-  loading: number,
-  maxProgress: number,
-  progressIncrease: number,
-  showFastActions: bool,
-  updateTime: number,
-  // eslint-disable-next-line react/no-unused-prop-types
-  scope: string,
-  // eslint-disable-next-line react/forbid-prop-types
-  style: object,
-}
-
-LoadingBar.defaultProps = {
-  className: '',
-  loading: 0,
-  maxProgress: MAX_PROGRESS,
-  progressIncrease: PROGRESS_INCREASE,
-  showFastActions: false,
-  style: {},
-  updateTime: UPDATE_TIME,
-  scope: DEFAULT_SCOPE,
 }
 
 const mapStateToProps = (state, ownProps) => ({
