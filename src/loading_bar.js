@@ -55,7 +55,6 @@ export class LoadingBar extends Component {
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({ hasMounted: true })
 
-    console.log('componentDidMount loading', this.props.loading)
     if (this.props.loading > 0) {
       this.launch()
     }
@@ -63,7 +62,6 @@ export class LoadingBar extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState((prevState, props) => {
-      console.log('componentWillReceiveProps shouldStop', this.shouldStop(prevState, nextProps))
       if (this.shouldStart(props, nextProps)) {
         this.launch()
       } else if (this.shouldStop(prevState, nextProps)) {
@@ -89,11 +87,8 @@ export class LoadingBar extends Component {
   shouldStart = (props, nextProps) =>
     props.loading === 0 && nextProps.loading > 0
 
-  shouldStop = (state, nextProps) => {
-    console.log('shouldStop progressInterval', state.progressInterval)
-    console.log('shouldStop loading', nextProps.loading)
-    return state.progressInterval && nextProps.loading === 0
-  }
+  shouldStop = (state, nextProps) =>
+    state.progressInterval && nextProps.loading === 0
 
   shouldShow() {
     return this.state.percent > 0 && this.state.percent <= 100
@@ -115,7 +110,6 @@ export class LoadingBar extends Component {
         clearTimeout(terminatingAnimationTimeout)
       }
 
-      console.log('launch progressInterval', progressInterval)
       return { progressInterval, percent: 0 }
     })
   }
@@ -146,7 +140,6 @@ export class LoadingBar extends Component {
         percent = newPercent
       }
 
-      console.log('simulateProgress progressInterval', progressInterval)
       return { percent, progressInterval, terminatingAnimationTimeout }
     })
   }

@@ -58,8 +58,6 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
     }), _this.shouldStart = function (props, nextProps) {
       return props.loading === 0 && nextProps.loading > 0;
     }, _this.shouldStop = function (state, nextProps) {
-      console.log('shouldStop progressInterval', state.progressInterval);
-      console.log('shouldStop loading', nextProps.loading);
       return state.progressInterval && nextProps.loading === 0;
     }, _this.newPercent = function (percent, progressIncrease) {
       // Use cos as a smoothing function
@@ -85,7 +83,6 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
           percent = newPercent;
         }
 
-        console.log('simulateProgress progressInterval', progressInterval);
         return { percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout };
       });
     }, _this.resetProgress = function () {
@@ -106,7 +103,6 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({ hasMounted: true });
 
-      console.log('componentDidMount loading', this.props.loading);
       if (this.props.loading > 0) {
         this.launch();
       }
@@ -117,7 +113,6 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
       var _this2 = this;
 
       this.setState(function (prevState, props) {
-        console.log('componentWillReceiveProps shouldStop', _this2.shouldStop(prevState, nextProps));
         if (_this2.shouldStart(props, nextProps)) {
           _this2.launch();
         } else if (_this2.shouldStop(prevState, nextProps)) {
@@ -168,7 +163,6 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
           clearTimeout(terminatingAnimationTimeout);
         }
 
-        console.log('launch progressInterval', progressInterval);
         return { progressInterval: progressInterval, percent: 0 };
       });
     }
