@@ -39,21 +39,55 @@ var initialState = {
   progressInterval: null
 };
 
-var LoadingBar = exports.LoadingBar = function (_React$Component) {
-  _inherits(LoadingBar, _React$Component);
+var LoadingBar = exports.LoadingBar = function (_Component) {
+  _inherits(LoadingBar, _Component);
 
-  function LoadingBar(props) {
+  function LoadingBar() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, LoadingBar);
 
-    var _this = _possibleConstructorReturn(this, (LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call(this, props));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-    _this.state = _extends({}, initialState, {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = _extends({}, initialState, {
       hasMounted: false
-    });
+    }), _this.shouldStart = function (props, nextProps) {
+      return props.loading === 0 && nextProps.loading > 0;
+    }, _this.shouldStop = function (state, nextProps) {
+      return state.progressInterval && nextProps.loading === 0;
+    }, _this.newPercent = function (percent, progressIncrease) {
+      // Use cos as a smoothing function
+      // Can be any function to slow down progress near the 100%
+      var smoothedProgressIncrease = progressIncrease * Math.cos(percent * (Math.PI / 2 / 100));
 
-    _this.boundSimulateProgress = _this.simulateProgress.bind(_this);
-    _this.boundResetProgress = _this.resetProgress.bind(_this);
-    return _this;
+      return percent + smoothedProgressIncrease;
+    }, _this.simulateProgress = function () {
+      _this.setState(function (prevState, _ref2) {
+        var maxProgress = _ref2.maxProgress,
+            progressIncrease = _ref2.progressIncrease;
+        var progressInterval = prevState.progressInterval,
+            percent = prevState.percent,
+            terminatingAnimationTimeout = prevState.terminatingAnimationTimeout;
+
+        var newPercent = _this.newPercent(percent, progressIncrease);
+
+        if (percent === 100) {
+          clearInterval(progressInterval);
+          terminatingAnimationTimeout = setTimeout(_this.resetProgress, TERMINATING_ANIMATION_TIME);
+          progressInterval = null;
+        } else if (newPercent <= maxProgress) {
+          percent = newPercent;
+        }
+
+        return { percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout };
+      });
+    }, _this.resetProgress = function () {
+      _this.setState(initialState);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(LoadingBar, [{
@@ -76,34 +110,33 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (this.shouldStart(nextProps)) {
+      var _this2 = this;
+
+      if (this.shouldStart(this.props, nextProps)) {
         this.launch();
-      } else if (this.shouldStop(nextProps)) {
-        if (this.state.percent === 0 && !this.props.showFastActions) {
-          // not even shown yet because the action finished quickly after start
-          clearInterval(this.state.progressInterval);
-          this.resetProgress();
-        } else {
-          // should progress to 100 percent
-          this.setState({ percent: 100 });
-        }
+        return;
       }
+
+      this.setState(function (prevState, props) {
+        if (_this2.shouldStop(prevState, nextProps)) {
+          if (prevState.percent === 0 && !props.showFastActions) {
+            // not even shown yet because the action finished quickly after start
+            clearInterval(prevState.progressInterval);
+            return initialState;
+          }
+
+          // should progress to 100 percent
+          return { percent: 100 };
+        }
+
+        return null;
+      });
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       clearInterval(this.state.progressInterval);
       clearTimeout(this.state.terminatingAnimationTimeout);
-    }
-  }, {
-    key: 'shouldStart',
-    value: function shouldStart(nextProps) {
-      return this.props.loading === 0 && nextProps.loading > 0;
-    }
-  }, {
-    key: 'shouldStop',
-    value: function shouldStop(nextProps) {
-      return this.state.progressInterval && nextProps.loading === 0;
     }
   }, {
     key: 'shouldShow',
@@ -113,64 +146,28 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }, {
     key: 'launch',
     value: function launch() {
-      var _state = this.state,
-          progressInterval = _state.progressInterval,
-          percent = _state.percent;
-      var terminatingAnimationTimeout = this.state.terminatingAnimationTimeout;
+      var _this3 = this;
+
+      this.setState(function (prevState, _ref3) {
+        var updateTime = _ref3.updateTime;
+        var progressInterval = prevState.progressInterval;
+        var terminatingAnimationTimeout = prevState.terminatingAnimationTimeout,
+            percent = prevState.percent;
 
 
-      var loadingBarNotShown = !progressInterval;
-      var terminatingAnimationGoing = percent === 100;
+        var loadingBarNotShown = !progressInterval;
+        var terminatingAnimationGoing = percent === 100;
 
-      if (loadingBarNotShown) {
-        progressInterval = setInterval(this.boundSimulateProgress, this.props.updateTime);
-      }
+        if (loadingBarNotShown) {
+          progressInterval = setInterval(_this3.simulateProgress, updateTime);
+        }
 
-      if (terminatingAnimationGoing) {
-        clearTimeout(terminatingAnimationTimeout);
-      }
+        if (terminatingAnimationGoing) {
+          clearTimeout(terminatingAnimationTimeout);
+        }
 
-      percent = 0;
-
-      this.setState({ progressInterval: progressInterval, percent: percent });
-    }
-  }, {
-    key: 'newPercent',
-    value: function newPercent() {
-      var percent = this.state.percent;
-      var progressIncrease = this.props.progressIncrease;
-
-      // Use cos as a smoothing function
-      // Can be any function to slow down progress near the 100%
-
-      var smoothedProgressIncrease = progressIncrease * Math.cos(percent * (Math.PI / 2 / 100));
-
-      return percent + smoothedProgressIncrease;
-    }
-  }, {
-    key: 'simulateProgress',
-    value: function simulateProgress() {
-      var _state2 = this.state,
-          progressInterval = _state2.progressInterval,
-          percent = _state2.percent,
-          terminatingAnimationTimeout = _state2.terminatingAnimationTimeout;
-      var maxProgress = this.props.maxProgress;
-
-
-      if (percent === 100) {
-        clearInterval(progressInterval);
-        terminatingAnimationTimeout = setTimeout(this.boundResetProgress, TERMINATING_ANIMATION_TIME);
-        progressInterval = null;
-      } else if (this.newPercent() <= maxProgress) {
-        percent = this.newPercent();
-      }
-
-      this.setState({ percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout });
-    }
-  }, {
-    key: 'resetProgress',
-    value: function resetProgress() {
-      this.setState(initialState);
+        return { progressInterval: progressInterval, percent: 0 };
+      });
     }
   }, {
     key: 'buildStyle',
@@ -219,7 +216,7 @@ var LoadingBar = exports.LoadingBar = function (_React$Component) {
   }]);
 
   return LoadingBar;
-}(_react2.default.Component);
+}(_react.Component);
 
 LoadingBar.propTypes = {
   className: _propTypes.string,
@@ -228,12 +225,9 @@ LoadingBar.propTypes = {
   progressIncrease: _propTypes.number,
   showFastActions: _propTypes.bool,
   updateTime: _propTypes.number,
-  // eslint-disable-next-line react/no-unused-prop-types
   scope: _propTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
   style: _propTypes.object
 };
-
 LoadingBar.defaultProps = {
   className: '',
   loading: 0,
@@ -244,6 +238,7 @@ LoadingBar.defaultProps = {
   updateTime: UPDATE_TIME,
   scope: _loading_bar_ducks.DEFAULT_SCOPE
 };
+
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
