@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { loadingBarReducer } from '../lib'
+import { loadingBarReducer } from 'react-redux-loading-bar'
 
 import * as reducers from './reducers/index'
 

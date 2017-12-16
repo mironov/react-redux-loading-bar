@@ -1,5 +1,5 @@
 import React from 'react'
-import LoadingBar from '../../lib'
+import LoadingBar from 'react-redux-loading-bar'
 
 const Header = () => (
   <header>
