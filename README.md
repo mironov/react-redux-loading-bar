@@ -247,16 +247,17 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 
 ## Contributors (in chronological order)
 
-- @mironov
-- @ThomasMarnet
-- @hieuhlc
-- @josefernand
-- @greenpart
-- @larrydahooster
-- @janslow
-- @vitosamson
-- @seb0zz
-- @neogermi
+- [@mironov](https://github.com/mironov)
+- [@ThomasMarnet](https://github.com/ThomasMarnet)
+- [@hieuhlc](https://github.com/hieuhlc)
+- [@josefernand](https://github.com/josefernand)
+- [@greenpart](https://github.com/greenpart)
+- [@larrydahooster](https://github.com/larrydahooster)
+- [@janslow](https://github.com/janslow)
+- [@vitosamson](https://github.com/vitosamson)
+- [@seb0zz](https://github.com/seb0zz)
+- [@neogermi](https://github.com/neogermi)
+- [@MikeDevice](https://github.com/MikeDevice)
 
 To see what has changed in recent versions of Loading Bar, see the [CHANGELOG](https://github.com/mironov/react-redux-loading-bar/blob/master/CHANGELOG.md).
 

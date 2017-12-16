@@ -1,5 +1,8 @@
 # Release History
 
+## 3.1.0
+   - Fix not disappearing loading bar on immediately changed props (contributed by @MikeDevice)
+
 ## 3.0.3
    - No need to have the `immutableLoadingBarReducer`
 
