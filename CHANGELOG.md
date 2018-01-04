@@ -1,5 +1,8 @@
 # Release History
 
+## 3.1.1
+   - Add scope support to type definitions (contributed by @Kovensky)
+
 ## 3.1.0
    - Fix not disappearing loading bar on immediately changed props (contributed by @MikeDevice)
 
