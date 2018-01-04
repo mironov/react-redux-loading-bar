@@ -2,6 +2,7 @@ import { Component, CSSProperties } from 'react';
 import { Middleware, Reducer, Action } from 'redux';
 
 export interface LoadingBarContainerProps {
+  scope?: string
   style?: CSSProperties;
   className?: string;
   actions?: Object;
@@ -19,11 +20,12 @@ export class LoadingBar extends Component<LoadingBarProps, {}> {}
 export class ImmutableLoadingBar extends Component<LoadingBarContainerProps, {}> {}
 
 export interface MiddlewareConfig {
+  scope?: string
   promiseTypeSuffixes?: string[];
 }
 export function loadingBarMiddleware(config?: MiddlewareConfig): Middleware;
 
 export const loadingBarReducer: Reducer<any>;
-export function showLoading(): Action;
-export function hideLoading(): Action;
-export function resetLoading(): Action;
+export function showLoading(scope?: string): Action;
+export function hideLoading(scope?: string): Action;
+export function resetLoading(scope?: string): Action;
