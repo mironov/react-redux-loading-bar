@@ -3721,9 +3721,9 @@ react-dom@^16.0.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-redux-loading-bar@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-3.1.0.tgz#4b6f923f9b6a36b1117b43607a094098a411a08b"
+react-redux-loading-bar@3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-3.1.2.tgz#7d65c7558db22115b2999e47d9f2aae962ae2c33"
   dependencies:
     prop-types "^15.5.6"
 
