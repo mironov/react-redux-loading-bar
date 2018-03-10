@@ -32,7 +32,7 @@ function loadingBarMiddleware() {
           var isFulfilled = new RegExp(FULFILLED + '$', 'g');
           var isRejected = new RegExp(REJECTED + '$', 'g');
 
-          var actionScope = action.scope || scope;
+          var actionScope = action.meta && action.meta.scope || action.scope || scope;
 
           if (action.type.match(isPending)) {
             dispatch((0, _loading_bar_ducks.showLoading)(actionScope));

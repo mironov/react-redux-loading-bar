@@ -1,5 +1,8 @@
 # Release History
 
+## 3.1.2
+   - Check for the scope property within the meta property of the action
+
 ## 3.1.1
    - Add scope support to type definitions (contributed by @Kovensky)
 
