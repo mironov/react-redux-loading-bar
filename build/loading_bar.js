@@ -15,8 +15,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactLifecyclesCompat = require('react-lifecycles-compat');
 
-var _reactLifecyclesCompat2 = _interopRequireDefault(_reactLifecyclesCompat);
-
 var _propTypes = require('prop-types');
 
 var _reactRedux = require('react-redux');
@@ -186,11 +184,11 @@ var LoadingBar = function (_Component) {
   }, {
     key: 'getDerivedStateFromProps',
     value: function getDerivedStateFromProps(nextProps, prevState) {
-      if (this.shouldStart(nextProps, prevState)) {
+      if (LoadingBar.shouldStart(nextProps, prevState)) {
         return { status: 'starting' };
       }
 
-      if (this.shouldStop(nextProps, prevState)) {
+      if (LoadingBar.shouldStop(nextProps, prevState)) {
         return { status: 'stopping' };
       }
 
@@ -229,7 +227,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-(0, _reactLifecyclesCompat2.default)(LoadingBar);
+(0, _reactLifecyclesCompat.polyfill)(LoadingBar);
 var ConnectedLoadingBar = (0, _reactRedux.connect)(mapStateToProps)(LoadingBar);
 
 exports.LoadingBar = LoadingBar;
