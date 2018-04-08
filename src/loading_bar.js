@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import polyfill from 'react-lifecycles-compat'
+import { polyfill } from 'react-lifecycles-compat'
 import { bool, number, object, string } from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -48,11 +48,11 @@ class LoadingBar extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (this.shouldStart(nextProps, prevState)) {
+    if (LoadingBar.shouldStart(nextProps, prevState)) {
       return { status: 'starting' }
     }
 
-    if (this.shouldStop(nextProps, prevState)) {
+    if (LoadingBar.shouldStop(nextProps, prevState)) {
       return { status: 'stopping' }
     }
 

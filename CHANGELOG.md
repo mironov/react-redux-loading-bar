@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.1
+   - Update react-lifecycles-compat dependency
+
 ## 4.0.0
    - Rewrite the code to be compatible with future React versions
 
