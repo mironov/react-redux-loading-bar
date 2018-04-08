@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import polyfill from 'react-lifecycles-compat'
 import { bool, number, object, string } from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -7,16 +8,15 @@ import { DEFAULT_SCOPE } from './loading_bar_ducks'
 export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 99
 export const PROGRESS_INCREASE = 10
-export const ANIMATION_TIME = UPDATE_TIME * 4
-export const TERMINATING_ANIMATION_TIME = UPDATE_TIME / 2
+export const ANIMATION_DURATION = UPDATE_TIME * 4
+export const TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2
 
 const initialState = {
-  terminatingAnimationTimeout: null,
   percent: 0,
-  progressInterval: null,
+  status: 'hidden',
 }
 
-export class LoadingBar extends Component {
+class LoadingBar extends Component {
   static propTypes = {
     className: string,
     loading: number,
@@ -39,87 +39,84 @@ export class LoadingBar extends Component {
     scope: DEFAULT_SCOPE,
   }
 
-  state = {
-    ...initialState,
-    hasMounted: false,
+  static shouldStart(props, state) {
+    return props.loading > 0 && ['hidden', 'stopping'].includes(state.status)
   }
+
+  static shouldStop(props, state) {
+    return props.loading === 0 && ['starting', 'running'].includes(state.status)
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (this.shouldStart(nextProps, prevState)) {
+      return { status: 'starting' }
+    }
+
+    if (this.shouldStop(nextProps, prevState)) {
+      return { status: 'stopping' }
+    }
+
+    return null
+  }
+
+  state = { ...initialState }
 
   componentDidMount() {
-    // Re-render the component after mount to fix problems with SSR and CSP.
-    //
-    // Apps that use Server Side Rendering and has Content Security Policy
-    // for style that doesn't allow inline styles should render an empty div
-    // and replace it with the actual Loading Bar after mount
-    // See: https://github.com/mironov/react-redux-loading-bar/issues/39
-    //
-    // eslint-disable-next-line react/no-did-mount-set-state
-    this.setState({ hasMounted: true })
-
-    if (this.props.loading > 0) {
-      this.launch()
+    if (this.state.status === 'starting') {
+      this.start()
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.shouldStart(this.props, nextProps)) {
-      this.launch()
-      return
-    }
-
-    this.setState((prevState, props) => {
-      if (this.shouldStop(prevState, nextProps)) {
-        if (prevState.percent === 0 && !props.showFastActions) {
-          // not even shown yet because the action finished quickly after start
-          clearInterval(prevState.progressInterval)
-          return initialState
-        }
-
-        // should progress to 100 percent
-        return { percent: 100 }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.status !== this.state.status) {
+      if (this.state.status === 'starting') {
+        this.start()
       }
 
-      return null
-    })
+      if (this.state.status === 'stopping') {
+        this.stop()
+      }
+    }
   }
 
   componentWillUnmount() {
-    clearInterval(this.state.progressInterval)
-    clearTimeout(this.state.terminatingAnimationTimeout)
+    clearInterval(this.progressIntervalId)
+    clearTimeout(this.terminatingAnimationTimeoutId)
   }
 
-  shouldStart = (props, nextProps) =>
-    props.loading === 0 && nextProps.loading > 0
-
-  shouldStop = (state, nextProps) =>
-    state.progressInterval && nextProps.loading === 0
-
-  shouldShow() {
-    return this.state.percent > 0 && this.state.percent <= 100
+  start() {
+    this.progressIntervalId = setInterval(
+      this.simulateProgress,
+      this.props.updateTime,
+    )
+    this.setState({ status: 'running' })
   }
 
-  launch() {
-    this.setState((prevState, { updateTime }) => {
-      let { progressInterval } = prevState
-      const { terminatingAnimationTimeout, percent } = prevState
+  stop() {
+    clearInterval(this.progressIntervalId)
+    this.progressIntervalId = null
 
-      const loadingBarNotShown = !progressInterval
-      const terminatingAnimationGoing = percent === 100
+    const terminatingAnimationDuration = (
+      this.isShown() || this.props.showFastActions ?
+      TERMINATING_ANIMATION_DURATION : 0
+    )
 
-      if (loadingBarNotShown) {
-        progressInterval = setInterval(this.simulateProgress, updateTime)
-      }
+    this.terminatingAnimationTimeoutId = setTimeout(
+      this.reset,
+      terminatingAnimationDuration,
+    )
 
-      if (terminatingAnimationGoing) {
-        clearTimeout(terminatingAnimationTimeout)
-      }
+    this.setState({ percent: 100 })
+  }
 
-      return { progressInterval, percent: 0 }
-    })
+  reset = () => {
+    this.terminatingAnimationTimeoutId = null
+    this.setState(initialState)
   }
 
   newPercent = (percent, progressIncrease) => {
-    // Use cos as a smoothing function
-    // Can be any function to slow down progress near the 100%
+    // Use cosine as a smoothing function
+    // It could be any function to slow down progress near the ending 100%
     const smoothedProgressIncrease = (
       progressIncrease * Math.cos(percent * (Math.PI / 2 / 100))
     )
@@ -129,38 +126,33 @@ export class LoadingBar extends Component {
 
   simulateProgress = () => {
     this.setState((prevState, { maxProgress, progressIncrease }) => {
-      let { progressInterval, percent, terminatingAnimationTimeout } = prevState
+      let { percent } = prevState
       const newPercent = this.newPercent(percent, progressIncrease)
 
-      if (percent === 100) {
-        clearInterval(progressInterval)
-        terminatingAnimationTimeout = setTimeout(
-          this.resetProgress,
-          TERMINATING_ANIMATION_TIME,
-        )
-        progressInterval = null
-      } else if (newPercent <= maxProgress) {
+      if (newPercent <= maxProgress) {
         percent = newPercent
       }
 
-      return { percent, progressInterval, terminatingAnimationTimeout }
+      return { percent }
     })
   }
 
-  resetProgress = () => {
-    this.setState(initialState)
+  isShown() {
+    return this.state.percent > 0 && this.state.percent <= 100
   }
 
   buildStyle() {
-    const animationTime = (
-      this.state.percent !== 100 ? ANIMATION_TIME : TERMINATING_ANIMATION_TIME
+    const animationDuration = (
+      this.state.status === 'stopping' ?
+        TERMINATING_ANIMATION_DURATION :
+        ANIMATION_DURATION
     )
 
     const style = {
       opacity: '1',
       transform: `scaleX(${this.state.percent / 100})`,
       transformOrigin: 'left',
-      transition: `transform ${animationTime}ms linear`,
+      transition: `transform ${animationDuration}ms linear`,
       width: '100%',
       willChange: 'transform, opacity',
     }
@@ -172,7 +164,7 @@ export class LoadingBar extends Component {
       style.position = 'absolute'
     }
 
-    if (this.shouldShow()) {
+    if (this.isShown()) {
       style.opacity = '1'
     } else {
       style.opacity = '0'
@@ -182,9 +174,7 @@ export class LoadingBar extends Component {
   }
 
   render() {
-    // In order not to violate strict style CSP it's better to make
-    // an extra re-render after component mount
-    if (!this.state.hasMounted) {
+    if (this.state.status === 'hidden') {
       return <div />
     }
 
@@ -201,4 +191,10 @@ const mapStateToProps = (state, ownProps) => ({
   loading: state.loadingBar[ownProps.scope || DEFAULT_SCOPE],
 })
 
-export default connect(mapStateToProps)(LoadingBar)
+polyfill(LoadingBar)
+const ConnectedLoadingBar = connect(mapStateToProps)(LoadingBar)
+
+export {
+  LoadingBar,
+  ConnectedLoadingBar as default,
+}

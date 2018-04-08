@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.LoadingBar = exports.TERMINATING_ANIMATION_TIME = exports.ANIMATION_TIME = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
+exports.default = exports.LoadingBar = exports.TERMINATING_ANIMATION_DURATION = exports.ANIMATION_DURATION = exports.PROGRESS_INCREASE = exports.MAX_PROGRESS = exports.UPDATE_TIME = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -12,6 +12,10 @@ var _createClass = function () { function defineProperties(target, props) { for 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _reactLifecyclesCompat = require('react-lifecycles-compat');
+
+var _reactLifecyclesCompat2 = _interopRequireDefault(_reactLifecyclesCompat);
 
 var _propTypes = require('prop-types');
 
@@ -30,16 +34,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UPDATE_TIME = exports.UPDATE_TIME = 200;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
 var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
-var ANIMATION_TIME = exports.ANIMATION_TIME = UPDATE_TIME * 4;
-var TERMINATING_ANIMATION_TIME = exports.TERMINATING_ANIMATION_TIME = UPDATE_TIME / 2;
+var ANIMATION_DURATION = exports.ANIMATION_DURATION = UPDATE_TIME * 4;
+var TERMINATING_ANIMATION_DURATION = exports.TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2;
 
 var initialState = {
-  terminatingAnimationTimeout: null,
   percent: 0,
-  progressInterval: null
+  status: 'hidden'
 };
 
-var LoadingBar = exports.LoadingBar = function (_Component) {
+var LoadingBar = function (_Component) {
   _inherits(LoadingBar, _Component);
 
   function LoadingBar() {
@@ -53,15 +56,12 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = _extends({}, initialState, {
-      hasMounted: false
-    }), _this.shouldStart = function (props, nextProps) {
-      return props.loading === 0 && nextProps.loading > 0;
-    }, _this.shouldStop = function (state, nextProps) {
-      return state.progressInterval && nextProps.loading === 0;
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LoadingBar.__proto__ || Object.getPrototypeOf(LoadingBar)).call.apply(_ref, [this].concat(args))), _this), _this.state = _extends({}, initialState), _this.reset = function () {
+      _this.terminatingAnimationTimeoutId = null;
+      _this.setState(initialState);
     }, _this.newPercent = function (percent, progressIncrease) {
-      // Use cos as a smoothing function
-      // Can be any function to slow down progress near the 100%
+      // Use cosine as a smoothing function
+      // It could be any function to slow down progress near the ending 100%
       var smoothedProgressIncrease = progressIncrease * Math.cos(percent * (Math.PI / 2 / 100));
 
       return percent + smoothedProgressIncrease;
@@ -69,116 +69,78 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
       _this.setState(function (prevState, _ref2) {
         var maxProgress = _ref2.maxProgress,
             progressIncrease = _ref2.progressIncrease;
-        var progressInterval = prevState.progressInterval,
-            percent = prevState.percent,
-            terminatingAnimationTimeout = prevState.terminatingAnimationTimeout;
+        var percent = prevState.percent;
 
         var newPercent = _this.newPercent(percent, progressIncrease);
 
-        if (percent === 100) {
-          clearInterval(progressInterval);
-          terminatingAnimationTimeout = setTimeout(_this.resetProgress, TERMINATING_ANIMATION_TIME);
-          progressInterval = null;
-        } else if (newPercent <= maxProgress) {
+        if (newPercent <= maxProgress) {
           percent = newPercent;
         }
 
-        return { percent: percent, progressInterval: progressInterval, terminatingAnimationTimeout: terminatingAnimationTimeout };
+        return { percent: percent };
       });
-    }, _this.resetProgress = function () {
-      _this.setState(initialState);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(LoadingBar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      // Re-render the component after mount to fix problems with SSR and CSP.
-      //
-      // Apps that use Server Side Rendering and has Content Security Policy
-      // for style that doesn't allow inline styles should render an empty div
-      // and replace it with the actual Loading Bar after mount
-      // See: https://github.com/mironov/react-redux-loading-bar/issues/39
-      //
-      // eslint-disable-next-line react/no-did-mount-set-state
-      this.setState({ hasMounted: true });
-
-      if (this.props.loading > 0) {
-        this.launch();
+      if (this.state.status === 'starting') {
+        this.start();
       }
     }
   }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      var _this2 = this;
-
-      if (this.shouldStart(this.props, nextProps)) {
-        this.launch();
-        return;
-      }
-
-      this.setState(function (prevState, props) {
-        if (_this2.shouldStop(prevState, nextProps)) {
-          if (prevState.percent === 0 && !props.showFastActions) {
-            // not even shown yet because the action finished quickly after start
-            clearInterval(prevState.progressInterval);
-            return initialState;
-          }
-
-          // should progress to 100 percent
-          return { percent: 100 };
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.status !== this.state.status) {
+        if (this.state.status === 'starting') {
+          this.start();
         }
 
-        return null;
-      });
+        if (this.state.status === 'stopping') {
+          this.stop();
+        }
+      }
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      clearInterval(this.state.progressInterval);
-      clearTimeout(this.state.terminatingAnimationTimeout);
+      clearInterval(this.progressIntervalId);
+      clearTimeout(this.terminatingAnimationTimeoutId);
     }
   }, {
-    key: 'shouldShow',
-    value: function shouldShow() {
+    key: 'start',
+    value: function start() {
+      this.progressIntervalId = setInterval(this.simulateProgress, this.props.updateTime);
+      this.setState({ status: 'running' });
+    }
+  }, {
+    key: 'stop',
+    value: function stop() {
+      clearInterval(this.progressIntervalId);
+      this.progressIntervalId = null;
+
+      var terminatingAnimationDuration = this.isShown() || this.props.showFastActions ? TERMINATING_ANIMATION_DURATION : 0;
+
+      this.terminatingAnimationTimeoutId = setTimeout(this.reset, terminatingAnimationDuration);
+
+      this.setState({ percent: 100 });
+    }
+  }, {
+    key: 'isShown',
+    value: function isShown() {
       return this.state.percent > 0 && this.state.percent <= 100;
-    }
-  }, {
-    key: 'launch',
-    value: function launch() {
-      var _this3 = this;
-
-      this.setState(function (prevState, _ref3) {
-        var updateTime = _ref3.updateTime;
-        var progressInterval = prevState.progressInterval;
-        var terminatingAnimationTimeout = prevState.terminatingAnimationTimeout,
-            percent = prevState.percent;
-
-
-        var loadingBarNotShown = !progressInterval;
-        var terminatingAnimationGoing = percent === 100;
-
-        if (loadingBarNotShown) {
-          progressInterval = setInterval(_this3.simulateProgress, updateTime);
-        }
-
-        if (terminatingAnimationGoing) {
-          clearTimeout(terminatingAnimationTimeout);
-        }
-
-        return { progressInterval: progressInterval, percent: 0 };
-      });
     }
   }, {
     key: 'buildStyle',
     value: function buildStyle() {
-      var animationTime = this.state.percent !== 100 ? ANIMATION_TIME : TERMINATING_ANIMATION_TIME;
+      var animationDuration = this.state.status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
 
       var style = {
         opacity: '1',
         transform: 'scaleX(' + this.state.percent / 100 + ')',
         transformOrigin: 'left',
-        transition: 'transform ' + animationTime + 'ms linear',
+        transition: 'transform ' + animationDuration + 'ms linear',
         width: '100%',
         willChange: 'transform, opacity'
 
@@ -189,7 +151,7 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
         style.position = 'absolute';
       }
 
-      if (this.shouldShow()) {
+      if (this.isShown()) {
         style.opacity = '1';
       } else {
         style.opacity = '0';
@@ -200,9 +162,7 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      // In order not to violate strict style CSP it's better to make
-      // an extra re-render after component mount
-      if (!this.state.hasMounted) {
+      if (this.state.status === 'hidden') {
         return _react2.default.createElement('div', null);
       }
 
@@ -212,6 +172,29 @@ var LoadingBar = exports.LoadingBar = function (_Component) {
         _react2.default.createElement('div', { style: this.buildStyle(), className: this.props.className }),
         _react2.default.createElement('div', { style: { display: 'table', clear: 'both' } })
       );
+    }
+  }], [{
+    key: 'shouldStart',
+    value: function shouldStart(props, state) {
+      return props.loading > 0 && ['hidden', 'stopping'].includes(state.status);
+    }
+  }, {
+    key: 'shouldStop',
+    value: function shouldStop(props, state) {
+      return props.loading === 0 && ['starting', 'running'].includes(state.status);
+    }
+  }, {
+    key: 'getDerivedStateFromProps',
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (this.shouldStart(nextProps, prevState)) {
+        return { status: 'starting' };
+      }
+
+      if (this.shouldStop(nextProps, prevState)) {
+        return { status: 'stopping' };
+      }
+
+      return null;
     }
   }]);
 
@@ -246,4 +229,8 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   };
 };
 
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(LoadingBar);
+(0, _reactLifecyclesCompat2.default)(LoadingBar);
+var ConnectedLoadingBar = (0, _reactRedux.connect)(mapStateToProps)(LoadingBar);
+
+exports.LoadingBar = LoadingBar;
+exports.default = ConnectedLoadingBar;

@@ -31,28 +31,10 @@ describe('LoadingBar', () => {
       expect(wrapper.getElement().type).toEqual('div')
     })
 
-    it('renders an empty div before mount', () => {
+    it('renders an empty div when loading is not passed', () => {
       const wrapper = shallow(<LoadingBar />)
 
       wrapper.equals(<div />)
-    })
-
-    it('renders by default hidden 3px height red element', () => {
-      const wrapper = mount(<LoadingBar />)
-
-      const resultStyle = wrapper.find('div').at(1).props().style
-      expect(resultStyle.opacity).toEqual('0')
-      expect(resultStyle.backgroundColor).toEqual('red')
-      expect(resultStyle.height).toEqual('3px')
-    })
-
-    it('renders an element with passed color and height', () => {
-      const style = { backgroundColor: 'blue', height: '5px' }
-      const wrapper = mount(<LoadingBar style={style} />)
-
-      const resultStyle = wrapper.find('div').at(1).props().style
-      expect(resultStyle.backgroundColor).toEqual('blue')
-      expect(resultStyle.height).toEqual('5px')
     })
 
     it('renders not hidden 3px height red element', () => {
@@ -66,8 +48,17 @@ describe('LoadingBar', () => {
       expect(resultStyle.position).toEqual('absolute')
     })
 
+    it('renders an element with passed color and height', () => {
+      const style = { backgroundColor: 'blue', height: '5px' }
+      const wrapper = mount(<LoadingBar loading={1} style={style} />)
+
+      const resultStyle = wrapper.find('div').at(1).props().style
+      expect(resultStyle.backgroundColor).toEqual('blue')
+      expect(resultStyle.height).toEqual('5px')
+    })
+
     it('does not apply styling if CSS class is specified', () => {
-      const wrapper = mount(<LoadingBar className="custom" />)
+      const wrapper = mount(<LoadingBar loading={1} className="custom" />)
 
       const resultStyle = wrapper.find('div').at(1).props().style
       expect(resultStyle.backgroundColor).toEqual(undefined)
@@ -78,8 +69,8 @@ describe('LoadingBar', () => {
     it('renders multiple instances in the same dom', () => {
       const wrapper = mount(
         <section>
-          <LoadingBar />
-          <LoadingBar scope="someScope" className="custom" />
+          <LoadingBar loading={1} />
+          <LoadingBar loading={1} scope="someScope" className="custom" />
         </section> // eslint-disable-line comma-dangle
       )
 
@@ -100,50 +91,50 @@ describe('LoadingBar', () => {
   })
 
   describe('#componentWillReceiveProps', () => {
-    let spyLaunch
+    let spyStart
     let clock
 
     beforeEach(() => {
-      spyLaunch = spyOn(LoadingBar.prototype, 'launch').andCallThrough()
+      spyStart = spyOn(LoadingBar.prototype, 'start').andCallThrough()
       clock = lolex.install()
     })
     afterEach(() => {
-      spyLaunch.restore()
+      spyStart.restore()
       clock.uninstall()
     })
 
-    it('does not launch on component mount', () => {
+    it('does not start on component mount', () => {
       shallow(<LoadingBar />)
-      expect(spyLaunch).toNotHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(0)
+      expect(spyStart).toNotHaveBeenCalled()
+      expect(spyStart.calls.length).toEqual(0)
     })
 
-    it('launches on loading count increase', () => {
+    it('starts on loading count increase', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
-      expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(1)
+      expect(spyStart).toHaveBeenCalled()
+      expect(spyStart.calls.length).toEqual(1)
     })
 
-    it('does not launch if loading count is not increased', () => {
+    it('does not start if loading count is not increased', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 0 })
-      expect(spyLaunch).toNotHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(0)
+      expect(spyStart).toNotHaveBeenCalled()
+      expect(spyStart.calls.length).toEqual(0)
     })
 
-    it('launches on component mount if loading count is > 0', () => {
+    it('starts on component mount if loading count is > 0', () => {
       mount(<LoadingBar loading={1} />)
-      expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(1)
+      expect(spyStart).toHaveBeenCalled()
+      expect(spyStart.calls.length).toEqual(1)
     })
 
-    it('launches only once if loading count is increased to 2', () => {
+    it('starts only once if loading count is increased to 2', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       wrapper.setProps({ loading: 2 })
-      expect(spyLaunch).toHaveBeenCalled()
-      expect(spyLaunch.calls.length).toEqual(1)
+      expect(spyStart).toHaveBeenCalled()
+      expect(spyStart.calls.length).toEqual(1)
     })
 
     describe('when showFastActions not set', () => {
@@ -152,6 +143,7 @@ describe('LoadingBar', () => {
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME - 1) // less than first simulation
         wrapper.setProps({ loading: 0 })
+        clock.tick(1)
         expect(wrapper.state().percent).toBe(0)
       })
     })
@@ -162,6 +154,7 @@ describe('LoadingBar', () => {
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME - 1) // less than first simulation
         wrapper.setProps({ loading: 0 })
+        clock.tick(1)
         expect(wrapper.state().percent).toBe(100)
       })
     })
@@ -183,7 +176,7 @@ describe('LoadingBar', () => {
     it('does not throw errors in the console', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
-      expect(wrapper.state().progressInterval).toNotEqual(null)
+      expect(wrapper.instance().progressIntervalId).toNotEqual(null)
       wrapper.unmount()
       clock.tick(UPDATE_TIME)
       expect(consoleSpy).toNotHaveBeenCalled()
@@ -194,8 +187,7 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       wrapper.setProps({ loading: 0 })
-      clock.tick(UPDATE_TIME)
-      expect(wrapper.state().terminatingAnimationTimeout).toNotEqual(null)
+      expect(wrapper.instance().terminatingAnimationTimeoutId).toExist()
       wrapper.unmount()
       clock.tick(ANIMATION_TIME)
       expect(consoleSpy).toNotHaveBeenCalled()
@@ -236,19 +228,20 @@ describe('LoadingBar', () => {
 
     it('schedules simulateProgress twice after UPDATE_TIME * 2', () => {
       wrapper.setProps({ loading: 1 })
-      clock.tick(UPDATE_TIME * 2)
+      clock.tick(UPDATE_TIME)
+      clock.tick(UPDATE_TIME)
       expect(spySimulateProgress).toHaveBeenCalled()
       expect(spySimulateProgress.calls.length).toEqual(2)
     })
 
-    it('does not set second interval if loading bar is shown', () => {
+    it('does not set second interval if loading bar is already shown', () => {
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
-      const intervalId = wrapper.state().progressInterval
-      wrapper.setProps({ loading: 0 })
-      expect(wrapper.state().percent).toBe(100)
-      wrapper.setProps({ loading: 1 })
-      expect(wrapper.state().progressInterval).toEqual(intervalId)
+      const intervalId = wrapper.instance().progressIntervalId
+      expect(wrapper.state().percent).toNotBe(100)
+      wrapper.setProps({ loading: 2 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.instance().progressIntervalId).toEqual(intervalId)
     })
   })
 
@@ -266,35 +259,38 @@ describe('LoadingBar', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().progressInterval).toExist()
+      expect(wrapper.instance().progressIntervalId).toExist()
       wrapper.setProps({ loading: 0 })
-      clock.tick(UPDATE_TIME)
-      expect(wrapper.state().progressInterval).toNotExist()
-      expect(wrapper.state().terminatingAnimationTimeout).toExist()
+      expect(wrapper.instance().progressIntervalId).toNotExist()
+      expect(wrapper.instance().terminatingAnimationTimeoutId).toExist()
       expect(wrapper.state().percent).toBe(100)
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().percent).toBe(0)
+      expect(wrapper.instance().terminatingAnimationTimeoutId).toNotExist()
     })
 
     it('clears interval if loading becomes 0 after one more tick', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
-      expect(wrapper.state().progressInterval).toExist()
+      expect(wrapper.instance().progressIntervalId).toExist()
       wrapper.setProps({ loading: 0 })
-      clock.tick(UPDATE_TIME * 2)
-      expect(wrapper.state().progressInterval).toNotExist()
+      clock.tick(UPDATE_TIME)
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.instance().progressIntervalId).toNotExist()
     })
 
-    it('resets progress if loading becomes 0 and after animations', () => {
+    it('resets progress if loading becomes 0 and terminating animation finished', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(wrapper.state().percent).toBeGreaterThan(0).toBeLessThan(100)
       wrapper.setProps({ loading: 0 })
-      clock.tick(UPDATE_TIME)
       expect(wrapper.state().percent).toBe(100)
-      clock.tick(UPDATE_TIME + ANIMATION_TIME)
+      clock.tick(UPDATE_TIME)
+      clock.tick(ANIMATION_TIME)
       expect(wrapper.state().percent).toBe(0)
-      expect(wrapper.state().terminatingAnimationTimeout).toNotExist()
+      expect(wrapper.instance().terminatingAnimationTimeoutId).toNotExist()
     })
 
     describe('if percent is less than MAX_PROGRESS', () => {
@@ -338,23 +334,24 @@ describe('LoadingBar', () => {
         // Show Loading Bar
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME)
-        expect(wrapper.state().progressInterval).toExist()
+        expect(wrapper.instance().progressIntervalId).toExist()
 
         // Hide Loading Bar, let the percent become 100 and
         // schedule the reset after animation
         wrapper.setProps({ loading: 0 })
-        clock.tick(UPDATE_TIME)
-        expect(wrapper.state().terminatingAnimationTimeout).toExist()
+        expect(wrapper.instance().terminatingAnimationTimeoutId).toExist()
 
         // Wait one tick while animation is going
         clock.tick(UPDATE_TIME)
 
         // Show Loading Bar again
         wrapper.setProps({ loading: 1 })
-        expect(wrapper.state().progressInterval).toExist()
+        expect(wrapper.instance().progressIntervalId).toExist()
+
+        clock.tick(UPDATE_TIME)
 
         // It should be shown
-        expect(wrapper.state().percent).toNotEqual(100)
+        expect(wrapper.state().percent).toBeGreaterThan(0).toBeLessThan(100)
 
         // Hide Loading Bar and emulate a long period of time
         wrapper.setProps({ loading: 0 })
@@ -383,11 +380,13 @@ describe('LoadingBar', () => {
         // Show Loading Bar
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME)
-        expect(wrapper.state().progressInterval).toExist()
+        expect(wrapper.instance().progressIntervalId).toExist()
 
         // Hiding loading bar should set percentage to 100
         wrapper.setProps({ loading: 0 })
         expect(wrapper.state().percent).toEqual(100)
+
+        clock.tick(UPDATE_TIME)
 
         // Show Loading Bar again
         wrapper.setProps({ loading: 1 })
@@ -399,7 +398,7 @@ describe('LoadingBar', () => {
         clock.tick(UPDATE_TIME)
 
         // The progress simulation is still going
-        expect(wrapper.state().progressInterval).toExist()
+        expect(wrapper.instance().progressIntervalId).toExist()
       })
     })
   })

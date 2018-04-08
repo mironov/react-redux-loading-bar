@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.0
+   - Rewrite the code to be compatible with future React versions
+
 ## 3.1.2
    - Check for the scope property within the meta property of the action
 
