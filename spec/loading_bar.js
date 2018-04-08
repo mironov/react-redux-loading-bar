@@ -280,7 +280,8 @@ describe('LoadingBar', () => {
       expect(wrapper.instance().progressIntervalId).toNotExist()
     })
 
-    it('resets progress if loading becomes 0 and terminating animation finished', () => {
+    it('resets progress if loading becomes 0 and terminating animation ' +
+       'finished', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
