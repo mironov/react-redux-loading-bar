@@ -3721,16 +3721,16 @@ react-dom@^16.0.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-lifecycles-compat@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-2.0.0.tgz#71d9c4cde47114c4102454f76da055c2bc48c948"
+react-lifecycles-compat@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.2.tgz#7279047275bd727a912e25f734c0559527e84eff"
 
-react-redux-loading-bar@4.0.2:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-4.0.2.tgz#68f5bb168bac250f346eed0d2a58612a4a3df83f"
+react-redux-loading-bar@4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-4.0.3.tgz#05db3444ba925d9129fd7d6cdb6998c49468133e"
   dependencies:
     prop-types "^15.5.6"
-    react-lifecycles-compat "^2.0.0"
+    react-lifecycles-compat "^3.0.2"
 
 react-redux@^5.0.6:
   version "5.0.6"
