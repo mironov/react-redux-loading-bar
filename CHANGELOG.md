@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.3
+   - Update to latest react-lifecycles-compat
+
 ## 4.0.2
    - Rebuild Loading Bar
 
