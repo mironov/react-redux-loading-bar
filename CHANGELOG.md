@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.4
+   - Relax Redux dependency
+
 ## 4.0.3
    - Update to latest react-lifecycles-compat
 

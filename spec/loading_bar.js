@@ -24,7 +24,7 @@ global.window = dom.window
 global.document = dom.window.document
 
 describe('LoadingBar', () => {
-  describe('#render', () => {
+  describe('render', () => {
     it('renders without problems', () => {
       const wrapper = shallow(<LoadingBar />)
 
@@ -90,7 +90,7 @@ describe('LoadingBar', () => {
     })
   })
 
-  describe('#componentWillReceiveProps', () => {
+  describe('update props', () => {
     let spyStart
     let clock
 
@@ -160,7 +160,7 @@ describe('LoadingBar', () => {
     })
   })
 
-  describe('#componentWillUnmount', () => {
+  describe('unmount', () => {
     let clock
     let consoleSpy
 
@@ -194,7 +194,7 @@ describe('LoadingBar', () => {
     })
   })
 
-  describe('#launch', () => {
+  describe('progress', () => {
     let wrapper
     let clock
     let spySimulateProgress
