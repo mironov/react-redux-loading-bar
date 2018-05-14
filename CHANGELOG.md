@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.5
+   - Replace .includes with a broadly supported .indexOf alternative
+
 ## 4.0.4
    - Relax Redux dependency
 

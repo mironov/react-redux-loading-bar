@@ -40,11 +40,15 @@ class LoadingBar extends Component {
   }
 
   static shouldStart(props, state) {
-    return props.loading > 0 && ['hidden', 'stopping'].includes(state.status)
+    return (
+      props.loading > 0 && ['hidden', 'stopping'].indexOf(state.status) >= 0
+    )
   }
 
   static shouldStop(props, state) {
-    return props.loading === 0 && ['starting', 'running'].includes(state.status)
+    return (
+      props.loading === 0 && ['starting', 'running'].indexOf(state.status) >= 0
+    )
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {

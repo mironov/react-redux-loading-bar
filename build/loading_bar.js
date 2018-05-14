@@ -174,12 +174,12 @@ var LoadingBar = function (_Component) {
   }], [{
     key: 'shouldStart',
     value: function shouldStart(props, state) {
-      return props.loading > 0 && ['hidden', 'stopping'].includes(state.status);
+      return props.loading > 0 && ['hidden', 'stopping'].indexOf(state.status) >= 0;
     }
   }, {
     key: 'shouldStop',
     value: function shouldStop(props, state) {
-      return props.loading === 0 && ['starting', 'running'].includes(state.status);
+      return props.loading === 0 && ['starting', 'running'].indexOf(state.status) >= 0;
     }
   }, {
     key: 'getDerivedStateFromProps',
