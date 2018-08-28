@@ -152,7 +152,7 @@ class LoadingBar extends Component {
         ANIMATION_DURATION
     )
 
-    //browser css3 animation compatibility
+    // browser css3 animation compatibility
     const style = {
       opacity: '1',
       transform: `scaleX(${this.state.percent / 100})`,
