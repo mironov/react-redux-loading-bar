@@ -1,6 +1,6 @@
 {
   "name": "react-redux-loading-bar-demo",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "React Redux Loading Bar Demo",
   "main": "build/index.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-redux": "^5.0.7",
-    "react-redux-loading-bar": "4.0.5",
+    "react-redux-loading-bar": "4.0.6",
     "redux": "^4",
     "redux-logger": "^3.0.1",
     "redux-promise-middleware": "^4.2.0",
