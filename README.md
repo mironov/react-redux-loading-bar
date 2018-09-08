@@ -259,6 +259,7 @@ Add unit tests for any new or changed functionality. Lint and test your code.
 - [@neogermi](https://github.com/neogermi)
 - [@MikeDevice](https://github.com/MikeDevice)
 - [@Kovensky](https://github.com/Kovensky)
+- [@dengbupapapa](https://github.com/dengbupapapa)
 
 To see what has changed in recent versions of Loading Bar, see the [CHANGELOG](https://github.com/mironov/react-redux-loading-bar/blob/master/CHANGELOG.md).
 

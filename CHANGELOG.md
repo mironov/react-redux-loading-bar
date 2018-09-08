@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.6
+   - Animation needs to be compatible with ie9 and other browsers (contributed by @dengbupapapa)
+
 ## 4.0.5
    - Replace .includes with a broadly supported .indexOf alternative
 
