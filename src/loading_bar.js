@@ -152,11 +152,24 @@ class LoadingBar extends Component {
         ANIMATION_DURATION
     )
 
+    // browser css3 animation compatibility
     const style = {
       opacity: '1',
       transform: `scaleX(${this.state.percent / 100})`,
+      msTransform: `scaleX(${this.state.percent / 100})`,
+      webkitTransform: `scaleX(${this.state.percent / 100})`,
+      MozTransform: `scaleX(${this.state.percent / 100})`,
+      OTransform: `scaleX(${this.state.percent / 100})`,
       transformOrigin: 'left',
+      msTransformOrigin: 'left',
+      webkitTransformOrigin: 'left',
+      MozTransformOrigin: 'left',
+      OTransformOrigin: 'left',
       transition: `transform ${animationDuration}ms linear`,
+      msTransition: `msTransform ${animationDuration}ms linear`,
+      webkitTransition: `webkitTransform ${animationDuration}ms linear`,
+      MozTransition: `MozTransform ${animationDuration}ms linear`,
+      OTransition: `OTransform ${animationDuration}ms linear`,
       width: '100%',
       willChange: 'transform, opacity',
     }
