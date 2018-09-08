@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.7
+   - Revert changes introduced in v4.0.6 because they break modern browsers like Chrome
+
 ## 4.0.6
    - Animation needs to be compatible with ie9 and other browsers (contributed by @dengbupapapa)
 
