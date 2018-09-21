@@ -154,7 +154,9 @@ class LoadingBar extends Component {
 
     //
     // browser css3 animation compatibility
-    // Style keys are camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. node.style.backgroundImage).
+    // Style keys are camelCased in order to be
+    // consistent with accessing the properties on DOM nodes from JS
+    // (e.g. node.style.backgroundImage).
     // Vendor prefixes other than ms should begin with a capital letter.
     // This is why WebkitTransition has an uppercase “W”.
     // https://reactjs.org/docs/dom-elements.html#style
