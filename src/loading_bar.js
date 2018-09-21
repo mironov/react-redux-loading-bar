@@ -153,23 +153,27 @@ class LoadingBar extends Component {
     )
 
     // browser css3 animation compatibility
+    // Style keys are camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. node.style.backgroundImage).
+    // Vendor prefixes other than ms should begin with a capital letter.
+    // This is why WebkitTransition has an uppercase “W”.
+    // https://reactjs.org/docs/dom-elements.html#style
     const style = {
       opacity: '1',
       transform: `scaleX(${this.state.percent / 100})`,
       msTransform: `scaleX(${this.state.percent / 100})`,
-      webkitTransform: `scaleX(${this.state.percent / 100})`,
+      WebkitTransform: `scaleX(${this.state.percent / 100})`,
       MozTransform: `scaleX(${this.state.percent / 100})`,
       OTransform: `scaleX(${this.state.percent / 100})`,
       transformOrigin: 'left',
       msTransformOrigin: 'left',
-      webkitTransformOrigin: 'left',
+      WebkitTransformOrigin: 'left',
       MozTransformOrigin: 'left',
       OTransformOrigin: 'left',
       transition: `transform ${animationDuration}ms linear`,
-      msTransition: `msTransform ${animationDuration}ms linear`,
-      webkitTransition: `webkitTransform ${animationDuration}ms linear`,
-      MozTransition: `MozTransform ${animationDuration}ms linear`,
-      OTransition: `OTransform ${animationDuration}ms linear`,
+      msTransition: `-ms-transform ${animationDuration}ms linear`,
+      WebkitTransition: `-webkit-transform ${animationDuration}ms linear`,
+      MozTransition: `-moz-transform ${animationDuration}ms linear`,
+      OTransition: `-o-transform ${animationDuration}ms linear`,
       width: '100%',
       willChange: 'transform, opacity',
     }
