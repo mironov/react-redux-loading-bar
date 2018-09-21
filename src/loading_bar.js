@@ -152,6 +152,7 @@ class LoadingBar extends Component {
         ANIMATION_DURATION
     )
 
+    //
     // browser css3 animation compatibility
     // Style keys are camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. node.style.backgroundImage).
     // Vendor prefixes other than ms should begin with a capital letter.
