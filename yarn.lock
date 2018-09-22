@@ -3736,9 +3736,9 @@ react-lifecycles-compat@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.2.tgz#7279047275bd727a912e25f734c0559527e84eff"
 
-react-redux-loading-bar@4.0.7:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-4.0.7.tgz#f3b87455d26e359c70fb9852fae9e997b287970b"
+react-redux-loading-bar@4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-4.0.8.tgz#e84d59d1517b79f53b0f39c8ddb40682af648c1b"
   dependencies:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.2"
