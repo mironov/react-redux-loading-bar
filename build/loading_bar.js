@@ -134,14 +134,33 @@ var LoadingBar = function (_Component) {
     value: function buildStyle() {
       var animationDuration = this.state.status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
 
+      //
+      // browser css3 animation compatibility
+      // Style keys are camelCased in order to be
+      // consistent with accessing the properties on DOM nodes from JS
+      // (e.g. node.style.backgroundImage).
+      // Vendor prefixes other than ms should begin with a capital letter.
+      // This is why WebkitTransition has an uppercase “W”.
+      // https://reactjs.org/docs/dom-elements.html#style
       var style = {
         opacity: '1',
         transform: 'scaleX(' + this.state.percent / 100 + ')',
+        msTransform: 'scaleX(' + this.state.percent / 100 + ')',
+        WebkitTransform: 'scaleX(' + this.state.percent / 100 + ')',
+        MozTransform: 'scaleX(' + this.state.percent / 100 + ')',
+        OTransform: 'scaleX(' + this.state.percent / 100 + ')',
         transformOrigin: 'left',
+        msTransformOrigin: 'left',
+        WebkitTransformOrigin: 'left',
+        MozTransformOrigin: 'left',
+        OTransformOrigin: 'left',
         transition: 'transform ' + animationDuration + 'ms linear',
+        msTransition: '-ms-transform ' + animationDuration + 'ms linear',
+        WebkitTransition: '-webkit-transform ' + animationDuration + 'ms linear',
+        MozTransition: '-moz-transform ' + animationDuration + 'ms linear',
+        OTransition: '-o-transform ' + animationDuration + 'ms linear',
         width: '100%',
         willChange: 'transform, opacity'
-
         // Use default styling if there's no CSS class applied
       };if (!this.props.className) {
         style.height = '3px';

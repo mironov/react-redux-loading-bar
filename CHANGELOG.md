@@ -1,5 +1,8 @@
 # Release History
 
+## 4.0.8
+   - Old browser compatibility (contributed by @dengbupapapa)
+
 ## 4.0.7
    - Revert changes introduced in v4.0.6 because they break modern browsers like Chrome
 
