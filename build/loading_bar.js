@@ -32,7 +32,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var UPDATE_TIME = exports.UPDATE_TIME = 200;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
 var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
-var ANIMATION_DURATION = exports.ANIMATION_DURATION = UPDATE_TIME * 4;
+var ANIMATION_DURATION = exports.ANIMATION_DURATION = UPDATE_TIME;
 var TERMINATING_ANIMATION_DURATION = exports.TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2;
 
 var initialState = {

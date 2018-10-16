@@ -8,7 +8,7 @@ import { DEFAULT_SCOPE } from './loading_bar_ducks'
 export const UPDATE_TIME = 200
 export const MAX_PROGRESS = 99
 export const PROGRESS_INCREASE = 10
-export const ANIMATION_DURATION = UPDATE_TIME * 4
+export const ANIMATION_DURATION = UPDATE_TIME
 export const TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2
 
 const initialState = {
