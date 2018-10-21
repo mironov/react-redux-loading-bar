@@ -1,5 +1,8 @@
 # Release History
 
+## 4.1.0
+   - Make the animation smoother (at least in Chrome)
+
 ## 4.0.8
    - Old browser compatibility (contributed by @dengbupapapa)
 

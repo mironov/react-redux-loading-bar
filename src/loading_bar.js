@@ -5,10 +5,10 @@ import { connect } from 'react-redux'
 
 import { DEFAULT_SCOPE } from './loading_bar_ducks'
 
-export const UPDATE_TIME = 200
+export const UPDATE_TIME = 400
 export const MAX_PROGRESS = 99
-export const PROGRESS_INCREASE = 10
-export const ANIMATION_DURATION = UPDATE_TIME * 4
+export const PROGRESS_INCREASE = 20
+export const ANIMATION_DURATION = UPDATE_TIME * 2
 export const TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2
 
 const initialState = {
@@ -152,31 +152,18 @@ class LoadingBar extends Component {
         ANIMATION_DURATION
     )
 
-    //
-    // browser css3 animation compatibility
-    // Style keys are camelCased in order to be
-    // consistent with accessing the properties on DOM nodes from JS
-    // (e.g. node.style.backgroundImage).
-    // Vendor prefixes other than ms should begin with a capital letter.
-    // This is why WebkitTransition has an uppercase “W”.
-    // https://reactjs.org/docs/dom-elements.html#style
     const style = {
       opacity: '1',
-      transform: `scaleX(${this.state.percent / 100})`,
-      msTransform: `scaleX(${this.state.percent / 100})`,
-      WebkitTransform: `scaleX(${this.state.percent / 100})`,
-      MozTransform: `scaleX(${this.state.percent / 100})`,
-      OTransform: `scaleX(${this.state.percent / 100})`,
-      transformOrigin: 'left',
-      msTransformOrigin: 'left',
-      WebkitTransformOrigin: 'left',
-      MozTransformOrigin: 'left',
-      OTransformOrigin: 'left',
-      transition: `transform ${animationDuration}ms linear`,
-      msTransition: `-ms-transform ${animationDuration}ms linear`,
-      WebkitTransition: `-webkit-transform ${animationDuration}ms linear`,
-      MozTransition: `-moz-transform ${animationDuration}ms linear`,
-      OTransition: `-o-transform ${animationDuration}ms linear`,
+      transform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      msTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      WebkitTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      MozTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      OTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      transition: `transform ${animationDuration}ms linear 0s`,
+      msTransition: `-ms-transform ${animationDuration}ms linear 0s`,
+      WebkitTransition: `-webkit-transform ${animationDuration}ms linear 0s`,
+      MozTransition: `-moz-transform ${animationDuration}ms linear 0s`,
+      OTransition: `-o-transform ${animationDuration}ms linear 0s`,
       width: '100%',
       willChange: 'transform, opacity',
     }

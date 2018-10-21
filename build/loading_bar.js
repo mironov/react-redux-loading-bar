@@ -29,10 +29,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var UPDATE_TIME = exports.UPDATE_TIME = 200;
+var UPDATE_TIME = exports.UPDATE_TIME = 400;
 var MAX_PROGRESS = exports.MAX_PROGRESS = 99;
-var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 10;
-var ANIMATION_DURATION = exports.ANIMATION_DURATION = UPDATE_TIME * 4;
+var PROGRESS_INCREASE = exports.PROGRESS_INCREASE = 20;
+var ANIMATION_DURATION = exports.ANIMATION_DURATION = UPDATE_TIME * 2;
 var TERMINATING_ANIMATION_DURATION = exports.TERMINATING_ANIMATION_DURATION = UPDATE_TIME / 2;
 
 var initialState = {
@@ -134,31 +134,18 @@ var LoadingBar = function (_Component) {
     value: function buildStyle() {
       var animationDuration = this.state.status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
 
-      //
-      // browser css3 animation compatibility
-      // Style keys are camelCased in order to be
-      // consistent with accessing the properties on DOM nodes from JS
-      // (e.g. node.style.backgroundImage).
-      // Vendor prefixes other than ms should begin with a capital letter.
-      // This is why WebkitTransition has an uppercase “W”.
-      // https://reactjs.org/docs/dom-elements.html#style
       var style = {
         opacity: '1',
-        transform: 'scaleX(' + this.state.percent / 100 + ')',
-        msTransform: 'scaleX(' + this.state.percent / 100 + ')',
-        WebkitTransform: 'scaleX(' + this.state.percent / 100 + ')',
-        MozTransform: 'scaleX(' + this.state.percent / 100 + ')',
-        OTransform: 'scaleX(' + this.state.percent / 100 + ')',
-        transformOrigin: 'left',
-        msTransformOrigin: 'left',
-        WebkitTransformOrigin: 'left',
-        MozTransformOrigin: 'left',
-        OTransformOrigin: 'left',
-        transition: 'transform ' + animationDuration + 'ms linear',
-        msTransition: '-ms-transform ' + animationDuration + 'ms linear',
-        WebkitTransition: '-webkit-transform ' + animationDuration + 'ms linear',
-        MozTransition: '-moz-transform ' + animationDuration + 'ms linear',
-        OTransition: '-o-transform ' + animationDuration + 'ms linear',
+        transform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        msTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        WebkitTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        MozTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        OTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        transition: 'transform ' + animationDuration + 'ms linear 0s',
+        msTransition: '-ms-transform ' + animationDuration + 'ms linear 0s',
+        WebkitTransition: '-webkit-transform ' + animationDuration + 'ms linear 0s',
+        MozTransition: '-moz-transform ' + animationDuration + 'ms linear 0s',
+        OTransition: '-o-transform ' + animationDuration + 'ms linear 0s',
         width: '100%',
         willChange: 'transform, opacity'
         // Use default styling if there's no CSS class applied
