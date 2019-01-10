@@ -91,6 +91,10 @@ hr{
   border-bottom-color:#ccc;
 }
 
+.h00{ font-size:4rem }
+
+.h0{ font-size:3rem }
+
 .h1{ font-size:2rem }
 
 .h2{ font-size:1.5rem }
@@ -271,7 +275,7 @@ hr{
 
 .my4{ margin-top:4rem; margin-bottom:4rem }
 
-.mxn1{ margin-left:-.5rem; margin-right:-.5rem; }
+.mxn1{ margin-left:-0.5rem; margin-right:-0.5rem; }
 
 .mxn2{ margin-left:-1rem; margin-right:-1rem; }
 
@@ -279,11 +283,19 @@ hr{
 
 .mxn4{ margin-left:-4rem; margin-right:-4rem; }
 
-.ml-auto{ margin-left:auto }
+.m-auto{ margin:auto; }
+
+.mt-auto{ margin-top:auto }
 
 .mr-auto{ margin-right:auto }
 
+.mb-auto{ margin-bottom:auto }
+
+.ml-auto{ margin-left:auto }
+
 .mx-auto{ margin-left:auto; margin-right:auto; }
+
+.my-auto{ margin-top:auto; margin-bottom:auto; }
 
 .p0{ padding:0 }
 
@@ -654,6 +666,8 @@ hr{
 .justify-between{ -webkit-box-pack:justify; -ms-flex-pack:justify; justify-content:space-between }
 
 .justify-around{ -ms-flex-pack:distribute; justify-content:space-around }
+
+.justify-evenly{ -webkit-box-pack:space-evenly; -ms-flex-pack:space-evenly; justify-content:space-evenly }
 
 .content-start{ -ms-flex-line-pack:start; align-content:flex-start }
 
