@@ -1,5 +1,8 @@
 # Release History
 
+## 4.2.0
+   - Support latest react-redux v6
+
 ## 4.1.0
    - Make the animation smoother (at least in Chrome)
 
