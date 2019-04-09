@@ -90,7 +90,7 @@ class LoadingBar extends Component {
 
   start() {
     if (this.progressIntervalId) {
-      clearInterval(this.progressIntervalId);
+      clearInterval(this.progressIntervalId)
     }
     this.progressIntervalId = setInterval(
       this.simulateProgress,
