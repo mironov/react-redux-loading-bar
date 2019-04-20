@@ -48,7 +48,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-2": "^6.24.1",
     "coveralls": "^3.0.2",
-    "enzyme": "^3.6.0",
+    "enzyme": "3.8.0",
     "enzyme-adapter-react-16": "^1.5.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
