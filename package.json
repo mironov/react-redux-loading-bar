@@ -27,7 +27,7 @@
     "progress-bar",
     "react-component"
   ],
-  "author": "Anton Mironov (ant.mironov@gmail.com)",
+  "author": "Anton Mironov (npmjs@mail.mironov.live)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mironov/react-redux-loading-bar/issues"
