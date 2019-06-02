@@ -19,24 +19,26 @@ const initialState = {
 class LoadingBar extends Component {
   static propTypes = {
     className: string,
+    direction: string,
     loading: number,
     maxProgress: number,
     progressIncrease: number,
-    showFastActions: bool,
-    updateTime: number,
     scope: string,
+    showFastActions: bool,
     style: object,
+    updateTime: number,
   }
 
   static defaultProps = {
     className: '',
+    direction: 'ltr',
     loading: 0,
     maxProgress: MAX_PROGRESS,
     progressIncrease: PROGRESS_INCREASE,
+    scope: DEFAULT_SCOPE,
     showFastActions: false,
     style: {},
     updateTime: UPDATE_TIME,
-    scope: DEFAULT_SCOPE,
   }
 
   static shouldStart(props, state) {
@@ -152,13 +154,16 @@ class LoadingBar extends Component {
         ANIMATION_DURATION
     )
 
+    const coefficient = this.props.direction === 'rtl' ? 1 : -1
+    const tx = (100 - this.state.percent) * coefficient
+
     const style = {
       opacity: '1',
-      transform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
-      msTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
-      WebkitTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
-      MozTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
-      OTransform: `translate3d(${this.state.percent - 100}%, 0px, 0px)`,
+      transform: `translate3d(${tx}%, 0px, 0px)`,
+      msTransform: `translate3d(${tx}%, 0px, 0px)`,
+      WebkitTransform: `translate3d(${tx}%, 0px, 0px)`,
+      MozTransform: `translate3d(${tx}%, 0px, 0px)`,
+      OTransform: `translate3d(${tx}%, 0px, 0px)`,
       transition: `transform ${animationDuration}ms linear 0s`,
       msTransition: `-ms-transform ${animationDuration}ms linear 0s`,
       WebkitTransition: `-webkit-transform ${animationDuration}ms linear 0s`,

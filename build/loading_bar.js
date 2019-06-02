@@ -134,13 +134,16 @@ var LoadingBar = function (_Component) {
     value: function buildStyle() {
       var animationDuration = this.state.status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
 
+      var coefficient = this.props.direction === 'rtl' ? 1 : -1;
+      var tx = (100 - this.state.percent) * coefficient;
+
       var style = {
         opacity: '1',
-        transform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
-        msTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
-        WebkitTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
-        MozTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
-        OTransform: 'translate3d(' + (this.state.percent - 100) + '%, 0px, 0px)',
+        transform: 'translate3d(' + tx + '%, 0px, 0px)',
+        msTransform: 'translate3d(' + tx + '%, 0px, 0px)',
+        WebkitTransform: 'translate3d(' + tx + '%, 0px, 0px)',
+        MozTransform: 'translate3d(' + tx + '%, 0px, 0px)',
+        OTransform: 'translate3d(' + tx + '%, 0px, 0px)',
         transition: 'transform ' + animationDuration + 'ms linear 0s',
         msTransition: '-ms-transform ' + animationDuration + 'ms linear 0s',
         WebkitTransition: '-webkit-transform ' + animationDuration + 'ms linear 0s',
@@ -207,23 +210,25 @@ var LoadingBar = function (_Component) {
 
 LoadingBar.propTypes = {
   className: _propTypes.string,
+  direction: _propTypes.string,
   loading: _propTypes.number,
   maxProgress: _propTypes.number,
   progressIncrease: _propTypes.number,
-  showFastActions: _propTypes.bool,
-  updateTime: _propTypes.number,
   scope: _propTypes.string,
-  style: _propTypes.object
+  showFastActions: _propTypes.bool,
+  style: _propTypes.object,
+  updateTime: _propTypes.number
 };
 LoadingBar.defaultProps = {
   className: '',
+  direction: 'ltr',
   loading: 0,
   maxProgress: MAX_PROGRESS,
   progressIncrease: PROGRESS_INCREASE,
+  scope: _loading_bar_ducks.DEFAULT_SCOPE,
   showFastActions: false,
   style: {},
-  updateTime: UPDATE_TIME,
-  scope: _loading_bar_ducks.DEFAULT_SCOPE
+  updateTime: UPDATE_TIME
 };
 
 

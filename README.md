@@ -198,6 +198,14 @@ $(document).on('ajaxStop', this.props.actions.hideLoading)
 
 See [a demo](http://mironov.github.io/react-redux-loading-bar/?ajax) or checkout [the code](https://github.com/mironov/react-redux-loading-bar/blob/gh-pages/src/demo_ajax.js).
 
+## RTL (Right-To-Left) Layout
+
+Pass `direction="rtl"` to make Loading Bar simulate progress from right to left:
+
+```jsx
+<LoadingBar direction="rtl" />
+```
+
 ## Styling
 
 You can apply custom styling right on the `LoadingBar` component. For example you can change the color and height of the loading bar:

@@ -377,7 +377,7 @@ describe('LoadingBar', () => {
         spySimulateProgress.restore()
       })
 
-      it('does not hides and resets the position', () => {
+      it('does not hide and resets the position', () => {
         // Show Loading Bar
         wrapper.setProps({ loading: 1 })
         clock.tick(UPDATE_TIME)
@@ -468,6 +468,44 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
       expect(wrapper.state().percent).toEqual(progressIncrease)
+    })
+  })
+
+  describe('direction prop', () => {
+    let clock
+
+    beforeEach(() => {
+      clock = lolex.install()
+    })
+    afterEach(() => {
+      clock.uninstall()
+    })
+
+    it('simulates progress from left to right by default', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+
+      const resultStyle = wrapper.find('div').at(1).props().style
+      expect(resultStyle.transform).toEqual('translate3d(-80%, 0px, 0px)')
+    })
+
+    it('can simulate progress from right to left', () => {
+      const wrapper = shallow(<LoadingBar direction="rtl" />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+
+      const resultStyle = wrapper.find('div').at(1).props().style
+      expect(resultStyle.transform).toEqual('translate3d(80%, 0px, 0px)')
+    })
+
+    it('simulates progress from left to right for unknown direction', () => {
+      const wrapper = shallow(<LoadingBar direction="unknown" />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+
+      const resultStyle = wrapper.find('div').at(1).props().style
+      expect(resultStyle.transform).toEqual('translate3d(-80%, 0px, 0px)')
     })
   })
 })

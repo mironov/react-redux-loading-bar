@@ -1,5 +1,8 @@
 # Release History
 
+## 4.3.0
+   - Add support for RTL Layout. Ref: #88
+
 ## 4.2.0
    - Support latest react-redux v6
 
