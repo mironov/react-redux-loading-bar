@@ -64,31 +64,31 @@ describe('loadingBarReducer', () => {
 describe('actions', () => {
   it('creates an action to show loading bar', () => {
     expect(showLoading())
-    .toEqual({ type: SHOW, payload: { scope: DEFAULT_SCOPE } })
+      .toEqual({ type: SHOW, payload: { scope: DEFAULT_SCOPE } })
   })
 
   it('creates an action to show a custom loading bar', () => {
     expect(showLoading('someScope'))
-    .toEqual({ type: SHOW, payload: { scope: 'someScope' } })
+      .toEqual({ type: SHOW, payload: { scope: 'someScope' } })
   })
 
   it('creates an action to hide loading bar', () => {
     expect(hideLoading())
-    .toEqual({ type: HIDE, payload: { scope: DEFAULT_SCOPE } })
+      .toEqual({ type: HIDE, payload: { scope: DEFAULT_SCOPE } })
   })
 
   it('creates an action to hide a custom loading bar', () => {
     expect(hideLoading('someScope'))
-    .toEqual({ type: HIDE, payload: { scope: 'someScope' } })
+      .toEqual({ type: HIDE, payload: { scope: 'someScope' } })
   })
 
   it('creates an action to reset loading bar', () => {
     expect(resetLoading())
-    .toEqual({ type: RESET, payload: { scope: DEFAULT_SCOPE } })
+      .toEqual({ type: RESET, payload: { scope: DEFAULT_SCOPE } })
   })
 
   it('creates an action to reset a custom loading bar', () => {
     expect(resetLoading('someScope'))
-    .toEqual({ type: RESET, payload: { scope: 'someScope' } })
+      .toEqual({ type: RESET, payload: { scope: 'someScope' } })
   })
 })

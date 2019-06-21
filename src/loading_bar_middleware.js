@@ -14,14 +14,14 @@ export default function loadingBarMiddleware(config = {}) {
       const isFulfilled = new RegExp(`${FULFILLED}$`, 'g')
       const isRejected = new RegExp(`${REJECTED}$`, 'g')
 
-      const actionScope = (action.meta && action.meta.scope) ||
-                          action.scope ||
-                          scope
+      const actionScope = (action.meta && action.meta.scope)
+                          || action.scope
+                          || scope
 
       if (action.type.match(isPending)) {
         dispatch(showLoading(actionScope))
-      } else if (action.type.match(isFulfilled) ||
-                 action.type.match(isRejected)) {
+      } else if (action.type.match(isFulfilled)
+                 || action.type.match(isRejected)) {
         dispatch(hideLoading(actionScope))
       }
     }

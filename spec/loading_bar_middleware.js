@@ -6,11 +6,12 @@ import loadingBarMiddleware from '../src/loading_bar_middleware'
 import { showLoading, hideLoading } from '../src/loading_bar_ducks'
 
 describe('loadingBarMiddleware', () => {
-  const mockStore = mockDispatch =>
+  const mockStore = mockDispatch => (
     createMockStore(
       [loadingBarMiddleware()],
       mockDispatch,
     )
+  )
 
   it('returns a function to handle next', () => {
     const mockDispatch = () => {}
@@ -75,8 +76,8 @@ describe('loadingBarMiddleware', () => {
     })
   })
 
-  describe('with an action does not containing "_PENDING", "_FULFILLED", ' +
-           '"_REJECTED" in type', () => {
+  describe('with an action does not containing "_PENDING", "_FULFILLED", '
+           + '"_REJECTED" in type', () => {
     it('does not dispatch SHOW and HIDE actions', () => {
       const originalAction = { type: 'something/RANDOM' }
       const expectedActions = [
@@ -113,7 +114,7 @@ describe('loadingBarMiddleware', () => {
   })
 
   describe('with custom promiseTypeSuffixes', () => {
-    const mockStoreWithSuffixes = mockDispatch =>
+    const mockStoreWithSuffixes = mockDispatch => (
       createMockStore(
         [
           loadingBarMiddleware({
@@ -122,6 +123,7 @@ describe('loadingBarMiddleware', () => {
         ],
         mockDispatch,
       )
+    )
 
     it('does not dispatch SHOW and HIDE actions on _FULFILLED action', () => {
       const originalAction = { type: 'something/FETCH_PENDING' }
@@ -209,7 +211,7 @@ describe('loadingBarMiddleware', () => {
 
   describe('with custom scope', () => {
     const CUSTOM_SCOPE = 'someScope'
-    const mockStoreWithCustomScope = mockDispatch =>
+    const mockStoreWithCustomScope = mockDispatch => (
       createMockStore(
         [
           loadingBarMiddleware({
@@ -218,6 +220,7 @@ describe('loadingBarMiddleware', () => {
         ],
         mockDispatch,
       )
+    )
 
     describe('with an action containing "_PENDING" in type', () => {
       it('dispatches SHOW action', () => {

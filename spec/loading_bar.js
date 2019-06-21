@@ -12,7 +12,7 @@ import {
   UPDATE_TIME,
   MAX_PROGRESS,
   PROGRESS_INCREASE,
-  ANIMATION_TIME,
+  ANIMATION_DURATION,
 } from '../src/loading_bar'
 
 Enzyme.configure({ adapter: new Adapter() })
@@ -189,7 +189,7 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 0 })
       expect(wrapper.instance().terminatingAnimationTimeoutId).toExist()
       wrapper.unmount()
-      clock.tick(ANIMATION_TIME)
+      clock.tick(ANIMATION_DURATION)
       expect(consoleSpy).toNotHaveBeenCalled()
     })
   })
@@ -280,8 +280,8 @@ describe('LoadingBar', () => {
       expect(wrapper.instance().progressIntervalId).toNotExist()
     })
 
-    it('resets progress if loading becomes 0 and terminating animation ' +
-       'finished', () => {
+    it('resets progress if loading becomes 0 and terminating animation '
+       + 'finished', () => {
       const wrapper = shallow(<LoadingBar />)
       wrapper.setProps({ loading: 1 })
       clock.tick(UPDATE_TIME)
@@ -289,7 +289,7 @@ describe('LoadingBar', () => {
       wrapper.setProps({ loading: 0 })
       expect(wrapper.state().percent).toBe(100)
       clock.tick(UPDATE_TIME)
-      clock.tick(ANIMATION_TIME)
+      clock.tick(ANIMATION_DURATION)
       expect(wrapper.state().percent).toBe(0)
       expect(wrapper.instance().terminatingAnimationTimeoutId).toNotExist()
     })
