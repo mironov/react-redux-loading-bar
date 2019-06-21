@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import { polyfill } from 'react-lifecycles-compat'
-import { bool, number, object, string } from 'prop-types'
+import {
+  bool,
+  number,
+  object,
+  string,
+} from 'prop-types'
 import { connect } from 'react-redux'
 
 import { DEFAULT_SCOPE } from './loading_bar_ducks'
@@ -68,18 +73,20 @@ class LoadingBar extends Component {
   state = { ...initialState }
 
   componentDidMount() {
-    if (this.state.status === 'starting') {
+    const { status } = this.state
+    if (status === 'starting') {
       this.start()
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.status !== this.state.status) {
-      if (this.state.status === 'starting') {
+    const { status } = this.state
+    if (prevState.status !== status) {
+      if (status === 'starting') {
         this.start()
       }
 
-      if (this.state.status === 'stopping') {
+      if (status === 'stopping') {
         this.stop()
       }
     }
@@ -88,31 +95,6 @@ class LoadingBar extends Component {
   componentWillUnmount() {
     clearInterval(this.progressIntervalId)
     clearTimeout(this.terminatingAnimationTimeoutId)
-  }
-
-  start() {
-    this.progressIntervalId = setInterval(
-      this.simulateProgress,
-      this.props.updateTime,
-    )
-    this.setState({ status: 'running' })
-  }
-
-  stop() {
-    clearInterval(this.progressIntervalId)
-    this.progressIntervalId = null
-
-    const terminatingAnimationDuration = (
-      this.isShown() || this.props.showFastActions ?
-      TERMINATING_ANIMATION_DURATION : 0
-    )
-
-    this.terminatingAnimationTimeoutId = setTimeout(
-      this.reset,
-      terminatingAnimationDuration,
-    )
-
-    this.setState({ percent: 100 })
   }
 
   reset = () => {
@@ -143,19 +125,50 @@ class LoadingBar extends Component {
     })
   }
 
+  start() {
+    const { updateTime } = this.props
+    this.progressIntervalId = setInterval(
+      this.simulateProgress,
+      updateTime,
+    )
+    this.setState({ status: 'running' })
+  }
+
+  stop() {
+    const { showFastActions } = this.props
+    clearInterval(this.progressIntervalId)
+    this.progressIntervalId = null
+
+    const terminatingAnimationDuration = (
+      this.isShown() || showFastActions
+        ? TERMINATING_ANIMATION_DURATION : 0
+    )
+
+    this.terminatingAnimationTimeoutId = setTimeout(
+      this.reset,
+      terminatingAnimationDuration,
+    )
+
+    this.setState({ percent: 100 })
+  }
+
   isShown() {
-    return this.state.percent > 0 && this.state.percent <= 100
+    const { percent } = this.state
+    return percent > 0 && percent <= 100
   }
 
   buildStyle() {
+    const { status, percent } = this.state
+    const { direction, className, style: customStyle } = this.props
+
     const animationDuration = (
-      this.state.status === 'stopping' ?
-        TERMINATING_ANIMATION_DURATION :
-        ANIMATION_DURATION
+      status === 'stopping'
+        ? TERMINATING_ANIMATION_DURATION
+        : ANIMATION_DURATION
     )
 
-    const coefficient = this.props.direction === 'rtl' ? 1 : -1
-    const tx = (100 - this.state.percent) * coefficient
+    const coefficient = direction === 'rtl' ? 1 : -1
+    const tx = (100 - percent) * coefficient
 
     const style = {
       opacity: '1',
@@ -173,7 +186,7 @@ class LoadingBar extends Component {
       willChange: 'transform, opacity',
     }
     // Use default styling if there's no CSS class applied
-    if (!this.props.className) {
+    if (!className) {
       style.height = '3px'
       style.backgroundColor = 'red'
       style.position = 'absolute'
@@ -185,17 +198,19 @@ class LoadingBar extends Component {
       style.opacity = '0'
     }
 
-    return { ...style, ...this.props.style }
+    return { ...style, ...customStyle }
   }
 
   render() {
-    if (this.state.status === 'hidden') {
+    const { status } = this.state
+    const { className } = this.props
+    if (status === 'hidden') {
       return <div />
     }
 
     return (
       <div>
-        <div style={this.buildStyle()} className={this.props.className} />
+        <div style={this.buildStyle()} className={className} />
         <div style={{ display: 'table', clear: 'both' }} />
       </div>
     )
