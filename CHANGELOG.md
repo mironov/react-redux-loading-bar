@@ -1,5 +1,8 @@
 # Release History
 
+## 4.4.0
+  - Update react-redux peer dependency requirement (contributed by @hugomn)
+
 ## 4.3.0
    - Add support for RTL Layout. Ref: #88
 
