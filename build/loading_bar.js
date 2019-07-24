@@ -83,19 +83,23 @@ var LoadingBar = function (_Component) {
   _createClass(LoadingBar, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      if (this.state.status === 'starting') {
+      var status = this.state.status;
+
+      if (status === 'starting') {
         this.start();
       }
     }
   }, {
     key: 'componentDidUpdate',
     value: function componentDidUpdate(prevProps, prevState) {
-      if (prevState.status !== this.state.status) {
-        if (this.state.status === 'starting') {
+      var status = this.state.status;
+
+      if (prevState.status !== status) {
+        if (status === 'starting') {
           this.start();
         }
 
-        if (this.state.status === 'stopping') {
+        if (status === 'stopping') {
           this.stop();
         }
       }
@@ -109,16 +113,20 @@ var LoadingBar = function (_Component) {
   }, {
     key: 'start',
     value: function start() {
-      this.progressIntervalId = setInterval(this.simulateProgress, this.props.updateTime);
+      var updateTime = this.props.updateTime;
+
+      this.progressIntervalId = setInterval(this.simulateProgress, updateTime);
       this.setState({ status: 'running' });
     }
   }, {
     key: 'stop',
     value: function stop() {
+      var showFastActions = this.props.showFastActions;
+
       clearInterval(this.progressIntervalId);
       this.progressIntervalId = null;
 
-      var terminatingAnimationDuration = this.isShown() || this.props.showFastActions ? TERMINATING_ANIMATION_DURATION : 0;
+      var terminatingAnimationDuration = this.isShown() || showFastActions ? TERMINATING_ANIMATION_DURATION : 0;
 
       this.terminatingAnimationTimeoutId = setTimeout(this.reset, terminatingAnimationDuration);
 
@@ -127,15 +135,26 @@ var LoadingBar = function (_Component) {
   }, {
     key: 'isShown',
     value: function isShown() {
-      return this.state.percent > 0 && this.state.percent <= 100;
+      var percent = this.state.percent;
+
+      return percent > 0 && percent <= 100;
     }
   }, {
     key: 'buildStyle',
     value: function buildStyle() {
-      var animationDuration = this.state.status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
+      var _state = this.state,
+          status = _state.status,
+          percent = _state.percent;
+      var _props = this.props,
+          direction = _props.direction,
+          className = _props.className,
+          customStyle = _props.style;
 
-      var coefficient = this.props.direction === 'rtl' ? 1 : -1;
-      var tx = (100 - this.state.percent) * coefficient;
+
+      var animationDuration = status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
+
+      var coefficient = direction === 'rtl' ? 1 : -1;
+      var tx = (100 - percent) * coefficient;
 
       var style = {
         opacity: '1',
@@ -152,7 +171,7 @@ var LoadingBar = function (_Component) {
         width: '100%',
         willChange: 'transform, opacity'
         // Use default styling if there's no CSS class applied
-      };if (!this.props.className) {
+      };if (!className) {
         style.height = '3px';
         style.backgroundColor = 'red';
         style.position = 'absolute';
@@ -164,19 +183,22 @@ var LoadingBar = function (_Component) {
         style.opacity = '0';
       }
 
-      return _extends({}, style, this.props.style);
+      return _extends({}, style, customStyle);
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.state.status === 'hidden') {
+      var status = this.state.status;
+      var className = this.props.className;
+
+      if (status === 'hidden') {
         return _react2.default.createElement('div', null);
       }
 
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement('div', { style: this.buildStyle(), className: this.props.className }),
+        _react2.default.createElement('div', { style: this.buildStyle(), className: className }),
         _react2.default.createElement('div', { style: { display: 'table', clear: 'both' } })
       );
     }
