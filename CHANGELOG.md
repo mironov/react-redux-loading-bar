@@ -1,5 +1,8 @@
 # Release History
 
+## 4.5.0
+  - Cancel termination animation if Loading Bar should be restarted
+
 ## 4.4.0
   - Update react-redux peer dependency requirement (contributed by @hugomn)
 

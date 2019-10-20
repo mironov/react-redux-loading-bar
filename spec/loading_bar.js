@@ -280,6 +280,21 @@ describe('LoadingBar', () => {
       expect(wrapper.instance().progressIntervalId).toNotExist()
     })
 
+    it('resets progress if loading becomes 0 and another progress '
+       + 'started right away (loading > 0)', () => {
+      const wrapper = shallow(<LoadingBar />)
+      wrapper.setProps({ loading: 1 })
+      clock.tick(UPDATE_TIME)
+      expect(wrapper.state().percent).toBeGreaterThan(0).toBeLessThan(100)
+
+      wrapper.setProps({ loading: 0 })
+      expect(wrapper.state().percent).toBe(100)
+
+      wrapper.setProps({ loading: 1 })
+      expect(wrapper.instance().terminatingAnimationTimeoutId).toNotExist()
+      expect(wrapper.state().percent).toBe(0)
+    })
+
     it('resets progress if loading becomes 0 and terminating animation '
        + 'finished', () => {
       const wrapper = shallow(<LoadingBar />)

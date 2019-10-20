@@ -113,6 +113,14 @@ var LoadingBar = function (_Component) {
   }, {
     key: 'start',
     value: function start() {
+      // There could be previous termination animation going, so we need to
+      // cancel it and forcefully reset the Loading Bar before starting
+      // the progress simulation from 0
+      if (this.terminatingAnimationTimeoutId) {
+        clearTimeout(this.terminatingAnimationTimeoutId);
+        this.reset();
+      }
+
       var updateTime = this.props.updateTime;
 
       this.progressIntervalId = setInterval(this.simulateProgress, updateTime);
