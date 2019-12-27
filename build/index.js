@@ -1,31 +1,67 @@
-'use strict';
+"use strict";
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.showLoading = exports.resetLoading = exports.loadingBarReducer = exports.loadingBarMiddleware = exports.LoadingBar = exports.ImmutableLoadingBar = exports.hideLoading = undefined;
+Object.defineProperty(exports, "LoadingBar", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar.LoadingBar;
+  }
+});
+Object.defineProperty(exports, "loadingBarMiddleware", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar_middleware["default"];
+  }
+});
+Object.defineProperty(exports, "hideLoading", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar_ducks.hideLoading;
+  }
+});
+Object.defineProperty(exports, "loadingBarReducer", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar_ducks.loadingBarReducer;
+  }
+});
+Object.defineProperty(exports, "resetLoading", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar_ducks.resetLoading;
+  }
+});
+Object.defineProperty(exports, "showLoading", {
+  enumerable: true,
+  get: function get() {
+    return _loading_bar_ducks.showLoading;
+  }
+});
+Object.defineProperty(exports, "ImmutableLoadingBar", {
+  enumerable: true,
+  get: function get() {
+    return _immutable["default"];
+  }
+});
+exports["default"] = void 0;
 
-var _loading_bar = require('./loading_bar');
+var _loading_bar = _interopRequireWildcard(require("./loading_bar"));
 
-var _loading_bar2 = _interopRequireDefault(_loading_bar);
+var _loading_bar_middleware = _interopRequireDefault(require("./loading_bar_middleware"));
 
-var _loading_bar_middleware = require('./loading_bar_middleware');
+var _loading_bar_ducks = require("./loading_bar_ducks");
 
-var _loading_bar_middleware2 = _interopRequireDefault(_loading_bar_middleware);
+var _immutable = _interopRequireDefault(require("./immutable"));
 
-var _loading_bar_ducks = require('./loading_bar_ducks');
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var _immutable = require('./immutable');
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
-var _immutable2 = _interopRequireDefault(_immutable);
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.hideLoading = _loading_bar_ducks.hideLoading;
-exports.ImmutableLoadingBar = _immutable2.default;
-exports.LoadingBar = _loading_bar.LoadingBar;
-exports.loadingBarMiddleware = _loading_bar_middleware2.default;
-exports.loadingBarReducer = _loading_bar_ducks.loadingBarReducer;
-exports.resetLoading = _loading_bar_ducks.resetLoading;
-exports.showLoading = _loading_bar_ducks.showLoading;
-exports.default = _loading_bar2.default;
+var _default = _loading_bar["default"];
+exports["default"] = _default;

@@ -1,5 +1,8 @@
 # Release History
 
+## 4.6.0
+  - Update dev dependencies and rebuild with newer Babel
+
 ## 4.5.0
   - Cancel termination animation if Loading Bar should be restarted
 
