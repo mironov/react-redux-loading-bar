@@ -192,8 +192,8 @@ class LoadingBar extends Component {
       }
     }
     else {
-      const tx = (100 - percent) * coefficient
       const coefficient = direction === 'rtl' ? 1 : -1
+      const tx = (100 - percent) * coefficient
       style = {
         transform: `translate3d(${tx}%, 0px, 0px)`,
         msTransform: `translate3d(${tx}%, 0px, 0px)`,
