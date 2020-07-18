@@ -184,10 +184,10 @@ class LoadingBar extends Component {
       style = {
         width: `${percent}%`,
         transition: `width ${animationDuration}ms linear 0s`,
-        msTransition: `-ms-width ${animationDuration}ms linear 0s`,
-        WebkitTransition: `-webkit-width ${animationDuration}ms linear 0s`,
-        MozTransition: `-moz-width ${animationDuration}ms linear 0s`,
-        OTransition: `-o-width ${animationDuration}ms linear 0s`,
+        msTransition: `width ${animationDuration}ms linear 0s`,
+        WebkitTransition: `width ${animationDuration}ms linear 0s`,
+        MozTransition: `width ${animationDuration}ms linear 0s`,
+        OTransition: `width ${animationDuration}ms linear 0s`,
         willChange: 'width, opacity',
       }
     }
