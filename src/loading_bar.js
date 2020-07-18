@@ -30,6 +30,7 @@ class LoadingBar extends Component {
     progressIncrease: number,
     scope: string,
     showFastActions: bool,
+    useWidth: bool,
     style: object,
     updateTime: number,
   }
@@ -42,6 +43,7 @@ class LoadingBar extends Component {
     progressIncrease: PROGRESS_INCREASE,
     scope: DEFAULT_SCOPE,
     showFastActions: false,
+    useWidth: false,
     style: {},
     updateTime: UPDATE_TIME,
   }
@@ -167,7 +169,7 @@ class LoadingBar extends Component {
 
   buildStyle() {
     const { status, percent } = this.state
-    const { direction, className, style: customStyle } = this.props
+    const { direction, className, style: customStyle, useWidth } = this.props
 
     const animationDuration = (
       status === 'stopping'
@@ -175,24 +177,39 @@ class LoadingBar extends Component {
         : ANIMATION_DURATION
     )
 
-    const coefficient = direction === 'rtl' ? 1 : -1
-    const tx = (100 - percent) * coefficient
-
-    const style = {
-      opacity: '1',
-      transform: `translate3d(${tx}%, 0px, 0px)`,
-      msTransform: `translate3d(${tx}%, 0px, 0px)`,
-      WebkitTransform: `translate3d(${tx}%, 0px, 0px)`,
-      MozTransform: `translate3d(${tx}%, 0px, 0px)`,
-      OTransform: `translate3d(${tx}%, 0px, 0px)`,
-      transition: `transform ${animationDuration}ms linear 0s`,
-      msTransition: `-ms-transform ${animationDuration}ms linear 0s`,
-      WebkitTransition: `-webkit-transform ${animationDuration}ms linear 0s`,
-      MozTransition: `-moz-transform ${animationDuration}ms linear 0s`,
-      OTransition: `-o-transform ${animationDuration}ms linear 0s`,
-      width: '100%',
-      willChange: 'transform, opacity',
+    // Determine how the animation effect is achieved (width vs transform)
+    // NOTE: Width styling currently only supports left-to-right loading
+    let style = {}
+    if (useWidth) {
+      style = {
+        width: `${percent}%`,
+        transition: `width ${animationDuration}ms linear 0s`,
+        msTransition: `-ms-width ${animationDuration}ms linear 0s`,
+        WebkitTransition: `-webkit-width ${animationDuration}ms linear 0s`,
+        MozTransition: `-moz-width ${animationDuration}ms linear 0s`,
+        OTransition: `-o-width ${animationDuration}ms linear 0s`,
+        willChange: 'width, opacity',
+      }
     }
+    else {
+      const tx = (100 - percent) * coefficient
+      const coefficient = direction === 'rtl' ? 1 : -1
+      style = {
+        transform: `translate3d(${tx}%, 0px, 0px)`,
+        msTransform: `translate3d(${tx}%, 0px, 0px)`,
+        WebkitTransform: `translate3d(${tx}%, 0px, 0px)`,
+        MozTransform: `translate3d(${tx}%, 0px, 0px)`,
+        OTransform: `translate3d(${tx}%, 0px, 0px)`,
+        transition: `transform ${animationDuration}ms linear 0s`,
+        msTransition: `-ms-transform ${animationDuration}ms linear 0s`,
+        WebkitTransition: `-webkit-transform ${animationDuration}ms linear 0s`,
+        MozTransition: `-moz-transform ${animationDuration}ms linear 0s`,
+        OTransition: `-o-transform ${animationDuration}ms linear 0s`,
+        width: '100%',
+        willChange: 'transform, opacity',
+      }
+    }
+
     // Use default styling if there's no CSS class applied
     if (!className) {
       style.height = '3px'
