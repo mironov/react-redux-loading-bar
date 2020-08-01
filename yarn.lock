@@ -4599,18 +4599,18 @@ react-is@^16.7.0, react-is@^16.8.1, react-is@^16.9.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-lifecycles-compat@^3.0.2:
+react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-redux-loading-bar@4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-4.6.0.tgz#034a1771a97b43e7d835e67d2ba717ca378279f4"
-  integrity sha512-ehokhN6eq/UXMr0udqoKuvpEUel1q3T5cWGkwKy2Xrt528QeEtjreixCfrSndN+DNr/5yxxnz0ZEhZt4irZEZg==
+react-redux-loading-bar@5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-5.0.0.tgz#fffbc2b893c556b7b4c577743427507ee6dbc1f3"
+  integrity sha512-orxhhnuTDHUJ8sWBf7NHc9iIvPx8+8LVmMmC9ka3UcXKbMRaPdaYfH2wCikOwVV6gxhRceFA/zaSLSdnGrF41Q==
   dependencies:
-    prop-types "^15.6.2"
-    react-lifecycles-compat "^3.0.2"
+    prop-types "^15.7.2"
+    react-lifecycles-compat "^3.0.4"
 
 react-redux@^7.0.0:
   version "7.1.3"
