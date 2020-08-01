@@ -502,7 +502,9 @@ describe('LoadingBar', () => {
       clock.tick(UPDATE_TIME)
 
       const resultStyle = wrapper.find('div').at(1).props().style
-      expect(resultStyle.transform).toEqual('translate3d(-80%, 0px, 0px)')
+      expect(resultStyle.width).toEqual('20%')
+      const parentStyle = wrapper.find('div').at(0).props().style
+      expect(parentStyle.direction).toEqual('ltr')
     })
 
     it('can simulate progress from right to left', () => {
@@ -511,16 +513,9 @@ describe('LoadingBar', () => {
       clock.tick(UPDATE_TIME)
 
       const resultStyle = wrapper.find('div').at(1).props().style
-      expect(resultStyle.transform).toEqual('translate3d(80%, 0px, 0px)')
-    })
-
-    it('simulates progress from left to right for unknown direction', () => {
-      const wrapper = shallow(<LoadingBar direction="unknown" />)
-      wrapper.setProps({ loading: 1 })
-      clock.tick(UPDATE_TIME)
-
-      const resultStyle = wrapper.find('div').at(1).props().style
-      expect(resultStyle.transform).toEqual('translate3d(-80%, 0px, 0px)')
+      expect(resultStyle.width).toEqual('20%')
+      const parentStyle = wrapper.find('div').at(0).props().style
+      expect(parentStyle.direction).toEqual('rtl')
     })
   })
 })

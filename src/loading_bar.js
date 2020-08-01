@@ -175,23 +175,14 @@ class LoadingBar extends Component {
         : ANIMATION_DURATION
     )
 
-    const coefficient = direction === 'rtl' ? 1 : -1
-    const tx = (100 - percent) * coefficient
-
     const style = {
-      opacity: '1',
-      transform: `translate3d(${tx}%, 0px, 0px)`,
-      msTransform: `translate3d(${tx}%, 0px, 0px)`,
-      WebkitTransform: `translate3d(${tx}%, 0px, 0px)`,
-      MozTransform: `translate3d(${tx}%, 0px, 0px)`,
-      OTransform: `translate3d(${tx}%, 0px, 0px)`,
-      transition: `transform ${animationDuration}ms linear 0s`,
-      msTransition: `-ms-transform ${animationDuration}ms linear 0s`,
-      WebkitTransition: `-webkit-transform ${animationDuration}ms linear 0s`,
-      MozTransition: `-moz-transform ${animationDuration}ms linear 0s`,
-      OTransition: `-o-transform ${animationDuration}ms linear 0s`,
-      width: '100%',
-      willChange: 'transform, opacity',
+      width: `${percent}%`,
+      transition: `width ${animationDuration}ms linear 0s`,
+      msTransition: `width ${animationDuration}ms linear 0s`,
+      WebkitTransition: `width ${animationDuration}ms linear 0s`,
+      MozTransition: `width ${animationDuration}ms linear 0s`,
+      OTransition: `width ${animationDuration}ms linear 0s`,
+      willChange: 'width, opacity',
     }
     // Use default styling if there's no CSS class applied
     if (!className) {
@@ -211,13 +202,13 @@ class LoadingBar extends Component {
 
   render() {
     const { status } = this.state
-    const { className } = this.props
+    const { direction, className } = this.props
     if (status === 'hidden') {
       return <div />
     }
 
     return (
-      <div>
+      <div style={{ direction }}>
         <div style={this.buildStyle()} className={className} />
         <div style={{ display: 'table', clear: 'both' }} />
       </div>

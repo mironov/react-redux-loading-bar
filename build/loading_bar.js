@@ -19,7 +19,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -33,15 +33,19 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var UPDATE_TIME = 400;
 exports.UPDATE_TIME = UPDATE_TIME;
@@ -58,14 +62,12 @@ var initialState = {
   status: 'hidden'
 };
 
-var LoadingBar =
-/*#__PURE__*/
-function (_Component) {
+var LoadingBar = /*#__PURE__*/function (_Component) {
   _inherits(LoadingBar, _Component);
 
-  function LoadingBar() {
-    var _getPrototypeOf2;
+  var _super = _createSuper(LoadingBar);
 
+  function LoadingBar() {
     var _this;
 
     _classCallCheck(this, LoadingBar);
@@ -74,7 +76,7 @@ function (_Component) {
       args[_key] = arguments[_key];
     }
 
-    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(LoadingBar)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this = _super.call.apply(_super, [this].concat(args));
     _this.state = _objectSpread({}, initialState);
 
     _this.reset = function () {
@@ -187,22 +189,14 @@ function (_Component) {
           className = _this$props.className,
           customStyle = _this$props.style;
       var animationDuration = status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
-      var coefficient = direction === 'rtl' ? 1 : -1;
-      var tx = (100 - percent) * coefficient;
       var style = {
-        opacity: '1',
-        transform: "translate3d(".concat(tx, "%, 0px, 0px)"),
-        msTransform: "translate3d(".concat(tx, "%, 0px, 0px)"),
-        WebkitTransform: "translate3d(".concat(tx, "%, 0px, 0px)"),
-        MozTransform: "translate3d(".concat(tx, "%, 0px, 0px)"),
-        OTransform: "translate3d(".concat(tx, "%, 0px, 0px)"),
-        transition: "transform ".concat(animationDuration, "ms linear 0s"),
-        msTransition: "-ms-transform ".concat(animationDuration, "ms linear 0s"),
-        WebkitTransition: "-webkit-transform ".concat(animationDuration, "ms linear 0s"),
-        MozTransition: "-moz-transform ".concat(animationDuration, "ms linear 0s"),
-        OTransition: "-o-transform ".concat(animationDuration, "ms linear 0s"),
-        width: '100%',
-        willChange: 'transform, opacity'
+        width: "".concat(percent, "%"),
+        transition: "width ".concat(animationDuration, "ms linear 0s"),
+        msTransition: "width ".concat(animationDuration, "ms linear 0s"),
+        WebkitTransition: "width ".concat(animationDuration, "ms linear 0s"),
+        MozTransition: "width ".concat(animationDuration, "ms linear 0s"),
+        OTransition: "width ".concat(animationDuration, "ms linear 0s"),
+        willChange: 'width, opacity'
       }; // Use default styling if there's no CSS class applied
 
       if (!className) {
@@ -217,22 +211,28 @@ function (_Component) {
         style.opacity = '0';
       }
 
-      return _objectSpread({}, style, {}, customStyle);
+      return _objectSpread(_objectSpread({}, style), customStyle);
     }
   }, {
     key: "render",
     value: function render() {
       var status = this.state.status;
-      var className = this.props.className;
+      var _this$props2 = this.props,
+          direction = _this$props2.direction,
+          className = _this$props2.className;
 
       if (status === 'hidden') {
-        return _react["default"].createElement("div", null);
+        return /*#__PURE__*/_react["default"].createElement("div", null);
       }
 
-      return _react["default"].createElement("div", null, _react["default"].createElement("div", {
+      return /*#__PURE__*/_react["default"].createElement("div", {
+        style: {
+          direction: direction
+        }
+      }, /*#__PURE__*/_react["default"].createElement("div", {
         style: this.buildStyle(),
         className: className
-      }), _react["default"].createElement("div", {
+      }), /*#__PURE__*/_react["default"].createElement("div", {
         style: {
           display: 'table',
           clear: 'both'

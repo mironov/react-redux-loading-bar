@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.0
+  - Change the animation to use `width` instead of `transform` (thanks @exzizt)
+
 ## 4.6.0
   - Update dev dependencies and rebuild with newer Babel
 

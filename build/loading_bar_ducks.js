@@ -64,13 +64,13 @@ function loadingBarReducer() {
 
   switch (action.type) {
     case SHOW:
-      return _objectSpread({}, state, _defineProperty({}, scope, (state[scope] || 0) + 1));
+      return _objectSpread(_objectSpread({}, state), {}, _defineProperty({}, scope, (state[scope] || 0) + 1));
 
     case HIDE:
-      return _objectSpread({}, state, _defineProperty({}, scope, Math.max(0, (state[scope] || 1) - 1)));
+      return _objectSpread(_objectSpread({}, state), {}, _defineProperty({}, scope, Math.max(0, (state[scope] || 1) - 1)));
 
     case RESET:
-      return _objectSpread({}, state, _defineProperty({}, scope, 0));
+      return _objectSpread(_objectSpread({}, state), {}, _defineProperty({}, scope, 0));
 
     default:
       return state;
