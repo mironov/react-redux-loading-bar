@@ -22,30 +22,6 @@ const initialState = {
 }
 
 class LoadingBar extends Component {
-  static propTypes = {
-    className: string,
-    direction: string,
-    loading: number,
-    maxProgress: number,
-    progressIncrease: number,
-    scope: string,
-    showFastActions: bool,
-    style: object,
-    updateTime: number,
-  }
-
-  static defaultProps = {
-    className: '',
-    direction: 'ltr',
-    loading: 0,
-    maxProgress: MAX_PROGRESS,
-    progressIncrease: PROGRESS_INCREASE,
-    scope: DEFAULT_SCOPE,
-    showFastActions: false,
-    style: {},
-    updateTime: UPDATE_TIME,
-  }
-
   static shouldStart(props, state) {
     return (
       props.loading > 0 && ['hidden', 'stopping'].indexOf(state.status) >= 0
@@ -70,7 +46,10 @@ class LoadingBar extends Component {
     return null
   }
 
-  state = { ...initialState }
+  constructor(props) {
+    super(props)
+    this.state = { ...initialState }
+  }
 
   componentDidMount() {
     const { status } = this.state
@@ -167,7 +146,7 @@ class LoadingBar extends Component {
 
   buildStyle() {
     const { status, percent } = this.state
-    const { direction, className, style: customStyle } = this.props
+    const { className, style: customStyle } = this.props
 
     const animationDuration = (
       status === 'stopping'
@@ -214,6 +193,30 @@ class LoadingBar extends Component {
       </div>
     )
   }
+}
+
+LoadingBar.propTypes = {
+  className: string,
+  direction: string,
+  loading: number,
+  maxProgress: number,
+  progressIncrease: number,
+  scope: string,
+  showFastActions: bool,
+  style: object,
+  updateTime: number,
+}
+
+LoadingBar.defaultProps = {
+  className: '',
+  direction: 'ltr',
+  loading: 0,
+  maxProgress: MAX_PROGRESS,
+  progressIncrease: PROGRESS_INCREASE,
+  scope: DEFAULT_SCOPE,
+  showFastActions: false,
+  style: {},
+  updateTime: UPDATE_TIME,
 }
 
 const mapStateToProps = (state, ownProps) => ({

@@ -6,7 +6,7 @@ import loadingBarMiddleware from '../src/loading_bar_middleware'
 import { showLoading, hideLoading } from '../src/loading_bar_ducks'
 
 describe('loadingBarMiddleware', () => {
-  const mockStore = mockDispatch => (
+  const mockStore = (mockDispatch) => (
     createMockStore(
       [loadingBarMiddleware()],
       mockDispatch,
@@ -114,7 +114,7 @@ describe('loadingBarMiddleware', () => {
   })
 
   describe('with custom promiseTypeSuffixes', () => {
-    const mockStoreWithSuffixes = mockDispatch => (
+    const mockStoreWithSuffixes = (mockDispatch) => (
       createMockStore(
         [
           loadingBarMiddleware({
@@ -211,7 +211,7 @@ describe('loadingBarMiddleware', () => {
 
   describe('with custom scope', () => {
     const CUSTOM_SCOPE = 'someScope'
-    const mockStoreWithCustomScope = mockDispatch => (
+    const mockStoreWithCustomScope = (mockDispatch) => (
       createMockStore(
         [
           loadingBarMiddleware({

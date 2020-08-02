@@ -54,7 +54,6 @@ describe('loadingBarReducer', () => {
       loadingBarReducer(undefined, { type: RESET }),
     ).toEqual({ [DEFAULT_SCOPE]: 0 })
 
-
     expect(
       loadingBarReducer({ [DEFAULT_SCOPE]: 10 }, { type: RESET }),
     ).toEqual({ [DEFAULT_SCOPE]: 0 })
