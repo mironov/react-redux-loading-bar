@@ -67,17 +67,41 @@ var LoadingBar = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(LoadingBar);
 
-  function LoadingBar() {
+  _createClass(LoadingBar, null, [{
+    key: "shouldStart",
+    value: function shouldStart(props, state) {
+      return props.loading > 0 && ['hidden', 'stopping'].indexOf(state.status) >= 0;
+    }
+  }, {
+    key: "shouldStop",
+    value: function shouldStop(props, state) {
+      return props.loading === 0 && ['starting', 'running'].indexOf(state.status) >= 0;
+    }
+  }, {
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(nextProps, prevState) {
+      if (LoadingBar.shouldStart(nextProps, prevState)) {
+        return {
+          status: 'starting'
+        };
+      }
+
+      if (LoadingBar.shouldStop(nextProps, prevState)) {
+        return {
+          status: 'stopping'
+        };
+      }
+
+      return null;
+    }
+  }]);
+
+  function LoadingBar(props) {
     var _this;
 
     _classCallCheck(this, LoadingBar);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _this = _super.call.apply(_super, [this].concat(args));
-    _this.state = _objectSpread({}, initialState);
+    _this = _super.call(this, props);
 
     _this.reset = function () {
       _this.terminatingAnimationTimeoutId = null;
@@ -110,6 +134,7 @@ var LoadingBar = /*#__PURE__*/function (_Component) {
       });
     };
 
+    _this.state = _objectSpread({}, initialState);
     return _this;
   }
 
@@ -185,7 +210,6 @@ var LoadingBar = /*#__PURE__*/function (_Component) {
           status = _this$state.status,
           percent = _this$state.percent;
       var _this$props = this.props,
-          direction = _this$props.direction,
           className = _this$props.className,
           customStyle = _this$props.style;
       var animationDuration = status === 'stopping' ? TERMINATING_ANIMATION_DURATION : ANIMATION_DURATION;
@@ -238,33 +262,6 @@ var LoadingBar = /*#__PURE__*/function (_Component) {
           clear: 'both'
         }
       }));
-    }
-  }], [{
-    key: "shouldStart",
-    value: function shouldStart(props, state) {
-      return props.loading > 0 && ['hidden', 'stopping'].indexOf(state.status) >= 0;
-    }
-  }, {
-    key: "shouldStop",
-    value: function shouldStop(props, state) {
-      return props.loading === 0 && ['starting', 'running'].indexOf(state.status) >= 0;
-    }
-  }, {
-    key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(nextProps, prevState) {
-      if (LoadingBar.shouldStart(nextProps, prevState)) {
-        return {
-          status: 'starting'
-        };
-      }
-
-      if (LoadingBar.shouldStop(nextProps, prevState)) {
-        return {
-          status: 'stopping'
-        };
-      }
-
-      return null;
     }
   }]);
 
