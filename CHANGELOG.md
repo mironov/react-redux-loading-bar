@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.1
+  - Bump dependencies to support React 17
+
 ## 5.0.0
   - Change the animation to use `width` instead of `transform` (thanks @exzizt)
 
