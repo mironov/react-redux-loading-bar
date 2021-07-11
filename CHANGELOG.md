@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.2
+  - Bump dependencies and fix merge conflict
+
 ## 5.0.1
   - Bump dependencies to support React 17
 
