@@ -4713,10 +4713,10 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-redux-loading-bar@5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-5.0.3.tgz#fba0b345e169f04abaaf08aae252c47fec57fb5a"
-  integrity sha512-lQuCdTjXnH3RXKvVdhIXSafZib1OCdmEsMj+IHCRdMzlEf+EYwx1cuxg9qIKrAtuBwNOmIkx0AkNHDAq5YwsTg==
+react-redux-loading-bar@5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/react-redux-loading-bar/-/react-redux-loading-bar-5.0.4.tgz#06dffcc53a447828dec1a26903e6b22807dd4254"
+  integrity sha512-ttLFYETh9zfyxJdTa5a1+KTWquxX3UN7F/XYslNTeCE8cpnWNpBbUOg8TcaZmOoWEWjCe/i5sV/Mvvr0xsGBBw==
   dependencies:
     prop-types "^15.7.2"
     react-lifecycles-compat "^3.0.4"
