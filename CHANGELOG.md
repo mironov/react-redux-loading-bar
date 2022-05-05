@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.3
+  - Support latest react 18 and react-redux v8
+
 ## 5.0.2
   - Bump dependencies and fix merge conflict
 
