@@ -3,8 +3,8 @@ script: npm run lint && npm run test:coveralls
 git:
   depth: 5
 node_js:
+  - "14"
   - "16"
-  - "18"
 cache:
   directories:
     - node_modules
