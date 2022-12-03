@@ -1,6 +1,6 @@
 /* eslint import/no-extraneous-dependencies: 0 */
 import React from 'react'
-import Adapter from 'enzyme-adapter-react-16'
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17'
 import Enzyme, { shallow, mount } from 'enzyme'
 import expect, { spyOn } from 'expect'
 import expectJSX from 'expect-jsx'
