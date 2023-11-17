@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.5
+  - Include latest redux as peer dependency
+
 ## 5.0.4
   - Update dependencies
 
