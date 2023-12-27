@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.6
+  - Re-export constants from reducer (thanks @MasterOdin)
+
 ## 5.0.5
   - Include latest redux as peer dependency
 
