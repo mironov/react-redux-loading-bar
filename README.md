@@ -1,7 +1,7 @@
 # React Redux Loading Bar
 
 [![npm version](https://img.shields.io/npm/v/react-redux-loading-bar.svg?style=flat-square)](https://www.npmjs.com/package/react-redux-loading-bar)
-[![build status](https://api.travis-ci.com/mironov/react-redux-loading-bar.svg?branch=master)](https://app.travis-ci.com/github/mironov/react-redux-loading-bar)
+[![build status](https://github.com/mironov/react-redux-loading-bar/actions/workflows/ci.yml/badge.svg?branch=master&event=push)](https://github.com/mironov/react-redux-loading-bar/actions/workflows/ci.yml)
 [![coverage status](https://coveralls.io/repos/github/mironov/react-redux-loading-bar/badge.svg?branch=master)](https://coveralls.io/github/mironov/react-redux-loading-bar?branch=master)
 [![npm downloads](https://img.shields.io/npm/dm/react-redux-loading-bar.svg?style=flat)](https://www.npmjs.com/package/react-redux-loading-bar)
 
