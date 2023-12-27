@@ -10,8 +10,7 @@
     "lint": "eslint src/ spec/",
     "test": "mocha --require @babel/register --exit spec/",
     "test:watch": "npm run test -- --watch",
-    "test:coverage": "nyc mocha --require @babel/register --exit spec/ && nyc report --reporter=text-lcov",
-    "test:coveralls": "npm run test:coverage | coveralls",
+    "test:coverage": "nyc mocha --require @babel/register --exit spec/ && nyc report --reporter=lcov",
     "pkgfiles": "pkgfiles"
   },
   "repository": {
@@ -59,7 +58,6 @@
     "ajv": "^6.12.3",
     "babel-eslint": "^7.1.1",
     "bufferutil": "^4.0.1",
-    "coveralls": "^3.1.0",
     "enzyme": "3.8.0",
     "eslint": "^7.6.0",
     "eslint-config-airbnb": "^18.2.0",
