@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.7
+  - Publish latest build
+
 ## 5.0.6
   - Re-export constants from reducer (thanks @MasterOdin)
 
