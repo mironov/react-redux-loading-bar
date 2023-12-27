@@ -28,6 +28,7 @@ jobs:
 
       - run: npm run lint
 
-      - run: npm run test:coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run test:coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
