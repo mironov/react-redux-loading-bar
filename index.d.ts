@@ -1,15 +1,20 @@
 import { Component, CSSProperties } from 'react';
 import { Middleware, Reducer, Action } from 'redux';
 
+export const DEFAULT_SCOPE: string;
+export const HIDE: string;
+export const SHOW: string;
+export const RESET: string;
+
 export interface LoadingBarContainerProps {
-  scope?: string
-  style?: CSSProperties;
   className?: string;
-  actions?: Object;
-  updateTime?: number;
+  direction?: string;
   maxProgress?: number;
   progressIncrease?: number;
+  scope?: string;
   showFastActions?: boolean;
+  style?: CSSProperties;
+  updateTime?: number;
 }
 export default class LoadingBarContainer extends Component<LoadingBarContainerProps, {}> {}
 
