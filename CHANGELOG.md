@@ -1,5 +1,8 @@
 # Release History
 
+## 5.0.8
+  - Update types definition (thanks @MasterOdin)
+
 ## 5.0.7
   - Publish latest build
 
