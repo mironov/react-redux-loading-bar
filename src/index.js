@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 
 import Demo from './demo'
@@ -18,8 +18,9 @@ if (window.location.href.includes('ajax')) {
   demoComponent = <Demo />
 }
 
-ReactDOM.render((
+const root = ReactDOM.createRoot(document.getElementById('app'))
+root.render(
   <Provider store={store}>
     {demoComponent}
   </Provider>
-), document.getElementById('app'))
+)

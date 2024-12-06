@@ -22,14 +22,14 @@
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.8",
-    "react": "18",
-    "react-dom": "18",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-redux": "^9.0.1",
     "react-redux-loading-bar": "^5.0.5",
     "redux": "^5.0.1",
     "redux-logger": "^3.0.1",
-    "redux-promise-middleware": "^5.1.1",
-    "redux-thunk": "^2.2.0"
+    "redux-promise-middleware": "^6.2.0",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "7.1.4",
